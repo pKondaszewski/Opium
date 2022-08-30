@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Opium</string>
+    <string name="mainActivity_title">Strona główna</string>
+    <string name="daily_control_button_name">Witaj, opisz jak sie czujesz?</string>
+    <string name="daily_control_completed_button_name">Życze Ci miłego dnia!</string>
+    <string name="treatment_history_button_name">Historia leczenia</string>
+    <string name="showCurrentDate_button_name">Pokaż dzisiejszą datę</string>
+    <string name="analyze_button_name">Analiza</string>
+    <string name="report_button_name">Raport</string>
+    <string name="reminders_button_name">Przypomnienia</string>
+    <string name="settings_name">Ustawienia</string>
+    <string name="fitbit_switch_name">Włącz Fitbit</string>
+    
+    <string name="mood_textview_name">Nastrój</string>
+    <string name="mood_terrificFeelings_radioButton_name">Bardzo źle</string>
+    <string name="mood_badFeelings_radioButton_name">Źle</string>
+    <string name="mood_okFeelings_radioButton_name">Ok</string>
+    <string name="mood_goodFeelings_radioButton_name">Dobrze</string>
+    <string name="mood_greatFeelings_radioButton_name">Bardzo dobrze</string>
+
+    <string name="ailments_textView_name">Dolegliwości</string>
+    <string name="ailments_headache_button_name">Bóle głowy</string>
+    <string name="ailments_fever_button_name">Gorączka</string>
+    <string name="ailments_flu_button_name">Katar</string>
+
+    <string name="sleepQuality_textView_name">Jakość snu</string>
+    <string name="note_textView_name">Notatka</string>
+
+    <string name="apply_button_name">Zastosuj</string>
+
+    <string name="treatmentHistoryActivity_title">Historia leczenia</string>
+    
+    <string name="fitbitAnalyze_stepsLabel_textView_name">Wykres przebytych kroków</string>
+    <string name="fitbitAnalyze_spO2Label_textView_name">Wykres SpO2</string>
+
+    <string name="reportActivity_title">Raport</string>
+    <string name="reportActivity_dateTextView">Data raportu</string>
+    <string name="reportActivity_nameLabelTextView">Imię i nazwisko</string>
+    <string name="reportActivity_phoneMovementLabelTextView">Aktywność telefonu</string>
+    <string name="reportActivity_fitbitStepsLabelTextView">Ilość kroków (Fitbit)</string>
+    <string name="reportActivity_fitbitSp02LabelTextView">Natlenienie krwi (Fitbit)</string>
+    <string name="reportActivity_phoneLocalizationLabelTextView">Lokalizacja telefonu</string>
+</resources>

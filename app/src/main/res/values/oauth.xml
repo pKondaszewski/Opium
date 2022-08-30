@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="clientId">238QMY</string>
+    <string name="clientSecret">03925a3c6ab40718a2322caf22a6fd1d</string>
+    <string name="redirectUrl">oauth-testing://finished</string>
+    <string name="scopes">activity heartrate location nutrition profile settings sleep social weight oxygen_saturation respiratory_rate</string>
+    <string name="tokenUrl">https://api.fitbit.com/oauth2/token</string>
+</resources>
