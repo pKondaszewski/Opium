@@ -12,9 +12,13 @@ android {
         versionCode 1
         versionName "1.0"
 
+        resConfigs "en", "pl-rPL"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -24,6 +28,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 
@@ -35,20 +42,33 @@ configurations {
 dependencies {
     implementation 'com.google.android.gms:play-services-location:20.0.0'
 
+    implementation "androidx.work:work-runtime:2.7.1"
+
+
     implementation "co.ankurg.expressview:expressview:0.0.3"
-    implementation 'com.google.android.material:material:1.7.0-beta01'
 
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.core:core:1.8.0"
 
+    // mail
+    implementation 'com.sun.mail:android-mail:1.6.7'
+    implementation 'com.sun.mail:android-activation:1.6.7'
+
+    implementation "com.github.blainepwnz:AndroidContacts:1.14.0"
+
     // https://mvnrepository.com/artifact/com.github.scribejava/scribejava-apis
     implementation 'com.github.scribejava:scribejava-apis:8.3.1'
     // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation project(path: ':Database')
+    implementation project(path: ':ExpertSystem')
 
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'

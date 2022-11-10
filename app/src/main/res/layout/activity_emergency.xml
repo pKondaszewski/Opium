@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/emergencyButton"
-        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+    <Button
+        android:id="@+id/button_emergency"
+        style="@style/Theme.MaterialComponents"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginStart="80dp"
@@ -22,6 +21,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="#000000" />
-
+        app:rippleColor="#000000"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

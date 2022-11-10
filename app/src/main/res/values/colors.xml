@@ -13,6 +13,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#666666</color>
     <color name="light_blue_400">#FF29B6F6</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
@@ -27,4 +28,7 @@
     <color name="dark_orange">#FF8C00</color>
     <color name="dark_red">#8B0000</color>
     <color name="ecru">#F5F5DC</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_900">#FF01579B</color>
 </resources>

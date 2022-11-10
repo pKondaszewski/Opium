@@ -1,4 +1,5 @@
 <resources>
+
     <style name="CustomTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/foreground_blue_3</item>
         <item name="colorPrimaryDark">@color/foreground_blue_3</item>
@@ -6,6 +7,7 @@
         <item name="android:windowBackground">@color/background_blue</item>
         <item name="android:navigationBarColor">@color/foreground_blue_1</item>
         <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="CustomButton" parent="Theme.AppCompat.Light">
@@ -17,11 +19,39 @@
     <style name="CustomView" parent="Theme.AppCompat.Light">
         <item name="android:backgroundTint">@color/header_blue</item>
         <item name="android:textSize">24sp</item>
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
+
+    <style name="TextViewH2" parent="Theme.AppCompat.Light">
+        <item name="android:backgroundTint">@color/header_blue</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:padding">5sp</item>
+        <item name="android:padding">7sp</item>
+    </style>
+
+    <style name="TextViewH3" parent="CustomView">
+        <item name="android:backgroundTint">@color/header_blue</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:paddingHorizontal">14sp</item>
+        <item name="android:paddingVertical">3sp</item>
     </style>
 
     <style name="CustomTable" parent="CustomView">
         <item name="android:backgroundTint">@color/white</item>
+    </style>
+
+    <style name="Widget.Opium.AppWidget.Container" parent="android:Widget">
+        <item name="android:id">@android:id/background</item>
+        <item name="android:background">?android:attr/colorBackground</item>
+    </style>
+
+    <style name="Widget.Opium.AppWidget.InnerView" parent="android:Widget">
+        <item name="android:background">?android:attr/colorBackground</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="CardViewStyle" parent="Theme.AppCompat.Light">
+        <item name="android:background">@color/black</item>
     </style>
 </resources>

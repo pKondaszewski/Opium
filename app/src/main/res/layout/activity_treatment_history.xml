@@ -4,32 +4,200 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_blue"
-    tools:context=".activity.TreatmentHistoryActivity">
-
+    tools:context="com.example.op.activity.history.TreatmentHistoryActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="355dp">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <CalendarView
-                android:id="@+id/calendarView"
+                android:id="@+id/calendar_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/header_blue"/>
-
             <TextView
-                android:id="@+id/descriptionOfTheDay"
+                android:id="@+id/text_view_daily_feelings_label"
+                style="@style/TextViewH2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/CustomView"/>
-
+                android:text="@string/daily_feelings_text_view"/>
+            <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/text_view_mood_daily_feelings_label"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:text="@string/mood_daily_feelings_text_view"/>
+                        <TextView
+                            android:id="@+id/text_view_mood_daily_feelings_value"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="end"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/text_view_ailments_daily_feelings_label"
+                            style="@style/TextViewH3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:text="@string/ailments_daily_feelings_text_view"/>
+                        <TextView
+                            android:id="@+id/text_view_ailments_daily_feelings_value"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="end"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/text_view_note_daily_feelings_label"
+                            style="@style/TextViewH3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:text="@string/note_daily_feelings_text_view"/>
+                        <TextView
+                            android:id="@+id/text_view_note_daily_feelings_value"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="end"/>
+                    </TableRow>
+            </TableLayout>
+            <TextView
+                android:id="@+id/text_view_control_question_label"
+                style="@style/TextViewH2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/control_question_label_text_view"/>
+            <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/text_view_control_question_content_label"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="@string/control_question_content_label_text_view"/>
+                    <TextView
+                        android:id="@+id/text_view_control_question_content_value"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="end"/>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/text_view_control_question_answer_label"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="@string/control_question_answer_label_text_view"/>
+                    <TextView
+                        android:id="@+id/text_view_control_question_answer_value"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="end"/>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/text_view_control_question_result_label"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="@string/control_question_result_label_text_view"/>
+                    <TextView
+                        android:id="@+id/text_view_control_question_result_value"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="end"/>
+                </TableRow>
+            </TableLayout>
+            <TextView
+                android:id="@+id/text_view_fitbit_data_label"
+                style="@style/TextViewH2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fitbit_data_label_text_view"
+                android:visibility="invisible"/>
+            <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/text_view_fitbit_steps_label"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:text="@string/fitbit_steps_label_text_view"
+                            android:visibility="invisible"/>
+                        <TextView
+                            android:id="@+id/text_view_fitbit_steps_value"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="end"
+                            android:visibility="invisible"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/text_view_fitbit_spo2_label"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:text="@string/fitbit_spo2_label_text_view"
+                            android:visibility="invisible"/>
+                        <TextView
+                            android:id="@+id/text_view_fitbit_spo2_value"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="end"
+                            android:visibility="invisible"/>
+                    </TableRow>
+                </TableLayout>
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

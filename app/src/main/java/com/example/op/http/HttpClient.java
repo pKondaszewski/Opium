@@ -2,7 +2,7 @@ package com.example.op.http;
 
 import android.content.Context;
 
-import com.example.op.database.AppDatabase;
+import com.example.database.AppDatabase;
 import com.example.op.http.requests.FitbitAuthorization;
 
 import java.net.HttpURLConnection;
@@ -44,7 +44,7 @@ public class HttpClient {
                                             chain
                                             .request()
                                             .newBuilder()
-                                            .header("Authorization", "Bearer " + database.fitbitAccessTokenDao().getNewestAccessToken().get().accessToken)
+                                            .header("Authorization", "Bearer " + database.fitbitAccessTokenDao().getNewestAccessToken().get())
                                             .build());
                                 }
                                 return response;

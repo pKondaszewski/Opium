@@ -1,109 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <TableLayout
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/tools">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        style="@style/CustomView">
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/dateLabelTextView"
-                android:layout_width="134dp"
-                android:layout_height="wrap_content"
-                android:text="@string/reportActivity_dateTextView" />
-
-            <TextView
-                android:id="@+id/dateValueTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </TableRow>
-
-        <TableRow
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/nameLabelTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reportActivity_nameLabelTextView" />
-
-            <TextView
-                android:id="@+id/nameValueTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/phoneMovementLabelTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reportActivity_phoneMovementLabelTextView" />
-
-            <TextView
-                android:id="@+id/phoneMovementValueTextView"
-                android:layout_width="313dp"
-                android:layout_height="wrap_content" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/fitbitStepsLabelTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reportActivity_fitbitStepsLabelTextView" />
-
-            <TextView
-                android:id="@+id/fitbitStepsValueTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:id="@+id/fitbitSp02LabelTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reportActivity_fitbitSp02LabelTextView" />
-
-            <TextView
-                android:id="@+id/fitbitSp02ValueTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:id="@+id/phoneLocalizationLabelTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reportActivity_phoneLocalizationLabelTextView" />
-
-            <TextView
-                android:id="@+id/phoneLocalizationValueTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </TableRow>
-    </TableLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_item_sms_receivers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/general_text_view"/>
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_item_detailed_report"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/text_view_detailed"/>
+            </com.google.android.material.tabs.TabLayout>
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager_report_receivers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

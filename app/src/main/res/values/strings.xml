@@ -1,43 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- MainActivity labels -->
     <string name="app_name">Opium</string>
-    <string name="mainActivity_title">Strona główna</string>
-    <string name="daily_control_button_name">Witaj, opisz jak sie czujesz?</string>
-    <string name="daily_control_completed_button_name">Życze Ci miłego dnia!</string>
-    <string name="treatment_history_button_name">Historia leczenia</string>
-    <string name="showCurrentDate_button_name">Pokaż dzisiejszą datę</string>
-    <string name="analyze_button_name">Analiza</string>
-    <string name="report_button_name">Raport</string>
-    <string name="reminders_button_name">Przypomnienia</string>
-    <string name="settings_name">Ustawienia</string>
-    <string name="fitbit_switch_name">Włącz Fitbit</string>
-    
-    <string name="mood_textview_name">Nastrój</string>
-    <string name="mood_terrificFeelings_radioButton_name">Bardzo źle</string>
-    <string name="mood_badFeelings_radioButton_name">Źle</string>
-    <string name="mood_okFeelings_radioButton_name">Ok</string>
-    <string name="mood_goodFeelings_radioButton_name">Dobrze</string>
-    <string name="mood_greatFeelings_radioButton_name">Bardzo dobrze</string>
+    <string name="mainActivity_title">Main page</string>
+    <string name="daily_control_button_name">Hello, how are you feeling?</string>
+    <string name="daily_control_completed_button_name">Have a nice day!</string>
+    <string name="treatment_history_button_name">Treatment history</string>
+    <string name="analyze_button_name">Analyze</string>
+    <string name="report_button_name">Report</string>
+    <string name="help_button_name">Help</string>
+    <string name="settings_name">Settings</string>
 
-    <string name="ailments_textView_name">Dolegliwości</string>
-    <string name="ailments_headache_button_name">Bóle głowy</string>
-    <string name="ailments_fever_button_name">Gorączka</string>
-    <string name="ailments_flu_button_name">Katar</string>
+    <string name="fitbit_switch_name">Turn on Fitbit</string>
 
-    <string name="sleepQuality_textView_name">Jakość snu</string>
-    <string name="note_textView_name">Notatka</string>
+    <!-- DailyFeelingsActivity labels -->
+    <string name="mood_text_view">Mood</string>
+    <string name="mood_tragicFeelings_radio_button">Tragic</string>
+    <string name="mood_badFeelings_radio_button">Bad</string>
+    <string name="mood_okFeelings_radio_button">OK</string>
+    <string name="mood_goodFeelings_radio_button">Good</string>
+    <string name="mood_greatFeelings_radio_button">Great</string>
+    <string name="ailments_text_view">Ailments</string>
+    <string name="ailments_headache_button">Headache</string>
+    <string name="ailments_fever_button">Fever</string>
+    <string name="ailments_flu_button">Flu</string>
+    <string name="ailments_cough_button">Cough</string>
+    <string name="ailments_lethargy_button">Lethargy</string>
+    <string name="ailments_sore_throat_button">Sore throat</string>
+    <string name="ailments_vomiting_button">Vomiting</string>
+    <string name="ailments_diarrhea_button">Diarrhea</string>
+    <string name="ailments_other_button">Other</string>
+    <string name="ailments_other_label">What kind of?</string>
+    <string name="note_text_view">Note</string>
+    <string name="apply_button">Apply</string>
+    <string name="saved_toast">Saved</string>
 
-    <string name="apply_button_name">Zastosuj</string>
+    <!-- TreatmentHistoryActivity labels -->
+    <string name="control_question_label_text_view">Daily question</string>
+    <string name="control_question_content_label_text_view">Question</string>
+    <string name="control_question_answer_label_text_view">User answer</string>
+    <string name="control_question_result_label_text_view">Correct answer</string>
+    <string name="treatmentHistoryActivity_title">Treatment history</string>
+    <string name="showCurrentDate_button">Show current date</string>
+    <string name="unable_change_future_date_toast_label">Unable to edit date from future</string>
+    <string name="edit_date_menu_item">Edit date</string>
+    <string name="show_current_date_menu_item">Show current date</string>
 
-    <string name="treatmentHistoryActivity_title">Historia leczenia</string>
-    
-    <string name="fitbitAnalyze_stepsLabel_textView_name">Wykres przebytych kroków</string>
-    <string name="fitbitAnalyze_spO2Label_textView_name">Wykres SpO2</string>
+    <!-- AnalyzeActivity labels -->
+    <string name="fitbitAnalyze_stepsLabel_textView">Graph of steps traveled</string>
+    <string name="fitbitAnalyze_spO2Label_textView">Graph of SpO2</string>
 
-    <string name="reportActivity_title">Raport</string>
-    <string name="reportActivity_dateTextView">Data raportu</string>
-    <string name="reportActivity_nameLabelTextView">Imię i nazwisko</string>
-    <string name="reportActivity_phoneMovementLabelTextView">Aktywność telefonu</string>
-    <string name="reportActivity_fitbitStepsLabelTextView">Ilość kroków (Fitbit)</string>
-    <string name="reportActivity_fitbitSp02LabelTextView">Natlenienie krwi (Fitbit)</string>
-    <string name="reportActivity_phoneLocalizationLabelTextView">Lokalizacja telefonu</string>
+    <!-- ReportActivity labels -->
+    <string name="reportActivity_title">Report</string>
+    <string name="generalInfo_text_view">General info</string>
+    <string name="date_text_view">Report date</string>
+    <string name="nameLabel_text_view">Full name</string>
+    <string name="daily_feelings_text_view">Daily feelings</string>
+    <string name="mood_daily_feelings_text_view">Mood</string>
+    <string name="ailments_daily_feelings_text_view">Ailments</string>
+    <string name="note_daily_feelings_text_view">Note</string>
+    <string name="birthdate_Profile_text_view">Birthdate</string>
+    <string name="phone_Profile_text_view">Data retrieved from the phone</string>
+    <string name="phone_movement_label_text_view">Phone movement</string>
+    <string name="phone_localization_label_text_view">Phone localization</string>
+    <string name="fitbit_data_label_text_view">Data retrieved from the Fitbit</string>
+    <string name="fitbit_steps_label_text_view">Amount of steps (Fitbit)</string>
+    <string name="fitbit_spo2_label_text_view">SpO2 (Fitbit)</string>
+    <string name="summary_label_text_view">Summary</string>
+    <string name="mood_daily_feelings_label_text_view">Analyze result</string>
+    <string name="ailments_daily_feelings_label_text_view">Remarks</string>
+    <string name="send_report_button">Send report</string>
+
+    <!-- ProfileActivity/EditProfileActivity labels -->
+    <string name="personal_data_text_view">Personal data</string>
+    <string name="firstname_lastname_text_view">Firstname and lastname</string>
+    <string name="birthdate_text_view">Birthdate</string>
+    <string name="sex_text_view" >Sex</string>
+    <string name="contact_data_text_view">Contact data</string>
+    <string name="phone_number_text_view">Phone number</string>
+    <string name="email_address_label_text_view">Email address</string>
+    <string name="home_address_label_text_view">Home address</string>
+    <string name="firstname_text_view">Firstname</string>
+    <string name="lastname_text_view">Lastname</string>
+    <string name="postal_code_text_view">Postal code</string>
+    <string name="country_text_view">Country</string>
+
+    <!-- ReportActivity/ReportReceiversActivity/ReportSettingsActivity  labels -->
+    <string name="general_text_view">General</string>
+    <string name="text_view_detailed">Detailed</string>
+    <string name="sms_receivers_tab_item">SMS receivers</string>
+    <string name="email_receivers_tab_item">Email receivers</string>
+    <string name="report_receivers_button">Message recipients</string>
+    <string name="sms_switch">Sms</string>
+    <string name="email_switch">Email</string>
+
+    <!-- Widget labels -->
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+
+    <!-- SettingsActivity/SettingsFitbitActivity labels -->
+    <string name="language_button">Application language</string>
+    <string name="fitbit_button">Fitbit pairing</string>
+    <string name="gmail_button">Gmail pairing</string>
+    <string name="fitbit_switch">Fitbit</string>
+    <string name="title_language_dialog">Select a language</string>
+
+    <!-- SmsReportReceiversFragment/EmailReportReceiversFragment -->
+    <string name="selected_sms_contacts_text_view">Selected contacts</string>
+    <string name="add_email_button">Add</string>
+    <string name="all_sms_contacts_text_view">All contacts</string>
+    <string name="find_contact_edit_text">Search contact</string>
+    <string name="username_hint_edit_text">Username</string>
+    <string name="phone_number_hint_edit_text">Phone number</string>
+    <string name="email_hint_edit_text">Email address</string>
+    <string name="dialog_positive_button">OK</string>
+    <string name="dialog_negative_button">Cancel</string>
+
+    <!-- MenuItems -->
+    <string name="settings_menu_item">Settings</string>
 </resources>

@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -16,42 +15,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <TextView
-            android:id="@+id/questionTextView"
+            android:id="@+id/text_view_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.4"
             android:gravity="center"
-            android:text="SampleQuestion"
-            android:textSize="40dp" />
-
+            android:textSize="40sp"/>
         <Button
-            android:id="@+id/firstAnswerButton"
+            android:id="@+id/button_first_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"
-            android:text="Button" />
-
+            android:layout_weight="0.15"/>
         <Button
-            android:id="@+id/secondAnswerButton"
+            android:id="@+id/button_second_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"
-            android:text="Button" />
-
+            android:layout_weight="0.15"/>
         <Button
-            android:id="@+id/thirdAnswerButton"
+            android:id="@+id/button_third_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"
-            android:text="Button" />
-
+            android:layout_weight="0.15"/>
         <Button
-            android:id="@+id/fourthAnswerButton"
+            android:id="@+id/button_fourth_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"
-            android:text="Button" />
+            android:layout_weight="0.15"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

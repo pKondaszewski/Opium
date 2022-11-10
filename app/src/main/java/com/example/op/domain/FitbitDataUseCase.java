@@ -1,7 +1,7 @@
 package com.example.op.domain;
 
-import com.example.op.database.entity.FitbitSpO2Data;
-import com.example.op.database.entity.FitbitStepsData;
+import com.example.database.entity.FitbitSpO2Data;
+import com.example.database.entity.FitbitStepsData;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;

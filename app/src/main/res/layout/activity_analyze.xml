@@ -19,5 +19,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="fitbit activity" />
+
+        <Button
+            android:id="@+id/expertSystemAnalyzeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="wyniki analizy" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

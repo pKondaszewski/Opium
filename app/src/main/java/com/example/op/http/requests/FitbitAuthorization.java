@@ -4,8 +4,8 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import com.example.op.database.AppDatabase;
-import com.example.op.database.entity.FitbitAccessToken;
+import com.example.database.AppDatabase;
+import com.example.database.entity.FitbitAccessToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;

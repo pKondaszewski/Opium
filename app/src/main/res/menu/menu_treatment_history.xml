@@ -5,11 +5,8 @@
         android:id="@+id/showCurrentDateMenuItem"
         android:icon="@android:drawable/ic_menu_today"
         app:showAsAction="ifRoom"
-        android:title="showCurrentDate" />
+        android:title="@string/show_current_date_menu_item"/>
     <item android:id="@+id/editPickedDateMenuItem"
         app:showAsAction="never"
-        android:title="Edytuj date" />
-    <item android:id="@+id/settingsTreatmentHistoryMenuItem"
-        app:showAsAction="never"
-        android:title="Ustawienia" />
+        android:title="@string/edit_date_menu_item"/>
 </menu>

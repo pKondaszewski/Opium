@@ -11,15 +11,14 @@ import com.example.op.R;
 public class EmergencyActivity extends AppCompatActivity {
 
     float screenX1, screenX2;
-    Button emergencyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency);
 
-        emergencyButton = (Button) findViewById(R.id.emergencyButton);
-        emergencyButton.setOnClickListener(v -> {
+        Button emergencyBtn = findViewById(R.id.button_emergency);
+        emergencyBtn.setOnClickListener(v -> {
             System.out.println("EMERGENCY!!!!");
         });
     }

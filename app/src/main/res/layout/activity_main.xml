@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity">
+    tools:context="com.example.op.activity.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/dailyFeelingsButton"
+            android:id="@+id/button_daily_feelings"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.33"
@@ -34,14 +34,15 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/treatmentHistoryButton"
+                android:id="@+id/button_treatment_history"
                 style="@style/CustomButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:fadingEdge="none"
                 android:text="@string/treatment_history_button_name" />
 
             <Button
-                android:id="@+id/analyzeButton"
+                android:id="@+id/button_analyze"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
@@ -56,10 +57,10 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/reportButton"
+                android:id="@+id/button_report"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.15"
+                android:layout_weight="1.1"
                 android:text="@string/report_button_name"
                 style="@style/CustomButton"/>
 
@@ -71,15 +72,15 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/remindersButton"
+                    android:id="@+id/button_help"
+                    style="@style/CustomButton"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:text="@string/reminders_button_name"
-                    style="@style/CustomButton"/>
+                    android:text="@string/help_button_name" />
 
                 <Button
-                    android:id="@+id/settingsButton"
+                    android:id="@+id/button_settings"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"

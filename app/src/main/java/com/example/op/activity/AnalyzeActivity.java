@@ -11,15 +11,13 @@ import com.example.op.R;
 
 public class AnalyzeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button phoneActivityAnalyzeButton, fitbitActivityAnalyzeButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analyze);
 
-        phoneActivityAnalyzeButton = (Button) findViewById(R.id.phoneActivityAnalyzeButton);
-        fitbitActivityAnalyzeButton = (Button) findViewById(R.id.fitbitActivityAnalyzeButton);
+        Button phoneActivityAnalyzeButton = findViewById(R.id.phoneActivityAnalyzeButton);
+        Button fitbitActivityAnalyzeButton = findViewById(R.id.fitbitActivityAnalyzeButton);
 
         phoneActivityAnalyzeButton.setOnClickListener(this);
         fitbitActivityAnalyzeButton.setOnClickListener(this);
@@ -28,7 +26,8 @@ public class AnalyzeActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.phoneActivityAnalyzeButton) {
-
+            Intent intent = new Intent(this, PhoneAnalyzeActivity.class);
+            startActivity(intent);
         } else if (v.getId() == R.id.fitbitActivityAnalyzeButton) {
             Intent intent = new Intent(this, FitbitAnalyzeActivity.class);
             startActivity(intent);

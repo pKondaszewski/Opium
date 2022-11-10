@@ -3,8 +3,11 @@ package com.example.op.activity;
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,171 +16,177 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
+import com.example.database.AppDatabase;
+import com.example.database.InitialDatabaseData;
+import com.example.expertsystem.ExpertSystem;
 import com.example.op.R;
-import com.example.op.database.AppDatabase;
-import com.example.op.database.InitialDatabaseData;
-import com.example.op.database.entity.FitbitAccessToken;
-import com.example.op.exception.UnauthorizedFitbitException;
-import com.example.op.http.HttpClient;
-import com.example.op.http.requests.FitbitRequest;
-import com.example.op.service.FitbitDataService;
-import com.example.op.service.LocalizationService;
-import com.example.op.utils.Authorization;
-import com.example.op.utils.FitbitUrlBuilder;
-import com.google.android.gms.location.FusedLocationProviderClient;
+import com.example.op.activity.history.TreatmentHistoryActivity;
+import com.example.op.activity.profile.ProfileActivity;
+import com.example.op.activity.report.ReportActivity;
+import com.example.op.activity.settings.SettingsActivity;
+import com.example.op.activity.user.DailyFeelingsActivity;
+import com.example.op.utils.InitialSharedPreferences;
+import com.example.op.utils.LocaleHelper;
+import com.example.op.worker.WorkerFactory;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
-import okhttp3.OkHttpClient;
+import lombok.SneakyThrows;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends TranslatedAppCompatActivity implements View.OnClickListener {
 
-    FitbitAccessToken fitbitAccessToken;
-    Button authorizationButton, refreshButton;
-    TextView textView;
-    private String clientId, clientSecret, scopes, redirectUrl;
-    float x, y, z, a, b, c;
-    float mSteps = 0;//步数
-    float tempSteps = 0;//步数
-    int licznik = 0;
+    private String CHANNEL_ID = "1";
+    private static final String TAG = MainActivity.class.getName();
 
-    float screenX1, screenX2;
+    private AppDatabase database;
+    private Button dailyControlBtn;
+    private WorkerFactory workerFactory;
 
-    AppDatabase database;
+    private PeriodicWorkRequest fitbitDataRequest, localizationRequest, movementRequest, notificationRequest,
+    stopAllWorkerRequest;
 
-    String CHANNEL_ID = "1";
+    private WorkManager workManager;
 
-    private static final String TAG = "MyActivity";
-    private FusedLocationProviderClient fusedLocationClient;
-
-    Button dailyControlButton, treatmentHistoryButton, reportButton, analyzeButton, remindersButton, settingsButton;
+    private float screenX1, screenX2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //this.deleteDatabase("DB_NAME");
 
-        //createNotificationChannel();
+        createNotificationChannel();
 
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.fadein);
 
-        dailyControlButton = (Button) findViewById(R.id.dailyFeelingsButton);
-        dailyControlButton.setOnClickListener(this);
-        dailyControlButton.startAnimation(animation);
+        dailyControlBtn = findViewById(R.id.button_daily_feelings);
+        Button treatmentHistoryBtn = findViewById(R.id.button_treatment_history);
+        Button reportBtn = findViewById(R.id.button_report);
+        Button analyzeBtn = findViewById(R.id.button_analyze);
+        Button helpBtn = findViewById(R.id.button_help);
+        Button settingsBtn = findViewById(R.id.button_settings);
 
-        treatmentHistoryButton = (Button) findViewById(R.id.treatmentHistoryButton);
-        treatmentHistoryButton.setOnClickListener(this);
-        treatmentHistoryButton.startAnimation(animation);
+        dailyControlBtn.setOnClickListener(this);
+        treatmentHistoryBtn.setOnClickListener(this);
+        reportBtn.setOnClickListener(this);
+        analyzeBtn.setOnClickListener(this);
+        helpBtn.setOnClickListener(this);
+        settingsBtn.setOnClickListener(this);
 
-        reportButton = (Button) findViewById(R.id.reportButton);
-        reportButton.setOnClickListener(this);
-        reportButton.startAnimation(animation);
-
-        analyzeButton = (Button) findViewById(R.id.analyzeButton);
-        analyzeButton.setOnClickListener(this);
-        analyzeButton.startAnimation(animation);
-
-        remindersButton = (Button) findViewById(R.id.remindersButton);
-        remindersButton.setOnClickListener(this);
-        remindersButton.startAnimation(animation);
-
-
-
-        settingsButton = (Button) findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(this);
-        settingsButton.startAnimation(animation);
+        dailyControlBtn.startAnimation(animation);
+        treatmentHistoryBtn.startAnimation(animation);
+        reportBtn.startAnimation(animation);
+        analyzeBtn.startAnimation(animation);
+        helpBtn.startAnimation(animation);
+        settingsBtn.startAnimation(animation);
 
         database = AppDatabase.getDatabaseInstance(this);
         InitialDatabaseData.initControlTextQuestions(database);
-        System.out.println(database.controlTextQuestionDao().getAll());
+        InitialDatabaseData.initProfile(database);
+
+        InitialSharedPreferences.initStartValues(this);
+        SharedPreferences sharPref = this.getSharedPreferences(getString(R.string.opium_preferences), Context.MODE_PRIVATE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+        }
+
+        workerFactory = new WorkerFactory(this);
+        workerFactory.enqueueWorks();
 //
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
-//            return;
-//        }
-//        Intent intent = new Intent(this, LocalizationService.class);
-//        startService(intent);
+//        workManager = WorkManager.getInstance(this);
 //
-//        Intent intent2 = new Intent(this, FitbitDataService.class);
-//        startService(intent2);
+//        Data repeatable = new Data.Builder()
+//                .putBoolean(getString(R.string.is_repeatable), true)
+//                .build();
+//
+//        WorkRequest userActivityRangeWorker =
+//                new OneTimeWorkRequest.Builder(UserActivityRangeWorker.class)
+//                        .setInputData()
+//                        .build();
+//
+//
+////        String fitbitDataStartTime = sharPref.getString(getString(R.string.fitbit_data_interval_start_time), "00:00");
+////        Duration intervalStart = extractInitialDelayValue(fitbitDataStartTime);
+//        fitbitDataRequest = new PeriodicWorkRequest.Builder(FitbitDataWorker.class, 15, TimeUnit.MINUTES)
+//                .setInputData(repeatable)
+////                .setInitialDelay(intervalStart)
+//                .build();
+//
+//        localizationRequest = new PeriodicWorkRequest.Builder(PhoneLocalizationWorker.class, 15, TimeUnit.MINUTES)
+//                    .setInputData(repeatable)
+//                    .build();
+//
+//
+//        String phoneMovementStartTime = sharPref.getString(getString(R.string.phone_movement_interval_start_time), "12:00");
+//        //intervalStart = extractInitialDelayValue(phoneMovementStartTime);
+//        movementRequest = new PeriodicWorkRequest.Builder(PhoneMovementWorker.class, 15, TimeUnit.MINUTES)
+//                        .setInputData(repeatable)
+//                        //.setInitialDelay(intervalStart)
+//                        .build();
+//
+//        String notificationStartTime = sharPref.getString(getString(R.string.notification_interval_start_time), "12:00");
+//        //intervalStart = extractInitialDelayValue(notificationStartTime);
+//        notificationRequest =
+//                new PeriodicWorkRequest.Builder(NotificationWorker.class, 15, TimeUnit.MINUTES)
+//                        .setInputData(repeatable)
+//                        //.setInitialDelay(intervalStart)
+//                        .build();
     }
 
     private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        CharSequence name = "channelName";
-        String description = "channelDescription";
+        CharSequence name = "notificationChannel";
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-        channel.setDescription(description);
-        // Register the channel with the system; you can't change the importance
-        // or other notification behaviors after this
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
     }
 
+    @SneakyThrows
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.dailyFeelingsButton) {
+        int id = v.getId();
+        if (id == R.id.button_daily_feelings) {
             Intent intent = new Intent(this, DailyFeelingsActivity.class);
             startActivity(intent);
-        } else if (v.getId() == R.id.treatmentHistoryButton) {
+        } else if (id == R.id.button_treatment_history) {
             Intent intent = new Intent(this, TreatmentHistoryActivity.class);
             startActivity(intent);
-        } else if (v.getId() == R.id.reportButton) {
+        } else if (id == R.id.button_report) {
             Intent intent = new Intent(this, ReportActivity.class);
             startActivity(intent);
-        } else if (v.getId() == R.id.analyzeButton) {
+        } else if (id == R.id.button_analyze) {
             Intent intent = new Intent(this, AnalyzeActivity.class);
             startActivity(intent);
-        } else if (v.getId() == R.id.remindersButton) {
-            String clientId = getString(R.string.clientId);
-            String clientSecret = getString(R.string.clientSecret);
-            String scopes = getString(R.string.scopes);
-            String redirectUrl = getString(R.string.redirectUrl);
-            Authorization authorization = new Authorization(clientId, clientSecret, scopes, redirectUrl);
-
-            FitbitAccessToken fitbitAccessToken = database.fitbitAccessTokenDao().getNewestAccessToken().orElseThrow(
-                    () -> new UnauthorizedFitbitException(TAG, "There are no fitbit access token. Please authorize fitbit in settings activity.")
-            );
-
-            String accessToken = fitbitAccessToken.getAccessToken();
-            String refreshToken = fitbitAccessToken.getRefreshToken();
-            String authorizationString = authorization.getAuthorizationToken();
-
-            OkHttpClient httpClient = HttpClient.getHttpClient(
-                    getString(R.string.tokenUrl), authorizationString, refreshToken, this
-            );
-
-            AppDatabase database = AppDatabase.getDatabaseInstance(this);
-            FitbitRequest fitbitRequest = new FitbitRequest(accessToken, httpClient, database);
-            FitbitRequest fitbitRequest1 = new FitbitRequest(accessToken, httpClient, database);
-
-            try {
-                fitbitRequest.getStepsByDay(FitbitUrlBuilder.stepsUrl(LocalDate.now()));
-                fitbitRequest1.getSpO2ByDay(FitbitUrlBuilder.spO2Url(LocalDate.of(2022,7,5)));
-            } catch (InterruptedException exception) {
-                exception.printStackTrace();
-            }
-        } else if (v.getId() == R.id.settingsButton) {
+        } else if (id == R.id.button_help) {
+            ExpertSystem expertSystem = new ExpertSystem(this);
+        } else if (id == R.id.button_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         }
     }
 
     @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        LocaleHelper.setLocale(getApplicationContext());
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        LocaleHelper.setLocale(getApplicationContext());
+        workerFactory.enqueueWorks();
         if (database.dailyFeelingsDao().getByDate(LocalDate.now()).isPresent()) {
-            dailyControlButton.setEnabled(false);
-            dailyControlButton.setText(R.string.daily_control_completed_button_name);
+            dailyControlBtn.setEnabled(false);
+            dailyControlBtn.setText(R.string.daily_control_completed_button_name);
         }
     }
 
@@ -189,8 +198,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.profilMenuItem) {
-            Toast.makeText(this, "Pokazanie profilu", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.menu_item_profile) {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
             return true;
         }
         return false;
@@ -210,5 +220,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         return false;
+    }
+
+    private Duration extractInitialDelayValue(String sharedPrefTimeValue) {
+        LocalTime intervalStartTime = LocalTime.parse(sharedPrefTimeValue);
+        LocalTime now = LocalTime.now();
+        if (now.isBefore(intervalStartTime)) {
+            return Duration.between(intervalStartTime, now);
+        } else {
+            return Duration.between(intervalStartTime, now.plusHours(12));
+        }
     }
 }

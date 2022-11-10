@@ -16,7 +16,44 @@
                 android:id="@+id/stepsLabelTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fitbitAnalyze_stepsLabel_textView_name" />
+                android:text="@string/fitbitAnalyze_stepsLabel_textView"
+                style="@style/CustomView"/>
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Bar"/>
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Foo"/>
+
+                    </com.google.android.material.tabs.TabLayout>
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChart"
@@ -26,10 +63,10 @@
             </com.github.mikephil.charting.charts.BarChart>
 
             <TextView
-                android:id="@+id/stepsLabelTextView"
+                android:id="@+id/spO2LabelTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fitbitAnalyze_spO2Label_textView_name" />
+                android:text="@string/fitbitAnalyze_spO2Label_textView" />
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChart1"
