@@ -2,28 +2,33 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <Button
-            android:id="@+id/phoneActivityAnalyzeButton"
+            android:id="@+id/button_analyze_phone_activity"
+            style="@style/CustomButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="phone activity" />
-
+            android:layout_height="0dp"
+            android:layout_margin="10sp"
+            android:layout_weight="0.3"
+            android:text="@string/phone_activity_analyze_button"/>
         <Button
-            android:id="@+id/fitbitActivityAnalyzeButton"
+            android:id="@+id/button_analyze_fitbit_activity"
+            style="@style/CustomButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="fitbit activity" />
-
+            android:layout_height="0dp"
+            android:layout_margin="10sp"
+            android:layout_weight="0.3"
+            android:text="@string/fitbit_activity_analyze_button"/>
         <Button
-            android:id="@+id/expertSystemAnalyzeButton"
+            android:id="@+id/button_analyze_expert_system"
+            style="@style/CustomButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="wyniki analizy" />
+            android:layout_height="0dp"
+            android:layout_margin="10sp"
+            android:layout_weight="0.3"
+            android:text="@string/expert_system_analyze_button"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

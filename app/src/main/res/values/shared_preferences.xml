@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="switch_state"/>
+    <string name="fitbit_switch_state"/>
     <string name="is_repeatable"/>
     <string name="language"/>
     <string name="language_dialog_value"/>
@@ -8,4 +8,5 @@
     <string name="gmail_password"/>
     <string name="daily_feelings_as_json"/>
     <string name="opium_preferences"/>
+    <string name="days_on_chart"/>
 </resources>

@@ -3,7 +3,6 @@ package com.example.database;
 import androidx.room.TypeConverter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -29,16 +28,6 @@ public class Converters {
     }
 
     @TypeConverter
-    public static LocalDateTime stringToLocalDateTime(String string) {
-        return string == null ? null : LocalDateTime.parse(string);
-    }
-
-    @TypeConverter
-    public static String localDateTimeToString(LocalDateTime localDateTime) {
-        return localDateTime == null ? null : localDateTime.toString();
-    }
-
-    @TypeConverter
     public static List<String> stringToList(String string) {
         return string == null ? null : List.of(string.split(";"));
     }
@@ -57,14 +46,11 @@ public class Converters {
     @TypeConverter
     public static HomeAddress stringToPostalAddress(String string) {
         List<String> list = List.of(string.split(";"));
-        switch (list.size()) {
-            case 1:
-                return new HomeAddress(list.get(0), "", "");
-            case 2:
-                return new HomeAddress(list.get(0), list.get(1), "");
-            case 3:
-                return new HomeAddress(list.get(0), list.get(1), list.get(2));
-        }
-        return null;
+        return switch (list.size()) {
+            case 1 -> new HomeAddress(list.get(0), "", "");
+            case 2 -> new HomeAddress(list.get(0), list.get(1), "");
+            case 3 -> new HomeAddress(list.get(0), list.get(1), list.get(2));
+            default -> null;
+        };
     }
 }

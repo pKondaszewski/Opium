@@ -40,18 +40,25 @@
     <string name="control_question_content_label_text_view">Question</string>
     <string name="control_question_answer_label_text_view">User answer</string>
     <string name="control_question_result_label_text_view">Correct answer</string>
-    <string name="treatmentHistoryActivity_title">Treatment history</string>
+    <string name="treatment_history_activity_title">Treatment history</string>
     <string name="showCurrentDate_button">Show current date</string>
     <string name="unable_change_future_date_toast_label">Unable to edit date from future</string>
     <string name="edit_date_menu_item">Edit date</string>
     <string name="show_current_date_menu_item">Show current date</string>
 
     <!-- AnalyzeActivity labels -->
-    <string name="fitbitAnalyze_stepsLabel_textView">Graph of steps traveled</string>
-    <string name="fitbitAnalyze_spO2Label_textView">Graph of SpO2</string>
+    <string name="phone_activity_analyze_button">Phone activity</string>
+    <string name="fitbit_activity_analyze_button">Fitbit activity</string>
+    <string name="expert_system_analyze_button">Analyze results</string>
+    <string name="fitbit_analyze_steps_label_text_view">Graph of steps traveled</string>
+    <string name="fitbit_analyze_spO2_label_text_view">Graph of SpO2</string>
+    <string name="tab_item_days">Days</string>
+    <string name="tab_item_months">Months</string>
+    <string name="no_data_text_view">Brak danych</string>
 
     <!-- ReportActivity labels -->
-    <string name="reportActivity_title">Report</string>
+    <string name="report_activity_title">Report</string>
+    <string name="report_receivers_activity_title">Report receivers</string>
     <string name="generalInfo_text_view">General info</string>
     <string name="date_text_view">Report date</string>
     <string name="nameLabel_text_view">Full name</string>
@@ -64,8 +71,8 @@
     <string name="phone_movement_label_text_view">Phone movement</string>
     <string name="phone_localization_label_text_view">Phone localization</string>
     <string name="fitbit_data_label_text_view">Data retrieved from the Fitbit</string>
-    <string name="fitbit_steps_label_text_view">Amount of steps (Fitbit)</string>
-    <string name="fitbit_spo2_label_text_view">SpO2 (Fitbit)</string>
+    <string name="fitbit_steps_label_text_view">Amount of steps</string>
+    <string name="fitbit_spo2_label_text_view">SpO2</string>
     <string name="summary_label_text_view">Summary</string>
     <string name="mood_daily_feelings_label_text_view">Analyze result</string>
     <string name="ailments_daily_feelings_label_text_view">Remarks</string>
@@ -90,7 +97,7 @@
     <string name="text_view_detailed">Detailed</string>
     <string name="sms_receivers_tab_item">SMS receivers</string>
     <string name="email_receivers_tab_item">Email receivers</string>
-    <string name="report_receivers_button">Message recipients</string>
+    <string name="report_receivers_button">Report receivers</string>
     <string name="sms_switch">Sms</string>
     <string name="email_switch">Email</string>
 
@@ -100,6 +107,7 @@
     <string name="app_widget_description">This is an app widget description</string>
 
     <!-- SettingsActivity/SettingsFitbitActivity labels -->
+    <string name="settings_activity_title">Application settings</string>
     <string name="language_button">Application language</string>
     <string name="fitbit_button">Fitbit pairing</string>
     <string name="gmail_button">Gmail pairing</string>
@@ -119,4 +127,7 @@
 
     <!-- MenuItems -->
     <string name="settings_menu_item">Settings</string>
+
+    <!-- EmergencyActivity -->
+    <string name="emergency_button">SEND SOS SIGNAL</string>
 </resources>

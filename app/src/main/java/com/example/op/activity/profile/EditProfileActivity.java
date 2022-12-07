@@ -1,5 +1,6 @@
 package com.example.op.activity.profile;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.DatePicker;
@@ -77,5 +78,9 @@ public class EditProfileActivity extends AppCompatActivity {
         profile = new Profile(profileId, firstname, lastname, birthdate, phoneNumber, sex, emailAddress, homeAddress);
         database.profileDao().update(profile);
         Log.i(TAG, "Profile updated: " + profile);
+
+        SharedPreferences.Editor edit = getSharedPreferences(getString(R.string.opium_preferences), MODE_PRIVATE).edit();
+        edit.putString(getString(R.string.gmail_address), emailAddress).apply();
+        Log.i(TAG, "Shared preferences email updated to: " + emailAddress);
     }
 }

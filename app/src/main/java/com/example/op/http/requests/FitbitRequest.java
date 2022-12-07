@@ -2,6 +2,8 @@ package com.example.op.http.requests;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.database.AppDatabase;
 import com.example.database.entity.FitbitSpO2Data;
 import com.example.database.entity.FitbitStepsData;
@@ -11,8 +13,8 @@ import com.example.op.utils.RequestSetup;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
-import lombok.SneakyThrows;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -43,16 +45,16 @@ public class FitbitRequest {
             public void onFailure(Call call, IOException e) {
             }
 
-            @SneakyThrows
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String string = response.body().string();
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                String string = Objects.requireNonNull(response.body()).string();
                 String stepsByDayValue = JsonManipulator.extractSteps(string);
                 FitbitStepsData uploadedFitbitStepsData = new FitbitStepsData(null, LocalDate.now(), LocalTime.now(), stepsByDayValue);
                 FitbitStepsData recentDatabaseFitbitStepsData = database.fitbitStepsDataDao().getNewestFitbitStepsDataByDate(LocalDate.now()).orElse(null);
                 if (!uploadedFitbitStepsData.equals(recentDatabaseFitbitStepsData)) {
                     database.fitbitStepsDataDao().insert(uploadedFitbitStepsData);
-                    Log.i(TAG, "Insertion of fitbit steps data into database: " + uploadedFitbitStepsData);
+                    Log.i(TAG, String.format("Insertion of fitbit steps data into database. Date: %s. Time: %s. Steps value:  %s",
+                            uploadedFitbitStepsData.getDate(), uploadedFitbitStepsData.getTime(), uploadedFitbitStepsData.getStepsValue()));
                 }
             }
         });
@@ -65,12 +67,11 @@ public class FitbitRequest {
         Call call = httpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
             }
 
-            @SneakyThrows
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String string = response.body().string();
                 System.out.println(string);
                 String spO2ByDayValue = JsonManipulator.extractSpo2(string);
@@ -78,7 +79,8 @@ public class FitbitRequest {
                 FitbitStepsData recentDatabaseFitbitSpO2Data = database.fitbitStepsDataDao().getNewestFitbitStepsDataByDate(LocalDate.now()).orElse(null);
                 if (!uploadedFitbitSpO2Data.equals(recentDatabaseFitbitSpO2Data)) {
                     database.fitbitSpO2DataDao().insert(uploadedFitbitSpO2Data);
-                    Log.i(TAG, "Insertion of fitbit spO2 data into database: " + uploadedFitbitSpO2Data);
+                    Log.i(TAG, String.format("Insertion of fitbit spO2 data into database. Date: %s. Time: %s. SpO2 value:  %s",
+                            uploadedFitbitSpO2Data.getDate(), uploadedFitbitSpO2Data.getTime(), uploadedFitbitSpO2Data.getSpO2Value()));
                 }
             }
         });

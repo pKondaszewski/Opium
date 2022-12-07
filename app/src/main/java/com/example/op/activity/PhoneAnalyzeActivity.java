@@ -25,11 +25,10 @@ import java.util.Map;
 
 public class PhoneAnalyzeActivity extends AppCompatActivity {
 
-    AppDatabase database;
-    PieChart pieChart;
-    BarChart barChart2;
-    PhoneDataUseCase phoneDataUseCase;
-    LinearLayout phoneMovementLinearLayout;
+    private AppDatabase database;
+    private PieChart pieChart;
+    private BarChart barChart2;
+    private PhoneDataUseCase phoneDataUseCase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +36,10 @@ public class PhoneAnalyzeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_analyze_phone);
 
         database = AppDatabase.getDatabaseInstance(this);
-
-        phoneMovementLinearLayout = findViewById(R.id.phoneMovementLinearLayout);
+        LinearLayout phoneMovementLinearLayout = findViewById(R.id.phoneMovementLinearLayout);
 
         pieChart = findViewById(R.id.pieChart);
         barChart2 = findViewById(R.id.barChart2);
-
         phoneDataUseCase = new PhoneDataUseCase();
 
         generateCharts();
@@ -101,7 +98,6 @@ public class PhoneAnalyzeActivity extends AppCompatActivity {
 
         pieChart.animateY(1400, Easing.EaseInOutQuad);
 
-
         final Map<LocalDate, Integer> movementsCountByEveryDate = database.phoneMovementDao().getMovementsCountByEveryDate(7);
 
         BarData phoneMovementActivityBarData;
@@ -115,12 +111,19 @@ public class PhoneAnalyzeActivity extends AppCompatActivity {
 
         barChart2.getDescription().setEnabled(false);
         barChart2.getAxisRight().setEnabled(false);
-        barChart2.getAxisLeft().setEnabled(false);
+        barChart2.getAxisLeft().setGranularity(1);
+        barChart2.setFocusableInTouchMode(false);
+        barChart2.setFocusable(false);
+        barChart2.getAxisLeft().setAxisMaximum(movementsCountByEveryDate.size());
+//        barChart2.getAxisLeft().setEnabled(false);
         barChart2.getLegend().setEnabled(false);
 
+        barChart2.getXAxis().setTextSize(25);
+
         barChart2.getXAxis().setDrawGridLines(false);
-        barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
-        barChart2.getXAxis().setGranularity(movementsCountByEveryDate.size());
+        barChart2.getXAxis().setAvoidFirstLastClipping(true);
+        barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart2.getXAxis().setGranularity(1);
 
         barChart2.setNoDataText("Brak danych");
         barChart2.invalidate();

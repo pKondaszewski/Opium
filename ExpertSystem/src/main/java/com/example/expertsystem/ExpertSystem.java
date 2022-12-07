@@ -5,14 +5,12 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.database.AppDatabase;
-import com.example.database.entity.ControlTextUserAnswer;
-import com.example.database.entity.DailyFeelings;
-import com.example.database.entity.FitbitSpO2Data;
-import com.example.database.entity.FitbitStepsData;
-import com.example.database.entity.PhoneLocalization;
-import com.example.database.entity.PhoneMovement;
+import com.example.expertsystem.engine.PhoneActivityEngine;
+import com.example.expertsystem.engine.PhoneLocalizationEngine;
+import com.example.expertsystem.extractor.PhoneActivityExtractor;
 
-import lombok.AllArgsConstructor;
+import java.time.LocalDate;
+import java.util.List;
 
 public class ExpertSystem {
 
@@ -26,10 +24,20 @@ public class ExpertSystem {
         sharPref = PreferenceManager.getDefaultSharedPreferences(context);
 
         getPhoneActivityResults();
+        //getFitbitResults();
+        //getUserActivityResults();
     }
 
     public void getPhoneActivityResults() {
-        PhoneActivity phoneActivity = new PhoneActivity(database);
-    }
+        PhoneActivityExtractor paExtractor = new PhoneActivityExtractor(database);
+        List<Double> mostCommonCoordinates = paExtractor.extractMostCommonCoordinates(LocalDate.now());
+        Integer amountOfNotedMovements = paExtractor.extractAmountOfNotedMovements();
 
+        PhoneLocalizationEngine phoneLocalizationEngine = new PhoneLocalizationEngine(mostCommonCoordinates);
+        Double phoneLocalizationEngineResult = phoneLocalizationEngine.process();
+
+        PhoneActivityEngine phoneActivityEngine = new PhoneActivityEngine(amountOfNotedMovements, phoneLocalizationEngineResult);
+        Double aDouble = phoneActivityEngine.process();
+        System.out.println(aDouble);
+    }
 }

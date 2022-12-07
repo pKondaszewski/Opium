@@ -2,501 +2,426 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:orientation="vertical">
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp">
-
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <TextView
-                        android:id="@+id/personalDataLabelTextView"
+                        android:id="@+id/text_view_personal_data_label"
                         style="@style/TextViewH2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:linksClickable="false"
-                        android:text="@string/generalInfo_text_view" />
-
+                        android:text="@string/generalInfo_text_view"/>
                     <View
                         android:id="@+id/divider1"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="5dp"
-                        android:background="?android:attr/listDivider" />
-
+                        android:background="?android:attr/listDivider"/>
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
-                            android:id="@+id/dateLabelTextView"
+                            android:id="@+id/text_view_date_label"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="@string/date_text_view" />
-
+                            android:text="@string/date_text_view"/>
                         <TextView
-                            android:id="@+id/text_view_date_value"
+                            android:id="@+id/text_view_date"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end" />
-
+                            android:gravity="end"/>
                     </TableRow>
-
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
                             android:id="@+id/text_view_name_label"
                             style="@style/TextViewH3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="@string/nameLabel_text_view" />
-
+                            android:text="@string/nameLabel_text_view"/>
                         <TextView
                             android:id="@+id/text_view_name_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end" />
+                            android:gravity="end"/>
                     </TableRow>
-
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
                             android:id="@+id/birthdateLabelTextView"
                             style="@style/TextViewH3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="@string/birthdate_Profile_text_view" />
-
+                            android:text="@string/birthdate_Profile_text_view"/>
                         <TextView
                             android:id="@+id/text_view_birthdate_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end" />
+                            android:gravity="end"/>
                     </TableRow>
-
                 </TableLayout>
-
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp">
-
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <TextView
                         android:id="@+id/text_view_daily_feelings_label"
                         style="@style/TextViewH2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/daily_feelings_text_view" />
-
+                        android:text="@string/daily_feelings_text_view"/>
                     <View
                         android:id="@+id/divider2"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="5dp"
-                        android:background="?android:attr/listDivider" />
-
+                        android:background="?android:attr/listDivider"/>
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
                             android:id="@+id/text_view_mood_daily_feelings_label"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="@string/mood_daily_feelings_text_view" />
-
+                            android:text="@string/mood_daily_feelings_text_view"/>
                         <TextView
                             android:id="@+id/text_view_mood_daily_feelings_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end" />
-
+                            android:gravity="end"/>
                     </TableRow>
-
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
                             android:id="@+id/text_view_ailments_daily_feelings_label"
                             style="@style/TextViewH3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="@string/ailments_daily_feelings_text_view" />
-
+                            android:text="@string/ailments_daily_feelings_text_view"/>
                         <TextView
                             android:id="@+id/text_view_ailments_daily_feelings_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end" />
+                            android:gravity="end"/>
                     </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
                             android:id="@+id/text_view_note_daily_feelings_label"
                             style="@style/TextViewH3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="@string/note_daily_feelings_text_view" />
-
+                            android:text="@string/note_daily_feelings_text_view"/>
                         <TextView
                             android:id="@+id/text_view_note_daily_feelings_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end" />
+                            android:gravity="end"/>
                     </TableRow>
-
                 </TableLayout>
-
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp">
-
-
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <TextView
                         android:id="@+id/text_view_control_question_label"
                         style="@style/TextViewH2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Daily question" />
-
+                        android:text="@string/control_question_label_text_view"/>
                     <View
                         android:id="@+id/divider3"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="5dp"
-                        android:background="?android:attr/listDivider" />
-
+                        android:background="?android:attr/listDivider"/>
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
                             android:id="@+id/text_view_control_question_content_label"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="Question" />
-
+                            android:text="@string/control_question_content_label_text_view"/>
                         <TextView
                             android:id="@+id/text_view_control_question_content_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end" />
+                            android:gravity="end"/>
                     </TableRow>
-
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
                             android:id="@+id/text_view_control_question_answer_label"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="User answer" />
-
+                            android:text="@string/control_question_answer_label_text_view"/>
                         <TextView
                             android:id="@+id/text_view_control_question_answer_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end" />
+                            android:gravity="end"/>
                     </TableRow>
-
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
                             android:id="@+id/text_view_control_question_result_label"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="Correct answer" />
-
+                            android:text="@string/control_question_result_label_text_view"/>
                         <TextView
                             android:id="@+id/text_view_control_question_result_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end" />
+                            android:gravity="end"/>
                     </TableRow>
-
                 </TableLayout>
-
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp">
-
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <TextView
-                        android:id="@+id/phoneDataLabelTextView"
+                        android:id="@+id/text_view_phone_data_label"
                         style="@style/TextViewH2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/phone_Profile_text_view" />
-
+                        android:text="@string/phone_Profile_text_view"/>
                     <View
                         android:id="@+id/divider4"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="5dp"
-                        android:background="?android:attr/listDivider" />
-
+                        android:background="?android:attr/listDivider"/>
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
-                            android:id="@+id/phoneMovementLabelTextView"
+                            android:id="@+id/text_view_phone_movement_label"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="@string/phone_movement_label_text_view" />
-
+                            android:text="@string/phone_movement_label_text_view"/>
                         <TextView
-                            android:id="@+id/phoneMovementValueTextView"
+                            android:id="@+id/text_view_phone_movement_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end" />
+                            android:gravity="end"/>
                     </TableRow>
-
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
-                            android:id="@+id/phoneLocalizationLabelTextView"
+                            android:id="@+id/text_view_phone_localization_label"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="@string/phone_localization_label_text_view" />
-
+                            android:text="@string/phone_localization_label_text_view"/>
                         <TextView
-                            android:id="@+id/phoneLocalizationValueTextView"
+                            android:id="@+id/text_view_phone_localization_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end" />
+                            android:gravity="end"/>
                     </TableRow>
-
                 </TableLayout>
-
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/fitbitDataCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:visibility="invisible">
-
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <TextView
                         android:id="@+id/text_view_fitbit_data_label"
                         style="@style/TextViewH2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/fitbit_data_label_text_view" />
-
+                        android:text="@string/fitbit_data_label_text_view"/>
                     <View
                         android:id="@+id/divider5"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="5dp"
-                        android:background="?android:attr/listDivider" />
-
+                        android:background="?android:attr/listDivider"/>
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
                             android:id="@+id/text_view_fitbit_steps_label"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="Badania" />
-
+                            android:text="@string/fitbit_steps_label_text_view"/>
                         <TextView
                             android:id="@+id/text_view_fitbit_steps_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end"
-                            android:text="w normie" />
+                            android:gravity="end"/>
                     </TableRow>
-
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/text_view_fitbit_spo2_label"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:text="@string/fitbit_spo2_label_text_view"/>
+                        <TextView
+                            android:id="@+id/text_view_fitbit_spo2_value"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="end"/>
+                    </TableRow>
                 </TableLayout>
-
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp">
-
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <TextView
                         android:id="@+id/text_view_summary_label"
                         style="@style/TextViewH2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Podsumowanie" />
-
+                        android:text="@string/summary_label_text_view"/>
                     <View
-                        android:id="@+id/divider6"
+                        android:id="@+id/divider7"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="5dp"
-                        android:background="?android:attr/listDivider" />
-
+                        android:background="?android:attr/listDivider"/>
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
-                            android:id="@+id/analyzeResultLabelTextView"
+                            android:id="@+id/text_view_analyze_result_label"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="Wynik analizy" />
-
+                            android:text="@string/mood_daily_feelings_label_text_view"/>
                         <TextView
-                            android:id="@+id/analyzeResultValueTextView"
+                            android:id="@+id/text_view_analyze_result_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end" />
-
+                            android:gravity="end"/>
                     </TableRow>
-
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                         <TextView
-                            android:id="@+id/observationsLabelTextView"
+                            android:id="@+id/text_view_observation_label"
                             style="@style/TextViewH3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="Uwagi" />
-
+                            android:text="@string/ailments_daily_feelings_label_text_view"/>
                         <TextView
                             android:id="@+id/observationsValueTextView"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:gravity="end" />
+                            android:gravity="end"/>
                     </TableRow>
-
                 </TableLayout>
-
             </androidx.cardview.widget.CardView>
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="top"
                 android:orientation="vertical">
-
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/button_send_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Wyślij raport" />
+                    android:layout_marginBottom="33sp"
+                    android:text="@string/send_report_button"/>
             </LinearLayout>
-
         </LinearLayout>
-
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

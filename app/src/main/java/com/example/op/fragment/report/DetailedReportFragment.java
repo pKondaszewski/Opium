@@ -6,7 +6,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,14 +13,14 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 
 import com.example.database.AppDatabase;
-import com.example.op.R;
 import com.example.database.entity.ControlTextQuestion;
 import com.example.database.entity.ControlTextUserAnswer;
 import com.example.database.entity.DailyFeelings;
+import com.example.database.entity.FitbitSpO2Data;
 import com.example.database.entity.FitbitStepsData;
 import com.example.database.entity.PhoneLocalization;
 import com.example.database.entity.PhoneMovement;
-import com.example.op.utils.Authorization;
+import com.example.op.R;
 import com.example.op.utils.FitbitUtils;
 
 import java.io.IOException;
@@ -31,15 +30,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import lombok.SneakyThrows;
-
 public class DetailedReportFragment extends GeneralReportFragment {
 
     private AppDatabase database;
     private CardView fitbitDataCv;
     private SharedPreferences sharPref;
-    private TextView fitbitStepsValueTv, moodDailyFeelingsValueTv, ailmentsDailyFeelingsValueTv,
-            noteDailyFeelingsValueTv, phoneMovementValueTv, phoneLocalizationValueTv, controlQuestionContentTv,
+    private TextView dateValueTextView, nameValueTextView, birthdateValueTextView, fitbitStepsValueTv,
+            fitbitSpO2ValueTv, moodDailyFeelingsValueTv, ailmentsDailyFeelingsValueTv, noteDailyFeelingsValueTv,
+            phoneMovementValueTv, phoneLocalizationValueTv, controlQuestionContentTv,
             controlQuestionAnswerTv, controlQuestionResultTv;
 
     @Override
@@ -47,26 +45,15 @@ public class DetailedReportFragment extends GeneralReportFragment {
         return inflater.inflate(R.layout.fragment_detailed_report, parent, false);
     }
 
-    @SneakyThrows
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         LocalDate presentDate = LocalDate.now();
-
         database = AppDatabase.getDatabaseInstance(getContext());
-
         sharPref = getContext().getSharedPreferences(getString(R.string.opium_preferences), Context.MODE_PRIVATE);
 
-        String clientId = getString(R.string.client_id);
-        String clientSecret = getString(R.string.client_secret);
-        String scopes = getString(R.string.scopes);
-        String redirectUrl = getString(R.string.redirect_url);
-        Authorization authorization = new Authorization(clientId, clientSecret, scopes, redirectUrl);
-
-        MenuItem settingsReportMi = view.findViewById(R.id.settingsReportMenuItem);
-
-        TextView dateValueTextView = view.findViewById(R.id.text_view_date_value);
-        TextView nameValueTextView = view.findViewById(R.id.text_view_name_value);
-        TextView birthdateValueTextView = view.findViewById(R.id.text_view_birthdate_value);
+        dateValueTextView = view.findViewById(R.id.text_view_date);
+        nameValueTextView = view.findViewById(R.id.text_view_name_value);
+        birthdateValueTextView = view.findViewById(R.id.text_view_birthdate_value);
         moodDailyFeelingsValueTv = view.findViewById(R.id.text_view_mood_daily_feelings_value);
         ailmentsDailyFeelingsValueTv = view.findViewById(R.id.text_view_ailments_daily_feelings_value);
         noteDailyFeelingsValueTv = view.findViewById(R.id.text_view_note_daily_feelings_value);
@@ -75,29 +62,34 @@ public class DetailedReportFragment extends GeneralReportFragment {
         controlQuestionAnswerTv = view.findViewById(R.id.text_view_control_question_answer_value);
         controlQuestionResultTv = view.findViewById(R.id.text_view_control_question_result_value);
 
-        phoneMovementValueTv = view.findViewById(R.id.phoneMovementValueTextView);
-        phoneLocalizationValueTv = view.findViewById(R.id.phoneLocalizationValueTextView);
+        phoneMovementValueTv = view.findViewById(R.id.text_view_phone_movement_value);
+        phoneLocalizationValueTv = view.findViewById(R.id.text_view_phone_localization_value);
 
         fitbitDataCv = view.findViewById(R.id.fitbitDataCardView);
-        TextView fitbitDataLabelTextView = view.findViewById(R.id.text_view_fitbit_data_label);
-        TextView fitbitStepsLabelTextView = view.findViewById(R.id.text_view_fitbit_steps_label);
         fitbitStepsValueTv = view.findViewById(R.id.text_view_fitbit_steps_value);
+        fitbitSpO2ValueTv = view.findViewById(R.id.text_view_fitbit_spo2_value);
+        setupData(presentDate);
+    }
 
-        setupPersonalData(presentDate, List.of(dateValueTextView, nameValueTextView, birthdateValueTextView), database);
-        setupDailyFeelingsData(presentDate);
-        setupControlQuestion(presentDate);
-        setupPhoneMovementData();
-        setupPhoneLocalizationData(presentDate);
-        //System.out.println(sharedPreferences.getBoolean(getString(R.string.switchState), false));
-        if (isFitbitEnable()) {
-            setFitbitDataVisible();
-            // TODO: simplify fitbit data and setText to textView
-            setupFitbitData(presentDate);
+
+    private void setupData(LocalDate presentDate) {
+        try {
+            setupPersonalData(presentDate, List.of(dateValueTextView, nameValueTextView, birthdateValueTextView), database);
+            setupDailyFeelingsData(presentDate);
+            setupControlQuestion(presentDate);
+            setupPhoneMovementData();
+            setupPhoneLocalizationData();
+            if (isFitbitEnable()) {
+                setFitbitDataVisible();
+                setupFitbitData(presentDate);
+            }
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
     }
 
     private boolean isFitbitEnable() {
-        return FitbitUtils.isEnabled(sharPref, getString(R.string.switch_state));
+        return FitbitUtils.isEnabled(sharPref, getString(R.string.fitbit_switch_state));
     }
 
     private void setFitbitDataVisible() {
@@ -151,7 +143,7 @@ public class DetailedReportFragment extends GeneralReportFragment {
         phoneMovementValueTv.setText(phoneMovement.getTimeOfMovement().toString());
     }
 
-    private void setupPhoneLocalizationData(LocalDate presentDate) throws IOException {
+    private void setupPhoneLocalizationData() throws IOException {
         PhoneLocalization phoneLocalization = database.phoneLocalizationDao().getNewestLocation().orElse(
                 new PhoneLocalization());
         Geocoder geocoder = new Geocoder(getContext());
@@ -159,18 +151,16 @@ public class DetailedReportFragment extends GeneralReportFragment {
         for (Address address : geocoder.getFromLocation(phoneLocalization.getLatitude(), phoneLocalization.getLongitude(), 1)) {
             postalAddress = address.getAddressLine(0);
         }
-
         phoneLocalizationValueTv.setText(postalAddress);
     }
 
     private void setupFitbitData(LocalDate presentDate) {
         FitbitStepsData fitbitStepsData = database.fitbitStepsDataDao().getNewestFitbitStepsDataByDate(presentDate)
                 .orElse(new FitbitStepsData());
-
-//        FitbitSpO2Data fitbitSpO2Data = database.fitbitSpO2DataDao().getNewestFitbitSpO2DataByDate(presentDate)
-//                .orElse(new FitbitSpO2Data());
+        FitbitSpO2Data fitbitSpO2Data = database.fitbitSpO2DataDao().getNewestFitbitSpO2DataByDate(presentDate)
+                .orElse(new FitbitSpO2Data());
 
         fitbitStepsValueTv.setText(fitbitStepsData.getStepsValue());
-//        fitbitSp02ValueTextView.setText(fitbitSpO2Data.getSpO2Value());
+        fitbitSpO2ValueTv.setText(fitbitSpO2Data.getSpO2Value());
     }
 }

@@ -18,14 +18,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <Button
             android:id="@+id/button_daily_feelings"
+            style="@style/CustomButton"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.33"
-            android:text="@string/daily_control_button_name"
-            style="@style/CustomButton"/>
+            android:text="@string/daily_control_button_name"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,16 +37,18 @@
                 style="@style/CustomButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:drawableTop="@drawable/treatment_history_icon"
                 android:fadingEdge="none"
                 android:text="@string/treatment_history_button_name" />
 
             <Button
                 android:id="@+id/button_analyze"
+                style="@style/CustomButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
-                android:text="@string/analyze_button_name"
-                style="@style/CustomButton"/>
+                android:drawableTop="@drawable/analyze_icon"
+                android:text="@string/analyze_button_name" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,11 +59,12 @@
 
             <Button
                 android:id="@+id/button_report"
+                style="@style/CustomButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.1"
-                android:text="@string/report_button_name"
-                style="@style/CustomButton"/>
+                android:drawableTop="@drawable/report_icon"
+                android:text="@string/report_button_name" />
 
             <LinearLayout
                 android:layout_width="match_parent"

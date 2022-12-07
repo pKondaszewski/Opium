@@ -1,26 +1,25 @@
 package com.example.database.entity;
 
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+
+import com.example.database.FitbitData;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class FitbitStepsData {
-    @EqualsAndHashCode.Exclude
-    @PrimaryKey(autoGenerate = true)
-    private Integer id;
-    private LocalDate date;
-    @EqualsAndHashCode.Exclude
-    private LocalTime time;
+public class FitbitStepsData extends FitbitData {
+    @Getter
+    @Setter
     private String stepsValue = "-";
+
+    public FitbitStepsData(Integer id, LocalDate date, LocalTime time, String stepsValue) {
+        super(id, date, time);
+        this.stepsValue = stepsValue;
+    }
 }

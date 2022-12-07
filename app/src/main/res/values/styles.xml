@@ -20,6 +20,7 @@
         <item name="android:backgroundTint">@color/header_blue</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:padding">7sp</item>
     </style>
 
     <style name="TextViewH2" parent="Theme.AppCompat.Light">

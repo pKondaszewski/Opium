@@ -25,11 +25,7 @@ public class ReportReceiversAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        if (position == 0) {
-            return fragments.get(0);
-        } else {
-            return fragments.get(1);
-        }
+        return fragments.get(position);
     }
 
     @Override

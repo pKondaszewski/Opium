@@ -2,80 +2,87 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <TextView
-                android:id="@+id/stepsLabelTextView"
+                android:id="@+id/text_view_steps_label"
+                style="@style/CustomView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fitbitAnalyze_stepsLabel_textView"
-                style="@style/CustomView"/>
-
+                android:text="@string/fitbit_analyze_steps_label_text_view"/>
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabLayout"
+                        android:id="@+id/tab_layout_fitbit_steps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-
                         <com.google.android.material.tabs.TabItem
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="Bar"/>
-
+                            android:text="@string/tab_item_days"/>
                         <com.google.android.material.tabs.TabItem
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="Foo"/>
-
+                            android:text="@string/tab_item_months"/>
                     </com.google.android.material.tabs.TabLayout>
-
                     <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/pager"
+                        android:id="@+id/pager_fitbit_steps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
-
                 </LinearLayout>
-
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
             <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/barChart"
+                android:id="@+id/bar_chart_fitbit_days_steps"
                 android:layout_width="match_parent"
-                android:layout_height="600dp">
-
+                android:layout_height="0sp">
             </com.github.mikephil.charting.charts.BarChart>
-
             <TextView
-                android:id="@+id/spO2LabelTextView"
+                android:id="@+id/text_view_spo2_label"
+                style="@style/CustomView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fitbitAnalyze_spO2Label_textView" />
-
+                android:text="@string/fitbit_analyze_spO2_label_text_view"/>
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tab_layout_fitbit_spo2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/tab_item_days"/>
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/tab_item_months"/>
+                    </com.google.android.material.tabs.TabLayout>
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/pager_fitbit_spo2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChart1"
                 android:layout_width="match_parent"
-                android:layout_height="600dp" >
-
+                android:layout_height="0sp">
             </com.github.mikephil.charting.charts.BarChart>
         </LinearLayout>
     </ScrollView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

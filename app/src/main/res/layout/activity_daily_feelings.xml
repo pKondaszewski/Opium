@@ -21,79 +21,89 @@
                 android:id="@+id/linear_layout_mood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_great_mood"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/green"
-                    app:checkedIcon="@mipmap/great_emoji_foreground"
+                    app:checkedIcon="@drawable/great_mood_emoji"
                     app:checkedIconTint="@color/green"
-                    app:uncheckedIcon="@mipmap/great_emoji_foreground">
+                    app:uncheckedIcon="@drawable/great_mood_emoji">
+
                     <TextView
                         android:id="@+id/text_view_great_mood"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:contextClickable="false"
                         android:gravity="center_horizontal"
-                        android:text="@string/mood_greatFeelings_radio_button"/>
+                        android:text="@string/mood_greatFeelings_radio_button" />
                 </co.ankurg.expressview.ExpressView>
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_good_mood"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/light_green"
-                    app:checkedIcon="@mipmap/good_emoji_foreground"
+                    app:checkedIcon="@drawable/good_mood_emoji"
                     app:checkedIconTint="@color/light_green"
-                    app:uncheckedIcon="@mipmap/good_emoji_foreground">
+                    app:uncheckedIcon="@drawable/good_mood_emoji">
+
                     <TextView
                         android:id="@+id/text_view_good_mood"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/mood_goodFeelings_radio_button"/>
+                        android:text="@string/mood_goodFeelings_radio_button" />
                 </co.ankurg.expressview.ExpressView>
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_ok_mood"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/yellow"
-                    app:checkedIcon="@mipmap/ok_emoji_foreground"
+                    app:checkedIcon="@drawable/ok_mood_emoji"
                     app:checkedIconTint="@color/yellow"
-                    app:uncheckedIcon="@mipmap/ok_emoji_foreground">
+                    app:uncheckedIcon="@drawable/ok_mood_emoji">
+
                     <TextView
                         android:id="@+id/text_view_ok_mood"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/mood_okFeelings_radio_button"/>
+                        android:text="@string/mood_okFeelings_radio_button" />
                 </co.ankurg.expressview.ExpressView>
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_bad_mood"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/orange"
-                    app:checkedIcon="@mipmap/bad_emoji_foreground"
+                    app:checkedIcon="@drawable/bad_mood_emoji"
                     app:checkedIconTint="@color/orange"
-                    app:uncheckedIcon="@mipmap/bad_emoji_foreground">
+                    app:uncheckedIcon="@drawable/bad_mood_emoji">
+
                     <TextView
                         android:id="@+id/text_view_bad_mood"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/mood_badFeelings_radio_button"/>
+                        android:text="@string/mood_badFeelings_radio_button" />
                 </co.ankurg.expressview.ExpressView>
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_tragic_mood"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    app:checkedIcon="@mipmap/tragic_emoji_foreground"
-                    app:uncheckedIcon="@mipmap/tragic_emoji_foreground">
+                    app:checkedIcon="@drawable/tragic_mood_emoji"
+                    app:uncheckedIcon="@drawable/tragic_mood_emoji">
+
                     <TextView
                         android:id="@+id/text_view_tragic_mood"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/mood_tragicFeelings_radio_button"/>
+                        android:text="@string/mood_tragicFeelings_radio_button" />
                 </co.ankurg.expressview.ExpressView>
             </LinearLayout>
         </HorizontalScrollView>
@@ -111,140 +121,158 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_fever_ailments"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/palevioletred"
-                    app:checkedIcon="@mipmap/fever_emoji_foreground"
+                    app:checkedIcon="@drawable/fever_ailments_emoji"
                     app:checkedIconTint="@color/palevioletred"
-                    app:uncheckedIcon="@mipmap/fever_emoji_foreground">
+                    app:uncheckedIcon="@drawable/fever_ailments_emoji">
+
                     <TextView
                         android:id="@+id/text_view_fever_ailments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/ailments_fever_button"/>
+                        android:text="@string/ailments_fever_button" />
                 </co.ankurg.expressview.ExpressView>
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_cold_ailments"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/light_blue_400"
-                    app:checkedIcon="@mipmap/cold_emoji_foreground"
+                    app:checkedIcon="@drawable/flu_ailments_emoji"
                     app:checkedIconTint="@color/light_blue_400"
-                    app:uncheckedIcon="@mipmap/cold_emoji_foreground">
+                    app:uncheckedIcon="@drawable/flu_ailments_emoji">
+
                     <TextView
                         android:id="@+id/text_view_cold_ailments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/ailments_flu_button"/>
+                        android:text="@string/ailments_flu_button" />
                 </co.ankurg.expressview.ExpressView>
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_cough_ailments"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/purple_200"
-                    app:checkedIcon="@mipmap/cough_emoji_foreground"
+                    app:checkedIcon="@drawable/cough_ailments_emoji"
                     app:checkedIconTint="@color/purple_200"
-                    app:uncheckedIcon="@mipmap/cough_emoji_foreground">
+                    app:uncheckedIcon="@drawable/cough_ailments_emoji">
+
                     <TextView
                         android:id="@+id/text_view_cough_ailments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/ailments_cough_button"/>
+                        android:text="@string/ailments_cough_button" />
                 </co.ankurg.expressview.ExpressView>
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_lethargy_ailments"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/ecru"
-                    app:checkedIcon="@mipmap/lethargy_emoji_foreground"
+                    app:checkedIcon="@drawable/yawning_ailments_emoji"
                     app:checkedIconTint="@color/ecru"
-                    app:uncheckedIcon="@mipmap/lethargy_emoji_foreground">
+                    app:uncheckedIcon="@drawable/yawning_ailments_emoji">
+
                     <TextView
                         android:id="@+id/text_view_lethargy_ailments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/ailments_lethargy_button"/>
+                        android:text="@string/ailments_lethargy_button" />
                 </co.ankurg.expressview.ExpressView>
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_sore_throat_ailments"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/dark_orange"
-                    app:checkedIcon="@mipmap/sore_throat_emoji_foreground"
+                    app:checkedIcon="@drawable/sore_throat_ailments_emoji"
                     app:checkedIconTint="@color/dark_orange"
-                    app:uncheckedIcon="@mipmap/sore_throat_emoji_foreground">
+                    app:uncheckedIcon="@drawable/sore_throat_ailments_emoji">
+
                     <TextView
                         android:id="@+id/text_view_sore_throat_ailments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/ailments_sore_throat_button"/>
+                        android:text="@string/ailments_sore_throat_button" />
                 </co.ankurg.expressview.ExpressView>
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_headache_ailments"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/dark_red"
-                    app:checkedIcon="@mipmap/headache_emoji_foreground"
+                    app:checkedIcon="@drawable/headache_ailments_emoji"
                     app:checkedIconTint="@color/dark_red"
-                    app:uncheckedIcon="@mipmap/headache_emoji_foreground">
+                    app:uncheckedIcon="@drawable/headache_ailments_emoji">
+
                     <TextView
                         android:id="@+id/text_view_headache_ailments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/ailments_headache_button"/>
+                        android:text="@string/ailments_headache_button" />
                 </co.ankurg.expressview.ExpressView>
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_vomiting_ailments"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/dark_green"
-                    app:checkedIcon="@mipmap/vomiting_emoji_foreground"
+                    app:checkedIcon="@drawable/vomiting_ailments_emoji"
                     app:checkedIconTint="@color/dark_green"
-                    app:uncheckedIcon="@mipmap/vomiting_emoji_foreground">
+                    app:uncheckedIcon="@drawable/vomiting_ailments_emoji">
+
                     <TextView
                         android:id="@+id/text_view_vomiting_ailments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/ailments_vomiting_button"/>
+                        android:text="@string/ailments_vomiting_button" />
                 </co.ankurg.expressview.ExpressView>
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_diarrhea_ailments"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/white"
-                    app:checkedIcon="@mipmap/diarrhea_emoji_foreground"
+                    app:checkedIcon="@drawable/diarrhea_ailments_emoji"
                     app:checkedIconTint="@color/white"
-                    app:uncheckedIcon="@mipmap/diarrhea_emoji_foreground">
+                    app:uncheckedIcon="@drawable/diarrhea_ailments_emoji">
+
                     <TextView
                         android:id="@+id/text_view_diarrhea_ailments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/ailments_diarrhea_button"/>
+                        android:text="@string/ailments_diarrhea_button" />
                 </co.ankurg.expressview.ExpressView>
+
                 <co.ankurg.expressview.ExpressView
                     android:id="@+id/button_other_ailments"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/dark_red"
-                    app:checkedIcon="@mipmap/other_emoji_foreground"
+                    app:checkedIcon="@drawable/other_ailments_emoji"
                     app:checkedIconTint="@color/dark_red"
-                    app:uncheckedIcon="@mipmap/other_emoji_foreground">
+                    app:uncheckedIcon="@drawable/other_ailments_emoji">
+
                     <TextView
                         android:id="@+id/text_view_other_ailments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/ailments_other_button"/>
+                        android:text="@string/ailments_other_button" />
                 </co.ankurg.expressview.ExpressView>
             </LinearLayout>
         </HorizontalScrollView>

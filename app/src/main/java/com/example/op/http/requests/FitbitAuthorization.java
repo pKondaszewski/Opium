@@ -46,7 +46,7 @@ public class FitbitAuthorization {
                 database.fitbitAccessTokenDao().insert(accessToken);
             }
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
 
             }
         });
@@ -74,7 +74,7 @@ public class FitbitAuthorization {
                 countDownLatch.countDown();
             }
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
             }
         });
     }

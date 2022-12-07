@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.op">
-
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -10,11 +9,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
         android:required="true" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -33,18 +30,15 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/report_widget_info" />
         </receiver>
-
         <activity
             android:name="com.example.op.activity.MainActivity"
             android:exported="true">
             <intent-filter android:label="@string/mainActivity_title">
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -69,34 +63,42 @@
         <activity
             android:name="com.example.op.activity.history.TreatmentHistoryActivity"
             android:exported="true"
-            android:label="@string/treatmentHistoryActivity_title"
-            android:screenOrientation="fullSensor" />
+            android:label="@string/treatment_history_activity_title"
+            android:screenOrientation="fullSensor"/>
         <activity
-            android:name="com.example.op.activity.AnalyzeActivity"
+            android:name="com.example.op.activity.analyze.AnalyzeActivity"
             android:exported="true"
-            android:screenOrientation="fullSensor" />
+            android:label="@string/analyze_button_name"
+            android:screenOrientation="fullSensor"/>
         <activity
-            android:name="com.example.op.activity.FitbitAnalyzeActivity"
+            android:name="com.example.op.activity.analyze.FitbitAnalyzeActivity"
             android:exported="true"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="fullSensor"/>
+        <activity
+            android:name="com.example.op.activity.analyze.FitbitAnalyzeSettingsActivity"
+            android:exported="true"
+            android:screenOrientation="fullSensor"/>
         <activity
             android:name="com.example.op.activity.PhoneAnalyzeActivity"
             android:exported="true"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="fullSensor"/>
         <activity
             android:name="com.example.op.activity.report.ReportActivity"
             android:exported="true"
-            android:screenOrientation="fullSensor" />
+            android:label="@string/report_activity_title"
+            android:screenOrientation="fullSensor"/>
         <activity
             android:name="com.example.op.activity.report.ReportReceiversActivity"
             android:exported="true"
+            android:label="@string/report_receivers_activity_title"
             android:screenOrientation="fullSensor" />
         <activity
             android:name="com.example.op.activity.settings.SettingsActivity"
             android:exported="true"
+            android:label="@string/settings_activity_title"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name="com.example.op.activity.SettingsFitbitActivity"
+            android:name="com.example.op.activity.settings.SettingsFitbitActivity"
             android:exported="true"
             android:parentActivityName="com.example.op.activity.MainActivity"
             android:screenOrientation="fullSensor">
@@ -116,9 +118,8 @@
             android:exported="true"
             android:screenOrientation="fullSensor"/>
         <activity
-            android:name="com.example.op.activity.EmergencyActivity"
+            android:name="com.example.op.activity.extra.EmergencyActivity"
             android:exported="true"
             android:screenOrientation="fullSensor"/>
     </application>
-
 </manifest>

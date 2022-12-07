@@ -21,7 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/language_button"/>
-
+        <Button
+            android:id="@+id/button_expert_system_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Expert system"/>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

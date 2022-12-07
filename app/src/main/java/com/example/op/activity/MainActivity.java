@@ -18,13 +18,16 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import androidx.core.app.ActivityCompat;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
 
 import com.example.database.AppDatabase;
 import com.example.database.InitialDatabaseData;
 import com.example.expertsystem.ExpertSystem;
 import com.example.op.R;
+import com.example.op.activity.analyze.AnalyzeActivity;
+import com.example.op.activity.extra.EmergencyActivity;
+import com.example.op.activity.extra.TranslatedAppCompatActivity;
 import com.example.op.activity.history.TreatmentHistoryActivity;
 import com.example.op.activity.profile.ProfileActivity;
 import com.example.op.activity.report.ReportActivity;
@@ -34,9 +37,7 @@ import com.example.op.utils.InitialSharedPreferences;
 import com.example.op.utils.LocaleHelper;
 import com.example.op.worker.WorkerFactory;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 import lombok.SneakyThrows;
 
@@ -44,16 +45,10 @@ public class MainActivity extends TranslatedAppCompatActivity implements View.On
 
     private String CHANNEL_ID = "1";
     private static final String TAG = MainActivity.class.getName();
-
     private AppDatabase database;
     private Button dailyControlBtn;
+    private OneTimeWorkRequest userActivityRangeRequest;
     private WorkerFactory workerFactory;
-
-    private PeriodicWorkRequest fitbitDataRequest, localizationRequest, movementRequest, notificationRequest,
-    stopAllWorkerRequest;
-
-    private WorkManager workManager;
-
     private float screenX1, screenX2;
 
     @Override
@@ -89,6 +84,7 @@ public class MainActivity extends TranslatedAppCompatActivity implements View.On
         database = AppDatabase.getDatabaseInstance(this);
         InitialDatabaseData.initControlTextQuestions(database);
         InitialDatabaseData.initProfile(database);
+        InitialDatabaseData.initData(database);
 
         InitialSharedPreferences.initStartValues(this);
         SharedPreferences sharPref = this.getSharedPreferences(getString(R.string.opium_preferences), Context.MODE_PRIVATE);
@@ -99,46 +95,6 @@ public class MainActivity extends TranslatedAppCompatActivity implements View.On
         }
 
         workerFactory = new WorkerFactory(this);
-        workerFactory.enqueueWorks();
-//
-//        workManager = WorkManager.getInstance(this);
-//
-//        Data repeatable = new Data.Builder()
-//                .putBoolean(getString(R.string.is_repeatable), true)
-//                .build();
-//
-//        WorkRequest userActivityRangeWorker =
-//                new OneTimeWorkRequest.Builder(UserActivityRangeWorker.class)
-//                        .setInputData()
-//                        .build();
-//
-//
-////        String fitbitDataStartTime = sharPref.getString(getString(R.string.fitbit_data_interval_start_time), "00:00");
-////        Duration intervalStart = extractInitialDelayValue(fitbitDataStartTime);
-//        fitbitDataRequest = new PeriodicWorkRequest.Builder(FitbitDataWorker.class, 15, TimeUnit.MINUTES)
-//                .setInputData(repeatable)
-////                .setInitialDelay(intervalStart)
-//                .build();
-//
-//        localizationRequest = new PeriodicWorkRequest.Builder(PhoneLocalizationWorker.class, 15, TimeUnit.MINUTES)
-//                    .setInputData(repeatable)
-//                    .build();
-//
-//
-//        String phoneMovementStartTime = sharPref.getString(getString(R.string.phone_movement_interval_start_time), "12:00");
-//        //intervalStart = extractInitialDelayValue(phoneMovementStartTime);
-//        movementRequest = new PeriodicWorkRequest.Builder(PhoneMovementWorker.class, 15, TimeUnit.MINUTES)
-//                        .setInputData(repeatable)
-//                        //.setInitialDelay(intervalStart)
-//                        .build();
-//
-//        String notificationStartTime = sharPref.getString(getString(R.string.notification_interval_start_time), "12:00");
-//        //intervalStart = extractInitialDelayValue(notificationStartTime);
-//        notificationRequest =
-//                new PeriodicWorkRequest.Builder(NotificationWorker.class, 15, TimeUnit.MINUTES)
-//                        .setInputData(repeatable)
-//                        //.setInitialDelay(intervalStart)
-//                        .build();
     }
 
     private void createNotificationChannel() {
@@ -220,15 +176,5 @@ public class MainActivity extends TranslatedAppCompatActivity implements View.On
             }
         }
         return false;
-    }
-
-    private Duration extractInitialDelayValue(String sharedPrefTimeValue) {
-        LocalTime intervalStartTime = LocalTime.parse(sharedPrefTimeValue);
-        LocalTime now = LocalTime.now();
-        if (now.isBefore(intervalStartTime)) {
-            return Duration.between(intervalStartTime, now);
-        } else {
-            return Duration.between(intervalStartTime, now.plusHours(12));
-        }
     }
 }

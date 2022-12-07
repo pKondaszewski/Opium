@@ -6,8 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.op.fragment.FitbitMonthStepsFragment;
-import com.example.op.fragment.FitbitWeekStepsFragment;
+import com.example.op.fragment.fitbit.steps.FitbitMonthsStepsFragment;
+import com.example.op.fragment.fitbit.steps.FitbitDaysStepsFragment;
 
 import java.util.List;
 
@@ -18,19 +18,15 @@ public class FitbitStepsAdapter extends FragmentStateAdapter {
 
     public FitbitStepsAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
-        FitbitWeekStepsFragment fitbitWeekStepsFragment = new FitbitWeekStepsFragment();
-        FitbitMonthStepsFragment fitbitMonthStepsFragment = new FitbitMonthStepsFragment();
-        fragments = List.of(fitbitWeekStepsFragment, fitbitMonthStepsFragment);
+        FitbitDaysStepsFragment fitbitDaysStepsFragment = new FitbitDaysStepsFragment();
+        FitbitMonthsStepsFragment fitbitMonthsStepsFragment = new FitbitMonthsStepsFragment();
+        fragments = List.of(fitbitDaysStepsFragment, fitbitMonthsStepsFragment);
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        if (position == 0) {
-            return fragments.get(0);
-        } else {
-            return fragments.get(1);
-        }
+        return fragments.get(position);
     }
 
     @Override

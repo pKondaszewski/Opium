@@ -2,17 +2,17 @@ package com.example.op.activity.report;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.op.R;
+import com.example.op.activity.extra.TranslatedAppCompatActivity;
 import com.example.op.adapter.report.ReportReceiversAdapter;
 import com.example.op.utils.simple.SimpleOnTabSelectedListener;
 import com.google.android.material.tabs.TabLayout;
 
 
-public class ReportReceiversActivity extends AppCompatActivity {
+public class ReportReceiversActivity extends TranslatedAppCompatActivity {
 
     private ViewPager2 vp2;
 

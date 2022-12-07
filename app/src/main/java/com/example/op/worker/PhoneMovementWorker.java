@@ -31,7 +31,6 @@ public class PhoneMovementWorker extends Worker implements SensorEventListener {
     private float deviceAcceleration;
     private float currentAcceleration;
     private float lastAcceleration;
-    private boolean isRepeatable;
 
 
     public PhoneMovementWorker(@NonNull Context context, @NonNull WorkerParameters params) {
@@ -41,7 +40,6 @@ public class PhoneMovementWorker extends Worker implements SensorEventListener {
     @Override
     public Result doWork() {
         context = getApplicationContext();
-        isRepeatable = getInputData().getBoolean(context.getString(R.string.is_repeatable), false);
         database = AppDatabase.getDatabaseInstance(getApplicationContext());
 
         lastLocalDateTime = LocalDateTime.now();
@@ -69,6 +67,10 @@ public class PhoneMovementWorker extends Worker implements SensorEventListener {
             deviceAcceleration = deviceAcceleration * 0.9f + delta;
             // Make this higher or lower according to how much
             // motion you want to detect
+
+            if (deviceAcceleration > 1)
+                System.out.println(deviceAcceleration);
+
             if (deviceAcceleration > 1 && LocalDateTime.now().isAfter(lastLocalDateTime)) {
                 PhoneMovement phoneMovement = new PhoneMovement(null, LocalDate.now(), LocalTime.now());
                 database.phoneMovementDao().insert(phoneMovement);

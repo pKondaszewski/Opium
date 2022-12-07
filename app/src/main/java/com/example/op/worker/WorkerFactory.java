@@ -2,6 +2,7 @@ package com.example.op.worker;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
 import androidx.core.app.ActivityCompat;
@@ -10,45 +11,34 @@ import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.example.database.AppDatabase;
 import com.example.op.R;
-import com.google.common.util.concurrent.ListenableFuture;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import lombok.SneakyThrows;
 
 public class WorkerFactory {
 
+    private final static String TAG = WorkerFactory.class.getName();
     private final AppDatabase database;
     private final Context context;
     private final PeriodicWorkRequest fitbitDataRequest, localizationRequest, movementRequest, notificationRequest;
+    private final SharedPreferences sharPref;
     private final WorkManager workManager;
-    private final OneTimeWorkRequest userActivityRangeRequest;
 
     public WorkerFactory(Context context) {
         this.context = context;
         database = AppDatabase.getDatabaseInstance(context);
+        sharPref = context.getSharedPreferences(context.getString(R.string.opium_preferences), Context.MODE_PRIVATE);
         workManager = WorkManager.getInstance(context);
 
         Data repeatable = new Data.Builder()
                 .putBoolean(context.getString(R.string.is_repeatable), true)
                 .build();
 
-        userActivityRangeRequest =
-                new OneTimeWorkRequest.Builder(UserActivityRangeWorker.class)
-                        //.setInputData()
-                        .build();
-
-//        String fitbitDataStartTime = sharPref.getString(getString(R.string.fitbit_data_interval_start_time), "00:00");
-//        Duration intervalStart = extractInitialDelayValue(fitbitDataStartTime);
         fitbitDataRequest = new PeriodicWorkRequest.Builder(FitbitDataWorker.class, 15, TimeUnit.MINUTES)
                 .setInputData(repeatable)
-//                .setInitialDelay(intervalStart)
                 .addTag("tag")
                 .build();
 
@@ -57,29 +47,25 @@ public class WorkerFactory {
                 .addTag("tag")
                 .build();
 
-
-        //String phoneMovementStartTime = sharPref.getString(getString(R.string.phone_movement_interval_start_time), "12:00");
-        //intervalStart = extractInitialDelayValue(phoneMovementStartTime);
         movementRequest = new PeriodicWorkRequest.Builder(PhoneMovementWorker.class, 15, TimeUnit.MINUTES)
                 .setInputData(repeatable)
-                //.setInitialDelay(intervalStart)
                 .addTag("tag")
                 .build();
 
-        //String notificationStartTime = sharPref.getString(getString(R.string.notification_interval_start_time), "12:00");
-        //intervalStart = extractInitialDelayValue(notificationStartTime);
+        //TODO: Initial delay zeby zapytanie bylo o okreslonej godzinie przez uzytkownika np. 12:00
         notificationRequest =
                 new PeriodicWorkRequest.Builder(NotificationWorker.class, 15, TimeUnit.MINUTES)
                         .setInputData(repeatable)
-                        //.setInitialDelay(intervalStart)
                         .addTag("tag")
                         .build();
     }
 
     public void enqueueWorks() {
-
-        if (database.fitbitAccessTokenDao().getNewestAccessToken().isPresent()) {
-            workManager.enqueueUniquePeriodicWork("fitbitDataRequest", ExistingPeriodicWorkPolicy.KEEP, localizationRequest);
+        if (database.fitbitAccessTokenDao().getNewestAccessToken().isPresent() &&
+                sharPref.getBoolean(context.getString(R.string.fitbit_switch_state), false)) {
+            workManager.enqueueUniquePeriodicWork("fitbitDataRequest", ExistingPeriodicWorkPolicy.KEEP, fitbitDataRequest);
+        } else {
+            workManager.cancelUniqueWork("fitbitDataRequest");
         }
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -87,6 +73,5 @@ public class WorkerFactory {
         }
         workManager.enqueueUniquePeriodicWork("movementRequest", ExistingPeriodicWorkPolicy.KEEP, movementRequest);
         workManager.enqueueUniquePeriodicWork("notificationRequest", ExistingPeriodicWorkPolicy.KEEP, notificationRequest);
-        workManager.enqueueUniqueWork("userActivityRangeRequest", ExistingWorkPolicy.KEEP, userActivityRangeRequest);
     }
 }

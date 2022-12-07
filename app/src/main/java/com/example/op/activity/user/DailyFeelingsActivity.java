@@ -1,6 +1,7 @@
 package com.example.op.activity.user;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -15,18 +16,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.database.AppDatabase;
 import com.example.database.entity.DailyFeelings;
 import com.example.op.R;
-import com.example.op.activity.TranslatedAppCompatActivity;
+import com.example.op.activity.extra.TranslatedAppCompatActivity;
 import com.example.op.utils.JsonManipulator;
 import com.example.op.utils.simple.SimpleTextWatcher;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 import co.ankurg.expressview.ExpressView;
 import co.ankurg.expressview.OnCheckListener;
+import lombok.SneakyThrows;
 
 public class DailyFeelingsActivity extends TranslatedAppCompatActivity implements View.OnClickListener,
         OnCheckListener {
@@ -42,6 +50,7 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
     private LocalDate dailyFeelingsDate;
     private String otherAilments, mood;
 
+    @SneakyThrows
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,8 +101,17 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
             String jsonString = intent.getStringExtra(getString(R.string.daily_feelings_as_json));
             setupDailyFeelingsFromTreatmentHistory(jsonString);
         }
+        String formattedDate;
+        SharedPreferences sharPref = getSharedPreferences(getString(R.string.opium_preferences), MODE_PRIVATE);
+        String lang = sharPref.getString("language", "en");
+        if (lang.equals("pl")) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            formattedDate = dailyFeelingsDate.format(formatter);
+        } else {
+            formattedDate = dailyFeelingsDate.toString();
+        }
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(dailyFeelingsDate.toString());
+        actionBar.setTitle(formattedDate);
     }
 
     private void setupDailyFeelingsFromTreatmentHistory(String jsonString) {

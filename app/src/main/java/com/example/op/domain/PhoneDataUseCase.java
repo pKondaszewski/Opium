@@ -9,6 +9,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.time.LocalDate;
@@ -44,22 +45,17 @@ public class PhoneDataUseCase {
 
     public BarData getPhoneMovementActivityBarData(Map<LocalDate, Integer> movementsCountByEveryDate) {
         ArrayList<BarEntry> entries = new ArrayList<>();
-
-        movementsCountByEveryDate.forEach( (k, v) ->
+        movementsCountByEveryDate.forEach((k, v) ->
                 entries.add(new BarEntry((float) k.getDayOfMonth(), v.floatValue()))
         );
 
-        ArrayList<Integer> colors = new ArrayList<>();
-        for (int color : ColorTemplate.MATERIAL_COLORS) {
-            colors.add(color);
-        }
-
         BarDataSet barDataSet = new BarDataSet(entries, "Wykres label");
-        barDataSet.setColors(colors);
+        barDataSet.setColor(ColorTemplate.rgb("3587A4"));
         barDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
 
         BarData barData = new BarData(barDataSet);
-        barData.setDrawValues(true);
+        barData.setDrawValues(false);
+        barData.setValueFormatter(new DefaultAxisValueFormatter(0));
         return barData;
     }
 }

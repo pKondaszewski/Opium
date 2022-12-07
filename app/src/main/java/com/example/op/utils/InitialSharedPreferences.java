@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 
 import com.example.op.R;
 
+import java.time.LocalTime;
+
 public class InitialSharedPreferences {
 
     public static void initStartValues(Context context) {
@@ -18,6 +20,18 @@ public class InitialSharedPreferences {
         String gmailPassword = sharPref.getString("gmail_password", null);
         if (gmailPassword == null) {
             edit.putString("gmail_password", context.getString(com.example.database.R.string.gmail_password));
+        }
+        String userMonitoringStatus = sharPref.getString("user_monitoring_status", null);
+        if (userMonitoringStatus == null) {
+            LocalTime now = LocalTime.now();
+            LocalTime start = LocalTime.of(8, 0);
+            LocalTime stop = LocalTime.of(22, 0);
+
+            if (now.isBefore(start) || now.isAfter(stop)) {
+                edit.putString("user_monitoring_status", "stopped");
+            } else {
+                edit.putString("user_monitoring_status", "running");
+            }
         }
         edit.apply();
     }

@@ -2,7 +2,6 @@ package com.example.op.fragment.report;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -15,10 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import com.example.database.AppDatabase;
-import com.example.database.entity.PhoneContact;
 import com.example.database.entity.Profile;
 import com.example.op.R;
 import com.example.op.email.SendMail;
@@ -27,7 +24,6 @@ import com.example.op.fragment.report.receivers.ReportFragment;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -47,7 +43,7 @@ public class GeneralReportFragment extends ReportFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         context = getContext();
 
-        TextView dateValueTv = view.findViewById(R.id.text_view_date_value);
+        TextView dateValueTv = view.findViewById(R.id.text_view_date);
         TextView nameValueTv = view.findViewById(R.id.text_view_name_value);
         setupPersonalData(LocalDate.now(), List.of(dateValueTv, nameValueTv), database);
 

@@ -18,7 +18,7 @@
             android:id="@+id/switch_fitbit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:button="@mipmap/fitbit_logo"
+            android:button="@drawable/fitbit_app_icon"
             android:paddingHorizontal="10dp"
             android:text="@string/fitbit_switch"/>
     </LinearLayout>

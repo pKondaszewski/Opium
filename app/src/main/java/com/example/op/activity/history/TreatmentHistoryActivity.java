@@ -145,7 +145,7 @@ public class TreatmentHistoryActivity extends AppCompatActivity implements Calen
     }
 
     private boolean isFitbitEnable() {
-        return FitbitUtils.isEnabled(sharPref, getString(R.string.switch_state));
+        return FitbitUtils.isEnabled(sharPref, getString(R.string.fitbit_switch_state));
     }
 
     private void setFitbitDataVisible() {
