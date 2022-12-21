@@ -1,8 +1,10 @@
 package com.example.op.activity.extra;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.view.MotionEvent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,9 +13,10 @@ import com.example.op.utils.LocaleHelper;
 
 import java.util.Locale;
 
-public class TranslatedAppCompatActivity extends AppCompatActivity {
+public class ExtendedAppCompatActivity extends AppCompatActivity {
 
     private Locale currentLocale;
+    private float screenX1, screenX2;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -49,5 +52,19 @@ public class TranslatedAppCompatActivity extends AppCompatActivity {
                 break;
         }
         return new Locale(lang);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            screenX1 = event.getX();
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            screenX2 = event.getX();
+            if (screenX1 - screenX2 > 0) {
+                Intent intent = new Intent(this, EmergencyActivity.class);
+                startActivity(intent);
+            }
+        }
+        return false;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.expertsystem.engine;
+package com.example.expertsystem.processor;
 
 import com.example.expertsystem.ExpertSystem;
 

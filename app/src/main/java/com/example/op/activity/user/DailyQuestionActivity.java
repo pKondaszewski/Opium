@@ -1,5 +1,6 @@
 package com.example.op.activity.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.example.database.dao.ControlTextQuestionDao;
 import com.example.database.entity.ControlTextQuestion;
 import com.example.database.entity.ControlTextUserAnswer;
 import com.example.op.R;
+import com.example.op.activity.MainActivity;
 import com.example.op.exception.ResourceNotFoundException;
 
 import java.time.LocalDate;
@@ -109,6 +111,8 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
         database.controlTextUserAnswerDao().insert(controlTextUserAnswer);
         Log.i(TAG, "User answered on control text question nr." + questionId +
                 " with following answer: " + controlTextUserAnswer);
+        Intent intent = new Intent(this, MainActivity.class);
         finish();
+        startActivity(intent);
     }
 }
