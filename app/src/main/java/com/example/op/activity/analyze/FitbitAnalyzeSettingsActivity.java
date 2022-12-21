@@ -21,8 +21,8 @@ public class FitbitAnalyzeSettingsActivity extends TranslatedAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fitbit_analyze_settings);
         context = getApplicationContext();
-        sharPref = context.getSharedPreferences(context.getString(R.string.opium_preferences), Context.MODE_PRIVATE);
-        int initValue = sharPref.getInt(context.getString(R.string.days_on_chart), 7);
+        sharPref = context.getSharedPreferences(context.getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
+        int initValue = sharPref.getInt(context.getString(com.example.database.R.string.days_on_chart), 7);
 
         numberPicker = findViewById(R.id.number_picker_days_value);
         numberPicker.setMinValue(3);
@@ -34,7 +34,7 @@ public class FitbitAnalyzeSettingsActivity extends TranslatedAppCompatActivity {
     protected void onPause() {
         super.onPause();
         sharPref.edit()
-                .putInt(context.getString(R.string.days_on_chart), numberPicker.getValue())
+                .putInt(context.getString(com.example.database.R.string.days_on_chart), numberPicker.getValue())
                 .apply();
     }
 }

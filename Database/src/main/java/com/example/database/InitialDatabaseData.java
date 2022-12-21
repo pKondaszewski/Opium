@@ -31,30 +31,30 @@ public class InitialDatabaseData {
         ProfileDao profileDao = database.profileDao();
         if (!profileDao.get().isPresent()) {
             profileDao.insert(
-                    new Profile(null, "Jan", "Kowalski", LocalDate.of(2000, 1,1),"Mężczyzna","123456789","test@gmail.com", new HomeAddress("Dworcowa 23B", "76-031", "Polska")));
+                    new Profile(null, "Jan", "Kowalski", LocalDate.of(2000, 1,1),"Male","123456789","test@gmail.com", new HomeAddress("Dworcowa 23B Mścice", "76-031", "Polska")));
         }
     }
 
     public static void initData(AppDatabase database) {
         PhoneLocalizationDao phoneLocalizationDao = database.phoneLocalizationDao();
         if (phoneLocalizationDao.getAll().isEmpty()) {
-            phoneLocalizationDao.insert(new PhoneLocalization(1, LocalTime.now(), LocalDate.now(), 1, 1, new HomeAddress("Dworcowa 23B/2", "76-031", "Polska")));
-            phoneLocalizationDao.insert(new PhoneLocalization(2, LocalTime.now(), LocalDate.now(), 1, 1, new HomeAddress("Dworcowa 23B/2", "76-031", "Polska")));
-            phoneLocalizationDao.insert(new PhoneLocalization(3, LocalTime.now(), LocalDate.now(), 1, 1, new HomeAddress("Dworcowa 23B/2", "76-031", "Polska")));
+            phoneLocalizationDao.insert(new PhoneLocalization(1, LocalTime.now(), LocalDate.now(), 54.216635, 16.076754, new HomeAddress("Dworcowa 23B/2", "76-031", "Poland")));
+            phoneLocalizationDao.insert(new PhoneLocalization(2, LocalTime.now(), LocalDate.now(), 54.216635, 16.076754, new HomeAddress("Dworcowa 23B/2", "76-031", "Poland")));
+            phoneLocalizationDao.insert(new PhoneLocalization(3, LocalTime.now(), LocalDate.now(), 54.216635, 16.076754, new HomeAddress("Dworcowa 23B/2", "76-031", "Poland")));
         }
         PhoneMovementDao phoneMovementDao = database.phoneMovementDao();
         if (phoneMovementDao.getAll().isEmpty()) {
-            phoneMovementDao.insert(new PhoneMovement(1, LocalDate.of(1,2,3), LocalTime.of(1,2)));
-            phoneMovementDao.insert(new PhoneMovement(2, LocalDate.of(1,2,4), LocalTime.of(1,2)));
-            phoneMovementDao.insert(new PhoneMovement(3, LocalDate.of(1,2,4), LocalTime.of(1,2)));
-            phoneMovementDao.insert(new PhoneMovement(4, LocalDate.of(1,2,5), LocalTime.of(1,2)));
-            phoneMovementDao.insert(new PhoneMovement(5, LocalDate.of(1,2,5), LocalTime.of(1,2)));
-            phoneMovementDao.insert(new PhoneMovement(6, LocalDate.of(1,2,5), LocalTime.of(1,2)));
-            phoneMovementDao.insert(new PhoneMovement(7, LocalDate.of(1,2,6), LocalTime.of(1,2)));
+            phoneMovementDao.insert(new PhoneMovement(1, LocalDate.now(), LocalTime.of(1,2)));
+            phoneMovementDao.insert(new PhoneMovement(2, LocalDate.now(), LocalTime.of(1,3)));
+            phoneMovementDao.insert(new PhoneMovement(3, LocalDate.now(), LocalTime.of(1,4)));
+            phoneMovementDao.insert(new PhoneMovement(4, LocalDate.now(), LocalTime.of(1,5)));
+            phoneMovementDao.insert(new PhoneMovement(5, LocalDate.now(), LocalTime.of(1,6)));
+            phoneMovementDao.insert(new PhoneMovement(6, LocalDate.now(), LocalTime.of(1,7)));
+            phoneMovementDao.insert(new PhoneMovement(7, LocalDate.now(), LocalTime.of(5,8)));
         }
         FitbitStepsDataDao fitbitStepsDataDao = database.fitbitStepsDataDao();
         if (fitbitStepsDataDao.getAll().isEmpty()) {
-            //fitbitStepsDataDao.insert(new FitbitStepsData(1, LocalDate.now(), LocalTime.now(), "100"));
+            fitbitStepsDataDao.insert(new FitbitStepsData(7, LocalDate.now(), LocalTime.now(), "100"));
             fitbitStepsDataDao.insert(new FitbitStepsData(1, LocalDate.of(2022, 11,27), LocalTime.now(), "100"));
             fitbitStepsDataDao.insert(new FitbitStepsData(2, LocalDate.of(2022, 11,24), LocalTime.now(), "120"));
             fitbitStepsDataDao.insert(new FitbitStepsData(3, LocalDate.of(2022, 10,23), LocalTime.now(), "150"));
@@ -64,7 +64,7 @@ public class InitialDatabaseData {
         }
         FitbitSpo2DataDao fitbitSpo2DataDao = database.fitbitSpO2DataDao();
         if (fitbitSpo2DataDao.getAll().isEmpty()) {
-            //fitbitSpo2DataDao.insert(new FitbitSpO2Data(1, LocalDate.now(), LocalTime.now(), "97"));
+            fitbitSpo2DataDao.insert(new FitbitSpO2Data(7, LocalDate.now(), LocalTime.now(), "97"));
             fitbitSpo2DataDao.insert(new FitbitSpO2Data(1, LocalDate.of(2022, 11,27), LocalTime.now(), "99"));
             fitbitSpo2DataDao.insert(new FitbitSpO2Data(2, LocalDate.of(2022, 11,24), LocalTime.now(), "93"));
             fitbitSpo2DataDao.insert(new FitbitSpO2Data(3, LocalDate.of(2022, 10,23), LocalTime.now(), "87"));

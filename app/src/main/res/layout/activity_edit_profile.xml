@@ -8,28 +8,28 @@
         android:layout_height="match_parent">
         <TableRow>
             <TextView
-                android:layout_weight="0.5"
+                style="@style/TextViewH2"
                 android:gravity="center"
                 android:text="@string/firstname_text_view"/>
             <EditText
                 android:id="@+id/edit_text_firstname_value"
                 android:inputType="textPersonName"
-                android:layout_weight="0.5"/>
+                android:layout_weight="0.1"/>
         </TableRow>
         <TableRow>
             <TextView
-                android:layout_weight="0.5"
+                style="@style/TextViewH2"
                 android:gravity="center"
                 android:text="@string/lastname_text_view"/>
             <EditText
                 android:id="@+id/edit_text_lastname_value"
                 android:inputType="textPersonName"
-                android:layout_weight="0.5"/>
+                android:layout_weight="0.1"/>
         </TableRow>
         <TableRow>
             <TextView
+                style="@style/TextViewH2"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
                 android:freezesText="true"
                 android:gravity="center"
                 android:text="@string/birthdate_text_view"/>
@@ -40,65 +40,67 @@
                 android:calendarViewShown="false"
                 android:datePickerMode="spinner"
                 android:startYear="1850"
-                android:layout_weight="0.5"/>
+                android:layout_weight="0.1"/>
         </TableRow>
         <TableRow>
             <TextView
-                android:layout_weight="0.5"
+                style="@style/TextViewH2"
                 android:gravity="center"
                 android:text="@string/sex_text_view"/>
-            <EditText
-                android:id="@+id/edit_text_sex_value"
-                android:layout_weight="0.5"/>
+            <Spinner
+                android:id="@+id/spinner_sex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"/>
         </TableRow>
         <TableRow>
             <TextView
-                android:layout_weight="0.5"
+                style="@style/TextViewH2"
                 android:gravity="center"
                 android:text="@string/phone_number_text_view"/>
             <EditText
                 android:id="@+id/edit_text_phone_number_value"
                 android:inputType="phone"
-                android:layout_weight="0.5"/>
+                android:layout_weight="0.1"/>
         </TableRow>
         <TableRow>
             <TextView
-                android:layout_weight="0.5"
+                style="@style/TextViewH2"
                 android:gravity="center"
                 android:text="@string/email_address_label_text_view"/>
             <EditText
                 android:id="@+id/edit_text_email_address_value"
                 android:inputType="textEmailAddress"
-                android:layout_weight="0.5"/>
+                android:layout_weight="0.1"/>
         </TableRow>
         <TableRow>
             <TextView
-                android:layout_weight="0.5"
+                style="@style/TextViewH2"
                 android:gravity="center"
                 android:text="@string/home_address_label_text_view"/>
             <EditText
                 android:id="@+id/edit_text_street_address_value"
                 android:inputType="textEmailAddress"
-                android:layout_weight="0.5"/>
+                android:layout_weight="0.1"/>
         </TableRow>
         <TableRow>
             <TextView
-                android:layout_weight="0.5"
+                style="@style/TextViewH2"
                 android:gravity="center"
                 android:text="@string/postal_code_text_view"/>
             <EditText
                 android:id="@+id/edit_text_postal_code_value"
                 android:inputType="phone"
-                android:layout_weight="0.5"/>
+                android:layout_weight="0.1"/>
         </TableRow>
         <TableRow>
             <TextView
-                android:layout_weight="0.5"
+                style="@style/TextViewH2"
                 android:gravity="center"
                 android:text="@string/country_text_view"/>
             <EditText
                 android:id="@+id/edit_text_country_name_value"
-                android:layout_weight="0.5"/>
+                android:layout_weight="0.1"/>
         </TableRow>
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

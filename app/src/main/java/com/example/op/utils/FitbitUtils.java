@@ -7,6 +7,6 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class FitbitUtils {
     public boolean isEnabled(SharedPreferences sharedPreferences, String key) {
-        return sharedPreferences.getBoolean(key, false);
+        return sharedPreferences.getString(key, "false").equals("true");
     }
 }

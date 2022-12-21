@@ -14,21 +14,21 @@ import java.util.stream.Collectors;
 
 import lombok.Cleanup;
 
-public abstract class FuzzyLogicEngine {
+public abstract class FuzzyLogicProcessor {
 
     private final String TAG;
 
-    public FuzzyLogicEngine(String TAG) {
+    public FuzzyLogicProcessor(String TAG) {
         this.TAG = TAG;
     }
 
     public abstract Double process();
 
-    protected abstract List<ArrayList<Double>> inference(Double var1, Double var2);
+    protected abstract List<List<Double>> inference(Double var1, Double var2);
 
     protected abstract Double defuzzyficate(List<Double> maxValues);
 
-    protected void fillTherms(List<TreeMap<Double, Double>> therms, URL csvFilePath) {
+    protected void fillTherms(List<TreeMap<Double, Double>> therms, URL csvFilePath, int size) {
         try {
             @Cleanup BufferedReader br = new BufferedReader(new InputStreamReader(csvFilePath.openStream()));
             String line;
@@ -39,9 +39,9 @@ public abstract class FuzzyLogicEngine {
                 List<Double> oneLineElementsFromCsvFile = Arrays.stream(line.split(","))
                         .map(Double::parseDouble).collect(Collectors.toList());
                 Double argValue = oneLineElementsFromCsvFile.get(0);
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < size; i++) {
                     TreeMap<Double, Double> therm = therms.get(i);
-                    Double elementValue = oneLineElementsFromCsvFile.get(i+1);
+                    Double elementValue = oneLineElementsFromCsvFile.get(i+1); //i+1
                     therm.put(argValue, elementValue);
                 }
             }

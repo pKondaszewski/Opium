@@ -1,6 +1,7 @@
 package com.example.expertsystem.processor;
 
 import com.example.expertsystem.ExpertSystem;
+import com.example.expertsystem.ExpertSystemLevel;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,19 +10,21 @@ import java.util.Objects;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class PhoneActivityEngine extends FuzzyLogicEngine {
+public class PhoneActivityProcessor extends FuzzyLogicProcessor {
 
-    private static final String TAG = PhoneActivityEngine.class.getName();
+    private static final String TAG = PhoneActivityProcessor.class.getName();
     private final Integer notedMovements;
-    private final Double phoneLocalizationEngineResult;
+    private final Double phoneLocalizationProcessorResult;
+    private final ExpertSystemLevel level;
     private List<TreeMap<Double, Double>> therms, therms1;
     private TreeMap<Double, Double> therm1, therm2, therm3, therm4, therm5,
             therm11, therm22, therm33, therm44, therm55;
 
-    public PhoneActivityEngine(Integer notedMovements, Double phoneLocalizationEngineResult) {
+    public PhoneActivityProcessor(Integer notedMovements, Double phoneLocalizationProcessorResult, ExpertSystemLevel level) {
         super(TAG);
         this.notedMovements = notedMovements;
-        this.phoneLocalizationEngineResult = phoneLocalizationEngineResult;
+        this.phoneLocalizationProcessorResult = phoneLocalizationProcessorResult;
+        this.level = level;
 
         therm1 = new TreeMap<>();
         therm2 = new TreeMap<>();
@@ -41,12 +44,12 @@ public class PhoneActivityEngine extends FuzzyLogicEngine {
     @Override
     public Double process() {
         URL resource = ExpertSystem.class.getResource("/therms/phone_movement.csv");
-        URL resource2 = ExpertSystem.class.getResource("/therms/phone_localization.csv");
-        fillTherms(therms, Objects.requireNonNull(resource));
-        fillTherms(therms1, Objects.requireNonNull(resource2));
+        URL resource1 = ExpertSystem.class.getResource("/therms/phone_localization.csv");
+        fillTherms(therms, Objects.requireNonNull(resource), therms.size());
+        fillTherms(therms1, Objects.requireNonNull(resource1), therms1.size());
 
         double notedMovementAsDouble = notedMovements.doubleValue();
-        List<ArrayList<Double>> inferenceResult = inference(notedMovementAsDouble, phoneLocalizationEngineResult);
+        List<List<Double>> inferenceResult = inference(notedMovementAsDouble, phoneLocalizationProcessorResult);
         List<Double> maxValues = inferenceResult.stream()
                 .map(doubles -> doubles.stream().max(Double::compare).get())
                 .collect(Collectors.toList());
@@ -54,18 +57,20 @@ public class PhoneActivityEngine extends FuzzyLogicEngine {
     }
 
     @Override
-    protected List<ArrayList<Double>> inference(Double notedMovement, Double phoneLocalizationEngineResult) {
+    protected List<List<Double>> inference(Double notedMovement, Double phoneLocalizationProcessorResult) {
+        phoneLocalizationProcessorResult = parseToOneDecimalPlaces(phoneLocalizationProcessorResult);
+
         Double var1 = therm1.get(notedMovement);
         Double var2 = therm2.get(notedMovement);
         Double var3 = therm3.get(notedMovement);
         Double var4 = therm4.get(notedMovement);
         Double var5 = therm5.get(notedMovement);
 
-        Double var11 = therm11.get(phoneLocalizationEngineResult);
-        Double var22 = therm22.get(phoneLocalizationEngineResult);
-        Double var33 = therm33.get(phoneLocalizationEngineResult);
-        Double var44 = therm44.get(phoneLocalizationEngineResult);
-        Double var55 = therm55.get(phoneLocalizationEngineResult);
+        Double var11 = therm11.get(phoneLocalizationProcessorResult);
+        Double var22 = therm22.get(phoneLocalizationProcessorResult);
+        Double var33 = therm33.get(phoneLocalizationProcessorResult);
+        Double var44 = therm44.get(phoneLocalizationProcessorResult);
+        Double var55 = therm55.get(phoneLocalizationProcessorResult);
 
         ArrayList<Double> rules1 = new ArrayList<>();
         ArrayList<Double> rules2 = new ArrayList<>();
@@ -102,6 +107,12 @@ public class PhoneActivityEngine extends FuzzyLogicEngine {
         rules3.add(Math.min(var5, var55));
 
         return List.of(rules1, rules2, rules3);
+    }
+
+    private double parseToOneDecimalPlaces(double value) {
+        double v = value * 10.0;
+        long roundValue = Math.round(v);
+        return roundValue / 10.0;
     }
 
     @Override

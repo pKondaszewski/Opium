@@ -15,8 +15,8 @@ public interface ControlTextUserAnswerDao {
     @Query("SELECT * FROM ControlTextUserAnswer WHERE id = :id")
     Optional<ControlTextUserAnswer> getById(Integer id);
 
-    @Query("SELECT * FROM ControlTextUserAnswer WHERE dateOfAnswer = :date")
-    Optional<ControlTextUserAnswer> getByDate(LocalDate date);
+    @Query("SELECT * FROM ControlTextUserAnswer WHERE dateOfAnswer = :date ORDER BY timeOfAnswer DESC LIMIT 1")
+    Optional<ControlTextUserAnswer> getNewestByDate(LocalDate date);
 
     @Query("SELECT COUNT(id) FROM ControlTextUserAnswer;")
     Optional<Integer> getAllCount();

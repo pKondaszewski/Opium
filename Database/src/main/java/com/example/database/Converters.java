@@ -8,6 +8,16 @@ import java.util.List;
 
 public class Converters {
     @TypeConverter
+    public static List<String> stringToList(String string) {
+        return string == null ? null : List.of(string.split(";"));
+    }
+
+    @TypeConverter
+    public static String listToString(List<String> list) {
+        return list == null ? null : String.join(";", list);
+    }
+
+    @TypeConverter
     public static LocalDate timestampToLocalDate(Long value) {
         return value == null ? null : LocalDate.ofEpochDay(value);
     }
@@ -25,16 +35,6 @@ public class Converters {
     @TypeConverter
     public static String localTimeToString(LocalTime localTime) {
         return localTime == null ? null : localTime.toString();
-    }
-
-    @TypeConverter
-    public static List<String> stringToList(String string) {
-        return string == null ? null : List.of(string.split(";"));
-    }
-
-    @TypeConverter
-    public static String listToString(List<String> list) {
-        return list == null ? null : String.join(";", list);
     }
 
     @TypeConverter

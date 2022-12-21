@@ -2,16 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.op">
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
-        android:required="true" />
+        android:required="true"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -24,40 +24,30 @@
         android:supportsRtl="true"
         android:theme="@style/CustomTheme"
         tools:targetApi="32">
-        <receiver
-            android:name="com.example.op.widget.ReportWidget"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/report_widget_info" />
-        </receiver>
         <activity
             android:name="com.example.op.activity.MainActivity"
             android:exported="true">
             <intent-filter android:label="@string/mainActivity_title">
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name="com.example.op.activity.profile.ProfileActivity"
             android:exported="true"
             android:label="Profil osobisty"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="fullSensor"/>
         <activity
             android:name="com.example.op.activity.profile.EditProfileActivity"
             android:exported="true"
             android:label="Edycja profilu osobistego"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="fullSensor"/>
         <activity
             android:name="com.example.op.activity.user.DailyFeelingsActivity"
             android:exported="true"
             android:screenOrientation="fullSensor">
             <intent-filter>
-                <action android:name="android.intent.action.ASSIST" />
+                <action android:name="android.intent.action.ASSIST"/>
             </intent-filter>
         </activity>
         <activity
@@ -91,35 +81,37 @@
             android:name="com.example.op.activity.report.ReportReceiversActivity"
             android:exported="true"
             android:label="@string/report_receivers_activity_title"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="fullSensor"/>
         <activity
             android:name="com.example.op.activity.settings.SettingsActivity"
             android:exported="true"
             android:label="@string/settings_activity_title"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="fullSensor"/>
         <activity
             android:name="com.example.op.activity.settings.SettingsFitbitActivity"
             android:exported="true"
             android:parentActivityName="com.example.op.activity.MainActivity"
             android:screenOrientation="fullSensor">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="oauth-testing" />
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="oauth-testing"/>
             </intent-filter>
         </activity>
+        <activity android:name="com.example.op.activity.settings.SettingsGmailActivity"/>
+        <activity android:name=".activity.ExpertSystemActivity"/>
+        <activity android:name=".activity.settings.SettingsNotificationScheduleActivity"/>
+        <activity android:name="com.example.op.activity.settings.SettingsExpertSystemActivity"/>
         <activity
-            android:name="com.example.op.activity.settings.SettingsGmailActivity"/>
-        <activity
-            android:name="com.example.op.activity.user.QuestionActivity"
+            android:name="com.example.op.activity.user.DailyQuestionActivity"
             android:exported="true"
+            android:label="@string/daily_question_activity_title"
             android:screenOrientation="fullSensor"/>
         <activity
             android:name="com.example.op.activity.extra.EmergencyActivity"
             android:exported="true"
             android:screenOrientation="fullSensor"/>
+        <service android:name=".service.NotificationService"/>
     </application>
 </manifest>

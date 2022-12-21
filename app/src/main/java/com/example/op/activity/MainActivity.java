@@ -3,7 +3,6 @@ package com.example.op.activity;
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -18,8 +17,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import androidx.core.app.ActivityCompat;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
 
 import com.example.database.AppDatabase;
 import com.example.database.InitialDatabaseData;
@@ -33,21 +30,20 @@ import com.example.op.activity.profile.ProfileActivity;
 import com.example.op.activity.report.ReportActivity;
 import com.example.op.activity.settings.SettingsActivity;
 import com.example.op.activity.user.DailyFeelingsActivity;
-import com.example.op.utils.InitialSharedPreferences;
 import com.example.op.utils.LocaleHelper;
+import com.example.op.service.NotificationService;
 import com.example.op.worker.WorkerFactory;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 import lombok.SneakyThrows;
 
 public class MainActivity extends TranslatedAppCompatActivity implements View.OnClickListener {
 
-    private String CHANNEL_ID = "1";
     private static final String TAG = MainActivity.class.getName();
     private AppDatabase database;
     private Button dailyControlBtn;
-    private OneTimeWorkRequest userActivityRangeRequest;
     private WorkerFactory workerFactory;
     private float screenX1, screenX2;
 
@@ -58,27 +54,23 @@ public class MainActivity extends TranslatedAppCompatActivity implements View.On
 
         createNotificationChannel();
 
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.fadein);
-
         dailyControlBtn = findViewById(R.id.button_daily_feelings);
         Button treatmentHistoryBtn = findViewById(R.id.button_treatment_history);
         Button reportBtn = findViewById(R.id.button_report);
         Button analyzeBtn = findViewById(R.id.button_analyze);
-        Button helpBtn = findViewById(R.id.button_help);
         Button settingsBtn = findViewById(R.id.button_settings);
 
         dailyControlBtn.setOnClickListener(this);
         treatmentHistoryBtn.setOnClickListener(this);
         reportBtn.setOnClickListener(this);
         analyzeBtn.setOnClickListener(this);
-        helpBtn.setOnClickListener(this);
         settingsBtn.setOnClickListener(this);
 
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.fadein);
         dailyControlBtn.startAnimation(animation);
         treatmentHistoryBtn.startAnimation(animation);
         reportBtn.startAnimation(animation);
         analyzeBtn.startAnimation(animation);
-        helpBtn.startAnimation(animation);
         settingsBtn.startAnimation(animation);
 
         database = AppDatabase.getDatabaseInstance(this);
@@ -86,8 +78,13 @@ public class MainActivity extends TranslatedAppCompatActivity implements View.On
         InitialDatabaseData.initProfile(database);
         InitialDatabaseData.initData(database);
 
-        InitialSharedPreferences.initStartValues(this);
-        SharedPreferences sharPref = this.getSharedPreferences(getString(R.string.opium_preferences), Context.MODE_PRIVATE);
+        SharedPreferences sharPref = getSharedPreferences(getString(com.example.database.R.string.opium_preferences), MODE_PRIVATE);
+        String isRepeatable = sharPref.getString(getString(com.example.database.R.string.is_repeatable), "false");
+
+        if (Boolean.parseBoolean(isRepeatable)) {
+            Intent intent = new Intent(this, NotificationService.class);
+            startService(intent);
+        }
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -98,6 +95,7 @@ public class MainActivity extends TranslatedAppCompatActivity implements View.On
     }
 
     private void createNotificationChannel() {
+        String CHANNEL_ID = "1";
         CharSequence name = "notificationChannel";
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
@@ -121,8 +119,6 @@ public class MainActivity extends TranslatedAppCompatActivity implements View.On
         } else if (id == R.id.button_analyze) {
             Intent intent = new Intent(this, AnalyzeActivity.class);
             startActivity(intent);
-        } else if (id == R.id.button_help) {
-            ExpertSystem expertSystem = new ExpertSystem(this);
         } else if (id == R.id.button_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
@@ -166,10 +162,8 @@ public class MainActivity extends TranslatedAppCompatActivity implements View.On
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             screenX1 = event.getX();
-            System.out.println(screenX1);
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             screenX2 = event.getX();
-            System.out.println(screenX2);
             if (screenX1 - screenX2 > 0) {
                 Intent intent = new Intent(this, EmergencyActivity.class);
                 startActivity(intent);

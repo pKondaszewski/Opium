@@ -20,14 +20,9 @@ import com.example.op.activity.extra.TranslatedAppCompatActivity;
 import com.example.op.utils.JsonManipulator;
 import com.example.op.utils.simple.SimpleTextWatcher;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -44,7 +39,7 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
     private Button applyBtn;
     private EditText noteTextInputEt, otherAilmentsEt;
     private ExpressView tragicMoodBtn, badMoodBtn, okMoodBtn, goodMoodBtn, greatMoodBtn, feverAilmentsBtn,
-            coldAilmentsBtn, coughAilmentsBtn, lethargyAilmentsBtn, soreThroatAilmentsBtn, headacheAilmentsBtn,
+            fluAilmentsBtn, coughAilmentsBtn, lethargyAilmentsBtn, soreThroatAilmentsBtn, headacheAilmentsBtn,
             vomitingAilmentsBtn, diarrheaAilmentsBtn, otherAilmentsBtn, uncheckedBtn;
     private LinearLayout otherAilmentsLl;
     private LocalDate dailyFeelingsDate;
@@ -58,7 +53,6 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
 
         database = AppDatabase.getDatabaseInstance(this);
         dailyFeelingsDate = LocalDate.now();
-        mood = "";
 
         otherAilmentsLl = findViewById(R.id.linear_layout_other_ailments);
         greatMoodBtn = findViewById(R.id.button_great_mood);
@@ -67,7 +61,7 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
         badMoodBtn = findViewById(R.id.button_bad_mood);
         tragicMoodBtn = findViewById(R.id.button_tragic_mood);
         feverAilmentsBtn = findViewById(R.id.button_fever_ailments);
-        coldAilmentsBtn = findViewById(R.id.button_cold_ailments);
+        fluAilmentsBtn = findViewById(R.id.button_flu_ailments);
         coughAilmentsBtn = findViewById(R.id.button_cough_ailments);
         lethargyAilmentsBtn = findViewById(R.id.button_lethargy_ailments);
         soreThroatAilmentsBtn = findViewById(R.id.button_sore_throat_ailments);
@@ -85,8 +79,13 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
         badMoodBtn.setOnCheckListener(this);
         tragicMoodBtn.setOnCheckListener(this);
         feverAilmentsBtn.setOnCheckListener(this);
-        coldAilmentsBtn.setOnCheckListener(this);
+        fluAilmentsBtn.setOnCheckListener(this);
         coughAilmentsBtn.setOnCheckListener(this);
+        lethargyAilmentsBtn.setOnCheckListener(this);
+        soreThroatAilmentsBtn.setOnCheckListener(this);
+        headacheAilmentsBtn.setOnCheckListener(this);
+        vomitingAilmentsBtn.setOnCheckListener(this);
+        diarrheaAilmentsBtn.setOnCheckListener(this);
         otherAilmentsBtn.setOnCheckListener(this);
         noteTextInputEt.addTextChangedListener(new SimpleTextWatcher() {
             @Override
@@ -98,11 +97,11 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
 
         Intent intent = getIntent();
         if (Objects.equals(intent.getAction(), Intent.ACTION_ASSIST)) {
-            String jsonString = intent.getStringExtra(getString(R.string.daily_feelings_as_json));
+            String jsonString = intent.getStringExtra(getString(com.example.database.R.string.daily_feelings_as_json));
             setupDailyFeelingsFromTreatmentHistory(jsonString);
         }
         String formattedDate;
-        SharedPreferences sharPref = getSharedPreferences(getString(R.string.opium_preferences), MODE_PRIVATE);
+        SharedPreferences sharPref = getSharedPreferences(getString(com.example.database.R.string.opium_preferences), MODE_PRIVATE);
         String lang = sharPref.getString("language", "en");
         if (lang.equals("pl")) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -132,21 +131,11 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
             return;
         }
         switch (mood) {
-            case "great":
-                greatMoodBtn.performClick();
-                break;
-            case "good":
-                goodMoodBtn.performClick();
-                break;
-            case "ok":
-                okMoodBtn.performClick();
-                break;
-            case "bad":
-                badMoodBtn.performClick();
-                break;
-            case "tragic":
-                tragicMoodBtn.performClick();
-                break;
+            case "great" -> greatMoodBtn.performClick();
+            case "good" -> goodMoodBtn.performClick();
+            case "ok" -> okMoodBtn.performClick();
+            case "bad" -> badMoodBtn.performClick();
+            case "tragic" -> tragicMoodBtn.performClick();
         }
     }
 
@@ -156,33 +145,15 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
         }
         for (String ailment : ailments) {
             switch (ailment) {
-                case "fever":
-                    feverAilmentsBtn.performClick();
-                    break;
-                case "cold":
-                    coldAilmentsBtn.performClick();
-                    break;
-                case "cough":
-                    coughAilmentsBtn.performClick();
-                    break;
-                case "lethargy":
-                    lethargyAilmentsBtn.performClick();
-                    break;
-                case "sore throat":
-                    soreThroatAilmentsBtn.performClick();
-                    break;
-                case "headache":
-                    headacheAilmentsBtn.performClick();
-                    break;
-                case "vomiting":
-                    vomitingAilmentsBtn.performClick();
-                    break;
-                case "diarrhea":
-                    diarrheaAilmentsBtn.performClick();
-                    break;
-                case "other":
-                    otherAilmentsBtn.performClick();
-                    break;
+                case "fever" -> feverAilmentsBtn.performClick();
+                case "flu" -> fluAilmentsBtn.performClick();
+                case "cough" -> coughAilmentsBtn.performClick();
+                case "lethargy" -> lethargyAilmentsBtn.performClick();
+                case "sore throat" -> soreThroatAilmentsBtn.performClick();
+                case "headache" -> headacheAilmentsBtn.performClick();
+                case "vomiting" -> vomitingAilmentsBtn.performClick();
+                case "diarrhea" -> diarrheaAilmentsBtn.performClick();
+                case "other" -> otherAilmentsBtn.performClick();
             }
         }
     }
@@ -236,8 +207,8 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
             mood = "tragic";
         } else if (id == R.id.button_fever_ailments) {
             ailments.add("fever");
-        } else if (id == R.id.button_cold_ailments) {
-            ailments.add("cold");
+        } else if (id == R.id.button_flu_ailments) {
+            ailments.add("flu");
         } else if (id == R.id.button_cough_ailments) {
             ailments.add("cough");
         } else if (id == R.id.button_lethargy_ailments) {
@@ -280,8 +251,8 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
         } else if (id == R.id.button_fever_ailments) {
             ailments.remove("fever");
             System.out.println(mood);
-        } else if (id == R.id.button_cold_ailments) {
-            ailments.remove("cold");
+        } else if (id == R.id.button_flu_ailments) {
+            ailments.remove("flu");
         } else if (id == R.id.button_cough_ailments) {
             ailments.remove("cough");
         } else if (id == R.id.button_lethargy_ailments) {
@@ -302,7 +273,7 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
     }
 
     private void applyButtonVisibilityCheck() {
-        if (mood.equals("") && ailments.isEmpty() && noteTextInputEt.getText().toString().equals("")) {
+        if (mood == null && ailments.isEmpty() && noteTextInputEt.getText().toString().equals("")) {
             applyBtn.setVisibility(View.INVISIBLE);
         } else {
             applyBtn.setVisibility(View.VISIBLE);

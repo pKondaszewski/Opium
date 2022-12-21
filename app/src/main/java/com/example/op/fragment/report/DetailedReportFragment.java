@@ -16,6 +16,7 @@ import com.example.database.AppDatabase;
 import com.example.database.entity.ControlTextQuestion;
 import com.example.database.entity.ControlTextUserAnswer;
 import com.example.database.entity.DailyFeelings;
+import com.example.database.entity.ExpertSystemResult;
 import com.example.database.entity.FitbitSpO2Data;
 import com.example.database.entity.FitbitStepsData;
 import com.example.database.entity.PhoneLocalization;
@@ -25,6 +26,7 @@ import com.example.op.utils.FitbitUtils;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,7 @@ public class DetailedReportFragment extends GeneralReportFragment {
     private TextView dateValueTextView, nameValueTextView, birthdateValueTextView, fitbitStepsValueTv,
             fitbitSpO2ValueTv, moodDailyFeelingsValueTv, ailmentsDailyFeelingsValueTv, noteDailyFeelingsValueTv,
             phoneMovementValueTv, phoneLocalizationValueTv, controlQuestionContentTv,
-            controlQuestionAnswerTv, controlQuestionResultTv;
+            controlQuestionAnswerTv, controlQuestionResultTv, analyzeResultValueTv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class DetailedReportFragment extends GeneralReportFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         LocalDate presentDate = LocalDate.now();
         database = AppDatabase.getDatabaseInstance(getContext());
-        sharPref = getContext().getSharedPreferences(getString(R.string.opium_preferences), Context.MODE_PRIVATE);
+        sharPref = getContext().getSharedPreferences(getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
 
         dateValueTextView = view.findViewById(R.id.text_view_date);
         nameValueTextView = view.findViewById(R.id.text_view_name_value);
@@ -68,6 +70,9 @@ public class DetailedReportFragment extends GeneralReportFragment {
         fitbitDataCv = view.findViewById(R.id.fitbitDataCardView);
         fitbitStepsValueTv = view.findViewById(R.id.text_view_fitbit_steps_value);
         fitbitSpO2ValueTv = view.findViewById(R.id.text_view_fitbit_spo2_value);
+
+        analyzeResultValueTv = view.findViewById(R.id.text_view_analyze_result_value);
+
         setupData(presentDate);
     }
 
@@ -77,19 +82,20 @@ public class DetailedReportFragment extends GeneralReportFragment {
             setupPersonalData(presentDate, List.of(dateValueTextView, nameValueTextView, birthdateValueTextView), database);
             setupDailyFeelingsData(presentDate);
             setupControlQuestion(presentDate);
-            setupPhoneMovementData();
+            setupPhoneMovementData(presentDate);
             setupPhoneLocalizationData();
             if (isFitbitEnable()) {
                 setFitbitDataVisible();
                 setupFitbitData(presentDate);
             }
+            analyzeResultValueTv.setText(setupResults(presentDate, sharPref));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
     }
 
     private boolean isFitbitEnable() {
-        return FitbitUtils.isEnabled(sharPref, getString(R.string.fitbit_switch_state));
+        return FitbitUtils.isEnabled(sharPref, getString(com.example.database.R.string.fitbit_switch_state));
     }
 
     private void setFitbitDataVisible() {
@@ -118,7 +124,7 @@ public class DetailedReportFragment extends GeneralReportFragment {
 
     private void setupControlQuestion(LocalDate presentDate) {
         Optional<ControlTextUserAnswer> controlTextUserAnswer = database.controlTextUserAnswerDao()
-                .getByDate(presentDate);
+                .getNewestByDate(presentDate);
         if (controlTextUserAnswer.isPresent()) {
             ControlTextUserAnswer userAnswer = controlTextUserAnswer.get();
             Integer questionId = userAnswer.getControlTextQuestionId();
@@ -135,12 +141,12 @@ public class DetailedReportFragment extends GeneralReportFragment {
         }
     }
 
-    private void setupPhoneMovementData() {
-        String europeanDatePattern = "dd.MM.yyyy HH:mm";
-        DateTimeFormatter europeanDateFormatter = DateTimeFormatter.ofPattern(europeanDatePattern);
+    private void setupPhoneMovementData(LocalDate presentDate) {
+        List<LocalTime> averageTimeOfMovementsByDate = database.phoneMovementDao().getAverageTimeOfMovementsByDate(presentDate);
+        double average = averageTimeOfMovementsByDate.stream().mapToInt(LocalTime::toSecondOfDay).average().getAsDouble();
+        LocalTime localTime = LocalTime.ofSecondOfDay((long) average);
 
-        PhoneMovement phoneMovement = database.phoneMovementDao().getNewestMovement().orElse(new PhoneMovement());
-        phoneMovementValueTv.setText(phoneMovement.getTimeOfMovement().toString());
+        phoneMovementValueTv.setText(localTime.toString());
     }
 
     private void setupPhoneLocalizationData() throws IOException {

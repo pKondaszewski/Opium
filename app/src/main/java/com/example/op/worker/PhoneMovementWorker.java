@@ -23,11 +23,8 @@ public class PhoneMovementWorker extends Worker implements SensorEventListener {
 
     private static final String TAG = PhoneMovementWorker.class.getName();
     private AppDatabase database;
-    private Context context;
     private LocalDateTime lastLocalDateTime;
-    private Sensor accelerometerSensor;
     private SensorManager sensorManager;
-    private float[] mGravity;
     private float deviceAcceleration;
     private float currentAcceleration;
     private float lastAcceleration;
@@ -39,16 +36,14 @@ public class PhoneMovementWorker extends Worker implements SensorEventListener {
 
     @Override
     public Result doWork() {
-        context = getApplicationContext();
         database = AppDatabase.getDatabaseInstance(getApplicationContext());
-
         lastLocalDateTime = LocalDateTime.now();
-
-        sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
-        accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         deviceAcceleration = 0.00f;
         currentAcceleration = SensorManager.GRAVITY_EARTH;
         lastAcceleration = currentAcceleration;
+        sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
+        Sensor accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
         sensorManager.registerListener(this, accelerometerSensor,
                 SensorManager.SENSOR_DELAY_UI);
         return Result.success();
@@ -57,7 +52,7 @@ public class PhoneMovementWorker extends Worker implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            mGravity = event.values.clone();
+            float[] mGravity = event.values.clone();
             float x = mGravity[0];
             float y = mGravity[1];
             float z = mGravity[2];
@@ -67,10 +62,6 @@ public class PhoneMovementWorker extends Worker implements SensorEventListener {
             deviceAcceleration = deviceAcceleration * 0.9f + delta;
             // Make this higher or lower according to how much
             // motion you want to detect
-
-            if (deviceAcceleration > 1)
-                System.out.println(deviceAcceleration);
-
             if (deviceAcceleration > 1 && LocalDateTime.now().isAfter(lastLocalDateTime)) {
                 PhoneMovement phoneMovement = new PhoneMovement(null, LocalDate.now(), LocalTime.now());
                 database.phoneMovementDao().insert(phoneMovement);

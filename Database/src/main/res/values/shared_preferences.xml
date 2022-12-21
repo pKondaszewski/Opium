@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fitbit_switch_state">fitbit_switch_state</string>
+    <string name="is_repeatable">is_repeatable</string>
+    <string name="language">language</string>
+    <string name="language_dialog_value">language_dialog_value</string>
+    <string name="gmail_address">gmail_address</string>
+    <string name="gmail_password">gmail_password</string>
+    <string name="daily_feelings_as_json"/>
+    <string name="opium_preferences">opium_preferences</string>
+    <string name="daily_question_time">daily_question_time</string>
+    <string name="days_on_chart">days_on_chart</string>
+    <string name="expert_system_level">expert_system_level</string>
+</resources>

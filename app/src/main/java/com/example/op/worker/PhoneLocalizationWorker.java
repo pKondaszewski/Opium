@@ -32,49 +32,37 @@ import lombok.SneakyThrows;
 public class PhoneLocalizationWorker extends Worker {
 
     private static final String TAG = PhoneLocalizationWorker.class.getName();
-    private AppDatabase database;
-    private LocationCallback mLocationCallback;
-    private LocationRequest mLocationRequest;
+    private final AppDatabase database;
 
     public PhoneLocalizationWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
         database = AppDatabase.getDatabaseInstance(getApplicationContext());
-        mLocationRequest = LocationRequest.create();
-        mLocationCallback = new LocationCallback() {
-            @SneakyThrows
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                processLocation(locationResult.getLastLocation());
-            }
-        };
     }
 
     @SuppressLint("MissingPermission")
     @Override
     public Result doWork() {
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
-        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY,  null).addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    processLocation(location);
-                }
+        fusedLocationClient
+                .getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY,  null)
+                .addOnSuccessListener(location -> {
+            if (location != null) {
+                processLocation(location);
             }
         });
         return Result.success();
     }
 
     private void processLocation(Location location) {
-        HomeAddress homeAddress = null;
         try {
-            homeAddress = retrieveUserAddress(location);
+            HomeAddress homeAddress = retrieveUserAddress(location);
+            PhoneLocalization phoneLocalization = new PhoneLocalization(
+                    null, LocalTime.now(), LocalDate.now(), location.getLatitude(), location.getLongitude(), homeAddress);
+            database.phoneLocalizationDao().insert(phoneLocalization);
+            Log.i(TAG, "Insertion of phone localization into database: " + phoneLocalization);
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-
-        PhoneLocalization phoneLocalization = new PhoneLocalization(null, LocalTime.now(), LocalDate.now(), location.getLatitude(), location.getLongitude(), homeAddress);
-        database.phoneLocalizationDao().insert(phoneLocalization);
-        Log.i(TAG, "Insertion of phone localization into database: " + phoneLocalization);
     }
 
     private HomeAddress retrieveUserAddress(Location location) throws IOException {

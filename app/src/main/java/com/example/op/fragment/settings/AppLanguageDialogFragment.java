@@ -14,7 +14,7 @@ public class AppLanguageDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Context context = getContext();
-        SharedPreferences sharPref = context.getSharedPreferences(getString(R.string.opium_preferences), Context.MODE_PRIVATE);
+        SharedPreferences sharPref = context.getSharedPreferences(getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
         String language = "language";
         String languageDialogValue = "language_dialog_value";
         int checkedItemValue = sharPref.getInt(languageDialogValue, 0);

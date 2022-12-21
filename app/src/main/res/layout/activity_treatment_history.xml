@@ -36,14 +36,13 @@
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
                             android:text="@string/mood_daily_feelings_text_view"/>
                         <TextView
                             android:id="@+id/text_view_mood_daily_feelings_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.1"
                             android:gravity="end"/>
                     </TableRow>
                     <TableRow
@@ -54,14 +53,13 @@
                             style="@style/TextViewH3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
                             android:text="@string/ailments_daily_feelings_text_view"/>
                         <TextView
                             android:id="@+id/text_view_ailments_daily_feelings_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.1"
                             android:gravity="end"/>
                     </TableRow>
                     <TableRow
@@ -72,14 +70,13 @@
                             style="@style/TextViewH3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
                             android:text="@string/note_daily_feelings_text_view"/>
                         <TextView
                             android:id="@+id/text_view_note_daily_feelings_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.1"
                             android:gravity="end"/>
                     </TableRow>
             </TableLayout>
@@ -100,14 +97,13 @@
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="@string/control_question_content_label_text_view"/>
                     <TextView
                         android:id="@+id/text_view_control_question_content_value"
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.1"
                         android:gravity="end"/>
                 </TableRow>
                 <TableRow
@@ -118,14 +114,13 @@
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="@string/control_question_answer_label_text_view"/>
                     <TextView
                         android:id="@+id/text_view_control_question_answer_value"
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.1"
                         android:gravity="end"/>
                 </TableRow>
                 <TableRow
@@ -136,14 +131,13 @@
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="@string/control_question_result_label_text_view"/>
                     <TextView
                         android:id="@+id/text_view_control_question_result_value"
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.1"
                         android:gravity="end"/>
                 </TableRow>
             </TableLayout>
@@ -165,7 +159,6 @@
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
                             android:text="@string/fitbit_steps_label_text_view"
                             android:visibility="invisible"/>
                         <TextView
@@ -173,7 +166,7 @@
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.1"
                             android:gravity="end"
                             android:visibility="invisible"/>
                     </TableRow>
@@ -185,7 +178,6 @@
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
                             android:text="@string/fitbit_spo2_label_text_view"
                             android:visibility="invisible"/>
                         <TextView
@@ -193,7 +185,7 @@
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.1"
                             android:gravity="end"
                             android:visibility="invisible"/>
                     </TableRow>

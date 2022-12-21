@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,27 +9,55 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/text_view_email_address_label"
+            style="@style/TextViewH2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="adres email"/>
+            android:gravity="center"
+            android:text="@string/email_address_label_text_view"
+            app:drawableStartCompat="@drawable/gmail_logo"/>
         <EditText
             android:id="@+id/edit_view_email_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/text_view_email_password_label"
+            style="@style/TextViewH2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="haslo"/>
+            android:gravity="center"
+            android:text="@string/email_password_label_text_view"
+            app:drawableStartCompat="@drawable/google_icon"/>
         <EditText
             android:id="@+id/edit_view_email_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <Button
-            android:id="@+id/applyEmailCredentialsButton"
-            android:text="apply credentials"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+        <TextView
+            style="@style/TextViewH3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/gmail_settings_description"
+            android:textSize="19sp"/>
+        <TextView
+            style="@style/TextViewH3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/gmail_settings_extra_description"
+            android:textSize="19sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom|center"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/button_apply_email_credentials"
+                android:text="@string/apply_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

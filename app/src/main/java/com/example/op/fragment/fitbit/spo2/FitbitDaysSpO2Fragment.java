@@ -51,8 +51,8 @@ public class FitbitDaysSpO2Fragment extends Fragment implements FitbitDataChartG
     }
 
     private int getDaysOnChart() {
-        SharedPreferences sharPref = context.getSharedPreferences(context.getString(R.string.opium_preferences), Context.MODE_PRIVATE);
-        return sharPref.getInt(context.getString(R.string.days_on_chart), 7);
+        SharedPreferences sharPref = context.getSharedPreferences(context.getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
+        return sharPref.getInt(context.getString(com.example.database.R.string.days_on_chart), 7);
     }
 
     @Override

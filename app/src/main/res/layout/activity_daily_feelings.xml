@@ -140,7 +140,7 @@
                 </co.ankurg.expressview.ExpressView>
 
                 <co.ankurg.expressview.ExpressView
-                    android:id="@+id/button_cold_ailments"
+                    android:id="@+id/button_flu_ailments"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:burstColor="@color/light_blue_400"

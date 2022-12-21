@@ -35,14 +35,13 @@
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="@string/firstname_lastname_text_view"/>
                     <TextView
                         android:id="@+id/text_view_name_value"
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.1"
                         android:gravity="end"/>
                 </TableRow>
                 <TableRow
@@ -53,14 +52,13 @@
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="@string/birthdate_text_view"/>
                     <TextView
                         android:id="@+id/text_view_birthdate_value"
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.1"
                         android:gravity="end"/>
                 </TableRow>
                 <TableRow
@@ -71,14 +69,13 @@
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="@string/sex_text_view"/>
                     <TextView
                         android:id="@+id/text_view_sex_value"
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.1"
                         android:gravity="end"/>
                 </TableRow>
             </TableLayout>
@@ -111,14 +108,13 @@
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="@string/phone_number_text_view"/>
                     <TextView
                         android:id="@+id/text_view_phone_number_value"
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.1"
                         android:gravity="end"/>
                 </TableRow>
                 <TableRow
@@ -129,14 +125,13 @@
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="@string/email_address_label_text_view"/>
                     <TextView
                         android:id="@+id/text_view_email_address_value"
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.1"
                         android:gravity="end"/>
                 </TableRow>
                 <TableRow
@@ -147,14 +142,13 @@
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:text="@string/home_address_label_text_view"/>
                     <TextView
                         android:id="@+id/text_view_home_address_value"
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.1"
                         android:gravity="end"/>
                 </TableRow>
             </TableLayout>

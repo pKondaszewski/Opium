@@ -16,11 +16,18 @@ import androidx.work.WorkManager;
 import com.example.database.AppDatabase;
 import com.example.op.R;
 
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.concurrent.TimeUnit;
 
 public class WorkerFactory {
 
-    private final static String TAG = WorkerFactory.class.getName();
+    private static final String TAG = WorkerFactory.class.getName();
+    private static final String FITBIT_DATA_REQUEST = "fitbitDataRequest";
+    private static final String LOCALIZATION_REQUEST = "localizationRequest";
+    private static final String MOVEMENT_REQUEST = "movementRequest";
+    private static final String NOTIFICATION_REQUEST = "notificationRequest";
     private final AppDatabase database;
     private final Context context;
     private final PeriodicWorkRequest fitbitDataRequest, localizationRequest, movementRequest, notificationRequest;
@@ -30,48 +37,58 @@ public class WorkerFactory {
     public WorkerFactory(Context context) {
         this.context = context;
         database = AppDatabase.getDatabaseInstance(context);
-        sharPref = context.getSharedPreferences(context.getString(R.string.opium_preferences), Context.MODE_PRIVATE);
+        sharPref = context.getSharedPreferences(context.getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
         workManager = WorkManager.getInstance(context);
 
-        Data repeatable = new Data.Builder()
-                .putBoolean(context.getString(R.string.is_repeatable), true)
-                .build();
-
         fitbitDataRequest = new PeriodicWorkRequest.Builder(FitbitDataWorker.class, 15, TimeUnit.MINUTES)
-                .setInputData(repeatable)
-                .addTag("tag")
                 .build();
 
         localizationRequest = new PeriodicWorkRequest.Builder(PhoneLocalizationWorker.class, 15, TimeUnit.MINUTES)
-                .setInputData(repeatable)
-                .addTag("tag")
                 .build();
 
         movementRequest = new PeriodicWorkRequest.Builder(PhoneMovementWorker.class, 15, TimeUnit.MINUTES)
-                .setInputData(repeatable)
-                .addTag("tag")
                 .build();
 
-        //TODO: Initial delay zeby zapytanie bylo o okreslonej godzinie przez uzytkownika np. 12:00
+        String dailyQuestionTime = sharPref.getString(context.getString(com.example.database.R.string.daily_question_time), "12:00");
         notificationRequest =
                 new PeriodicWorkRequest.Builder(NotificationWorker.class, 15, TimeUnit.MINUTES)
-                        .setInputData(repeatable)
-                        .addTag("tag")
+                        .setInitialDelay(getInitialDelay(dailyQuestionTime))
                         .build();
     }
 
     public void enqueueWorks() {
         if (database.fitbitAccessTokenDao().getNewestAccessToken().isPresent() &&
-                sharPref.getBoolean(context.getString(R.string.fitbit_switch_state), false)) {
-            workManager.enqueueUniquePeriodicWork("fitbitDataRequest", ExistingPeriodicWorkPolicy.KEEP, fitbitDataRequest);
+                sharPref.getString(context.getString(com.example.database.R.string.fitbit_switch_state), "false").equals("true")) {
+            workManager.enqueueUniquePeriodicWork(FITBIT_DATA_REQUEST, ExistingPeriodicWorkPolicy.KEEP, fitbitDataRequest);
         } else {
-            workManager.cancelUniqueWork("fitbitDataRequest");
+            workManager.cancelUniqueWork(FITBIT_DATA_REQUEST);
         }
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            workManager.enqueueUniquePeriodicWork("localizationRequest", ExistingPeriodicWorkPolicy.KEEP, this.localizationRequest);
+            workManager.enqueueUniquePeriodicWork(LOCALIZATION_REQUEST, ExistingPeriodicWorkPolicy.KEEP, this.localizationRequest);
         }
-        workManager.enqueueUniquePeriodicWork("movementRequest", ExistingPeriodicWorkPolicy.KEEP, movementRequest);
-        workManager.enqueueUniquePeriodicWork("notificationRequest", ExistingPeriodicWorkPolicy.KEEP, notificationRequest);
+        workManager.enqueueUniquePeriodicWork(MOVEMENT_REQUEST, ExistingPeriodicWorkPolicy.KEEP, movementRequest);
+        workManager.enqueueUniquePeriodicWork(NOTIFICATION_REQUEST, ExistingPeriodicWorkPolicy.KEEP, notificationRequest);
+    }
+
+    public void enqueueNewNotificationRequest() {
+        workManager.cancelUniqueWork(NOTIFICATION_REQUEST);
+        String dailyQuestionTime = sharPref.getString(context.getString(com.example.database.R.string.daily_question_time), "12:00");
+        PeriodicWorkRequest notificationRequest =
+                new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
+                        .setInitialDelay(getInitialDelay(dailyQuestionTime))
+                        .build();
+        workManager.enqueueUniquePeriodicWork(NOTIFICATION_REQUEST, ExistingPeriodicWorkPolicy.KEEP, notificationRequest);
+    }
+
+    private Duration getInitialDelay(String delayTime) {
+        String[] dailyQuestionTimeSplit = delayTime.split(":");
+        LocalTime delay = LocalTime.of(Integer.parseInt(dailyQuestionTimeSplit[0]), Integer.parseInt(dailyQuestionTimeSplit[1]));
+        LocalTime now = LocalTime.now(ZoneId.systemDefault());
+        if (delay.isAfter(now)) {
+            return Duration.between(now, delay);
+        } else {
+            return Duration.ofHours(24).minus(Duration.between(delay, now));
+        }
     }
 }

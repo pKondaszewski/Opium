@@ -5,92 +5,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.op.activity.MainActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <Button
-            android:id="@+id/button_daily_feelings"
-            style="@style/CustomButton"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33"
-            android:text="@string/daily_control_button_name"/>
-
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33"
-            android:orientation="horizontal">
-
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5">
             <Button
-                android:id="@+id/button_treatment_history"
-                style="@style/CustomButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:drawableTop="@drawable/treatment_history_icon"
-                android:fadingEdge="none"
-                android:text="@string/treatment_history_button_name" />
-
-            <Button
-                android:id="@+id/button_analyze"
+                android:id="@+id/button_daily_feelings"
                 style="@style/CustomButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:drawableTop="@drawable/analyze_icon"
-                android:text="@string/analyze_button_name" />
+                android:text="@string/daily_control_button_name"/>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
             android:orientation="horizontal">
-
+                <Button
+                    android:id="@+id/button_treatment_history"
+                    style="@style/CustomButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:drawableTop="@drawable/treatment_history_icon"
+                    android:fadingEdge="none"
+                    android:text="@string/treatment_history_button_name"/>
+                <Button
+                    android:id="@+id/button_analyze"
+                    style="@style/CustomButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:drawableTop="@drawable/analyze_icon"
+                    android:text="@string/analyze_button_name"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:orientation="horizontal">
             <Button
                 android:id="@+id/button_report"
                 style="@style/CustomButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.1"
+                android:layout_weight="0.5"
                 android:drawableTop="@drawable/report_icon"
-                android:text="@string/report_button_name" />
-
-            <LinearLayout
+                android:text="@string/report_button_name"/>
+            <Button
+                android:id="@+id/button_settings"
+                style="@style/CustomButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/button_help"
-                    style="@style/CustomButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:text="@string/help_button_name" />
-
-                <Button
-                    android:id="@+id/button_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:text="@string/settings_name"
-                    style="@style/CustomButton"/>
-            </LinearLayout>
+                android:layout_weight="0.5"
+                android:drawableTop="@drawable/settings_emoji"
+                android:text="@string/settings_name"/>
         </LinearLayout>
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 

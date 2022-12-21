@@ -1,6 +1,7 @@
 package com.example.op.activity.user;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,12 +25,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class QuestionActivity extends AppCompatActivity implements View.OnClickListener {
+public class DailyQuestionActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = QuestionActivity.class.getName();
+    private static final String TAG = DailyQuestionActivity.class.getName();
     private AppDatabase database;
     private List<Integer> answers;
     private Button firstAnswerBtn, secondAnswerBtn, thirdAnswerBtn, fourthAnswerBtn;
+    private SharedPreferences sharPref;
     private TextView questionTv;
     private int questionId;
 
@@ -51,6 +53,7 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
         List<Button> allAnswerButtons = List.of(firstAnswerBtn, secondAnswerBtn, thirdAnswerBtn, fourthAnswerBtn);
 
         database = AppDatabase.getDatabaseInstance(this);
+        sharPref = getSharedPreferences(getString(com.example.database.R.string.opium_preferences), MODE_PRIVATE);
 
         ControlTextQuestionDao controlTextQuestionDao = database.controlTextQuestionDao();
         Integer questionsCount = controlTextQuestionDao.getAllCount();
@@ -111,6 +114,7 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
         database.controlTextUserAnswerDao().insert(controlTextUserAnswer);
         Log.i(TAG, "User answered on control text question nr." + questionId +
                 " with following answer: " + controlTextUserAnswer);
+        sharPref.edit().putString(getString(com.example.database.R.string.is_repeatable), "false").apply();
         Intent intent = new Intent(this, MainActivity.class);
         finish();
         startActivity(intent);

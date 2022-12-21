@@ -13,6 +13,7 @@ import com.example.database.HomeAddress;
 import com.example.database.entity.Profile;
 import com.example.op.R;
 import com.example.op.exception.ResourceNotFoundException;
+import com.example.op.utils.Translation;
 
 public class ProfileActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 
@@ -21,6 +22,7 @@ public class ProfileActivity extends AppCompatActivity implements MenuItem.OnMen
     private Profile profile;
     private TextView nameValueTv, birthdateValueTv, sexValueTv, phoneNumberValueTv, emailAddressValueTv,
             homeAddressValueTv;
+    private Translation translation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class ProfileActivity extends AppCompatActivity implements MenuItem.OnMen
         setContentView(R.layout.activity_profile);
 
         database = AppDatabase.getDatabaseInstance(this);
+        translation = new Translation(this);
         profile = database.profileDao().get().orElseThrow(
                 () -> new ResourceNotFoundException(TAG, "Profile doesn't exist in database"));
 
@@ -51,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity implements MenuItem.OnMen
 
         nameValueTv.setText(String.format("%s %s", profile.getFirstname(), profile.getLastname()));
         birthdateValueTv.setText(profile.getBirthdate().toString());
-        sexValueTv.setText(profile.getSex());
+        sexValueTv.setText(translation.translateSex(profile.getSex()));
         phoneNumberValueTv.setText(profile.getPhoneNumber());
         emailAddressValueTv.setText(profile.getEmailAddress());
         homeAddressValueTv.setText(extractHomeAddress(profile.getHomeAddress()));

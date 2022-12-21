@@ -1,50 +1,38 @@
 package com.example.op.worker;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
-import androidx.core.app.NotificationCompat;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.op.R;
-import com.example.op.activity.user.QuestionActivity;
+import com.example.op.service.NotificationService;
+
+import java.util.Map;
 
 import lombok.NonNull;
 
 public class NotificationWorker extends Worker {
 
-    String CHANNEL_ID = "1";
-
-    NotificationCompat.Builder mBuilder;
-    NotificationManager mNotificationManager;
+    private final Context context;
+    private final Intent intent;
+    private final SharedPreferences sharPref;
 
     public NotificationWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
-        Intent intent = new Intent(context, QuestionActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("EXTRA_SESSION_ID", "abc");
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-        mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("My notification")
-                .setContentText("Hello World!")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-        mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        this.context = context;
+        sharPref = context.getSharedPreferences(context.getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
+        intent = new Intent(getApplicationContext(), NotificationService.class);
     }
 
     @Override
     public Result doWork() {
-
-        mNotificationManager.notify(1, mBuilder.build());
-
+        sharPref.edit().putString(context.getString(com.example.database.R.string.is_repeatable), "true").apply();
+        context.startService(intent);
         return Result.success();
     }
 }

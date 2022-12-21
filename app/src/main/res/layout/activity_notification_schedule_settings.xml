@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+            <TextView
+                style="@style/TextViewH2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Czas codziennego pytania"/>
+            <TimePicker
+                android:id="@+id/time_picker_daily_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                style="@style/TextViewH3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Czas, w którym pojawi powiadomienie przekierowujące do pytania, na które należy odpowiedzieć."/>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,23 +8,33 @@
         android:orientation="vertical">
         <Button
             android:id="@+id/button_fitbit_settings"
+            style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fitbit_button"/>
         <Button
             android:id="@+id/button_gmail_settings"
+            style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/gmail_button"/>
         <Button
             android:id="@+id/button_app_language"
+            style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/language_button"/>
         <Button
             android:id="@+id/button_expert_system_settings"
+            style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Expert system"/>
+            android:text="@string/expert_system_button"/>
+        <Button
+            android:id="@+id/button_notification_schedule_settings"
+            style="@style/CustomButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notification schedule"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

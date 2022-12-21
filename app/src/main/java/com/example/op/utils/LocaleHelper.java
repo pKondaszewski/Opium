@@ -12,7 +12,7 @@ import java.util.Locale;
 public class LocaleHelper {
 
     public static void setLocale(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.opium_preferences), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("language", "en");
 
         System.out.println(language);
@@ -26,7 +26,7 @@ public class LocaleHelper {
     }
 
     public static Context updateResources(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.opium_preferences), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("language", "en");
 
         Locale locale = new Locale(language);

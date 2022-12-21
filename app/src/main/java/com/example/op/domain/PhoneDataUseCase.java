@@ -42,20 +42,9 @@ public class PhoneDataUseCase {
         pieData.setDataSet(pieDataSet);
         return pieData;
     }
-
-    public BarData getPhoneMovementActivityBarData(Map<LocalDate, Integer> movementsCountByEveryDate) {
-        ArrayList<BarEntry> entries = new ArrayList<>();
-        movementsCountByEveryDate.forEach((k, v) ->
-                entries.add(new BarEntry((float) k.getDayOfMonth(), v.floatValue()))
-        );
-
-        BarDataSet barDataSet = new BarDataSet(entries, "Wykres label");
-        barDataSet.setColor(ColorTemplate.rgb("3587A4"));
-        barDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-
-        BarData barData = new BarData(barDataSet);
-        barData.setDrawValues(false);
-        barData.setValueFormatter(new DefaultAxisValueFormatter(0));
-        return barData;
-    }
+//
+//    public BarData getPhoneMovementsPerDay(LocalDate date) {
+//
+//        return barData;
+//    }
 }

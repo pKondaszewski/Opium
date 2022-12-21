@@ -49,18 +49,24 @@
     <!-- AnalyzeActivity labels -->
     <string name="phone_activity_analyze_button">Aktywność telefonu</string>
     <string name="fitbit_activity_analyze_button">Aktywność fitbit</string>
-    <string name="expert_system_analyze_button">Wyniki analizy</string>
+    <string name="expert_system_analyze_button">System ekspertowy</string>
     <string name="fitbit_analyze_steps_label_text_view">Wykres przebytych kroków</string>
     <string name="fitbit_analyze_spO2_label_text_view">Wykres SpO2</string>
     <string name="tab_item_days">Dni</string>
     <string name="tab_item_months">Miesiące</string>
+    <string name="most_common_localizations_text_view">Najczęściej odnotowane lokalizacje telefonu</string>
+    <string name="amount_of_all_answers_text_view">Ilość wszyskich odpowiedzi: </string>
+    <string name="question_answers_label_text_view">Wykres prezentujący procent poprawnych odpowiedzi</string>
+    <string name="phone_activity_label_text_view">Dane dotyczace aktywności telefonu</string>
+    <string name="daily_phone_movement_label_text_view">Liczba zarejestrowanych dziś aktywności</string>
+    <string name="phone_movement_average_label_text_view">Średni czas aktywnosci</string>
 
     <!-- ReportActivity labels -->
     <string name="report_activity_title">Raport</string>
     <string name="report_receivers_activity_title">Odbiorcy raportu</string>
-    <string name="generalInfo_text_view">Ogólne informacje</string>
-    <string name="date_text_view">Data raportu</string>
-    <string name="nameLabel_text_view">Imię i nazwisko</string>
+    <string name="general_info_text_view">Ogólne informacje</string>
+    <string name="report_date_text_view">Data raportu</string>
+    <string name="name_label_text_view">Imię i nazwisko</string>
     <string name="daily_feelings_text_view">Samopoczucie</string>
     <string name="mood_daily_feelings_text_view">Nastrój</string>
     <string name="ailments_daily_feelings_text_view">Objawy</string>
@@ -73,7 +79,7 @@
     <string name="fitbit_steps_label_text_view">Ilość kroków</string>
     <string name="fitbit_spo2_label_text_view">Natlenienie krwi</string>
     <string name="summary_label_text_view">Podsumowanie</string>
-    <string name="mood_daily_feelings_label_text_view">Wyniki analizy</string>
+    <string name="analyze_result_label_text_view">Wyniki analizy</string>
     <string name="ailments_daily_feelings_label_text_view">Uwagi</string>
     <string name="send_report_button">Wyślij raport</string>
 
@@ -84,12 +90,15 @@
     <string name="sex_text_view">Płeć</string>
     <string name="contact_data_text_view">Dane kontaktowe</string>
     <string name="phone_number_text_view">Numer telefonu</string>
-    <string name="email_address_label_text_view">Adres email</string>
+    <string name="email_address_label_text_view">Adres email (Gmail)</string>
     <string name="home_address_label_text_view">Adres domu</string>
     <string name="firstname_text_view">Imię</string>
     <string name="lastname_text_view">Nazwisko</string>
     <string name="postal_code_text_view">Kod pocztowy</string>
     <string name="country_text_view">Państwo</string>
+    <string name="male_sex_spinner_item">Mężczyzna</string>
+    <string name="female_sex_spinner_item">Kobieta</string>
+    <string name="other_sex_spinner_item">Inne</string>
 
     <!-- ReportActivity/ReportReceiversActivity/ReportSettingsActivity  labels -->
     <string name="general_text_view">Ogólny</string>
@@ -100,16 +109,12 @@
     <string name="sms_switch">Sms</string>
     <string name="email_switch">Email</string>
 
-    <!-- Widget labels -->
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">This is an app widget description</string>
-
     <!-- SettingsActivity/SettingsFitbitActivity labels -->
     <string name="settings_activity_title">Ustawienia aplikacji</string>
     <string name="language_button">Język aplikacji</string>
     <string name="fitbit_button">Parowanie Fitbit</string>
     <string name="gmail_button">Parowanie Gmail</string>
+    <string name="expert_system_button">System ekspertowy</string>
     <string name="fitbit_switch">Fitbit</string>
     <string name="title_language_dialog">Wybierz język</string>
 
@@ -124,9 +129,25 @@
     <string name="dialog_positive_button">OK</string>
     <string name="dialog_negative_button">Anuluj</string>
 
+    <!-- ExpertSystemActivity -->
+    <string name="launch_expert_system_label">Launch expert system</string>
+
+    <!-- QuestionActivity labels -->
+    <string name="daily_question_activity_title">Codzienne pytanie</string>
+    <string name="daily_question_notification_label">Naciśnij aby udzielić odpowiedzi na codzienne pytanie</string>
+
     <!-- MenuItems -->
     <string name="settings_menu_item">Ustawienia</string>
 
     <!-- EmergencyActivity -->
     <string name="emergency_button">WYŚLIJ SYGNAŁ SOS</string>
+
+    <!-- SettingsGmailActivity -->
+    <string name="email_password_label_text_view">Hasło do aplikacji (weryfikacja dwuetapowa Google)*</string>
+
+    <!-- Activity descriptions -->
+    <string name="fitbit_settings_description">Parowanie aplikacji ze smartwatchem Fitbit umożliwia dynamiczne monitorowanie aktywności użytkownika (kroki, spo2), przetwarzanie i analizowanie uzyskanych danych. Aby dane były jak najświeższe, konieczne jest posiadanie dedykowanej aplikacji Fitbit działającej w tle w celu synchronizacji danych (alternatywnie synchronizować aplikację Fitbit ręcznie)</string>
+    <string name="gmail_settings_description">Aplikacja umożliwia wysłanie raportu w formie wiadomości e-mail. Aktualnie obsługiwaną skrzynką e-mail jest Gmail. W celu poprawnego skonfigurowania poczty elektronicznej należy podać adres e-mail oraz hasło.</string>
+    <string name="gmail_settings_extra_description">*Polityka Google dotycząca aplikacji firm trzecich wymaga skonfigurowania weryfikacji dwuskładnikowej na koncie Google i ustawienia hasła do aplikacji pocztowej, a następnie zapisania wygenerowanego hasła powyżej.</string>
+    <string name="expert_system_settings_description">System ekspertowy będzie analizował dostarczone dane wedle ustawionego poziomu. Im wyższy poziom, tym bardziej surowa ocena stanu użytkownika przez system ekspertowy.</string>
 </resources>

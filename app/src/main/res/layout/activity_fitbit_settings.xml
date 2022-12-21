@@ -16,10 +16,18 @@
         app:layout_constraintTop_toTopOf="parent">
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switch_fitbit"
+            style="@style/TextViewH2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:button="@drawable/fitbit_app_icon"
             android:paddingHorizontal="10dp"
             android:text="@string/fitbit_switch"/>
+        <TextView
+            style="@style/TextViewH3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/fitbit_settings_description"
+            android:textSize="19sp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

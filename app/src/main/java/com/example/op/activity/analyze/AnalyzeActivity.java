@@ -7,7 +7,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.expertsystem.ExpertSystem;
 import com.example.op.R;
+import com.example.op.activity.ExpertSystemActivity;
 import com.example.op.activity.PhoneAnalyzeActivity;
 
 public class AnalyzeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -19,9 +21,11 @@ public class AnalyzeActivity extends AppCompatActivity implements View.OnClickLi
 
         Button phoneActivityAnalyzeBtn = findViewById(R.id.button_analyze_phone_activity);
         Button fitbitActivityAnalyzeBtn = findViewById(R.id.button_analyze_fitbit_activity);
+        Button expertSystemAnalyzeBtn = findViewById(R.id.button_analyze_expert_system);
 
         phoneActivityAnalyzeBtn.setOnClickListener(this);
         fitbitActivityAnalyzeBtn.setOnClickListener(this);
+        expertSystemAnalyzeBtn.setOnClickListener(this);
     }
 
     @Override
@@ -32,6 +36,9 @@ public class AnalyzeActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(intent);
         } else if (id == R.id.button_analyze_fitbit_activity) {
             Intent intent = new Intent(this, FitbitAnalyzeActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.button_analyze_expert_system) {
+            Intent intent = new Intent(this, ExpertSystemActivity.class);
             startActivity(intent);
         }
     }

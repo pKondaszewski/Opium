@@ -11,16 +11,17 @@ import java.util.Objects;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class PhoneLocalizationEngine extends FuzzyLogicEngine {
-    private static final String TAG = PhoneLocalizationEngine.class.getName();
+public class PhoneLocalizationProcessor extends FuzzyLogicProcessor {
+    private static final String TAG = PhoneLocalizationProcessor.class.getName();
     private final DecimalFormat df;
-    private final List<Double> mostCommonCoordinates;
+    private final List<Double> mostCommonCoordinates, profileCoordinates;
     private final TreeMap<Double, Double> therm1, therm2, therm3, therm4, therm5;
     private final List<TreeMap<Double, Double>> therms;
 
-    public PhoneLocalizationEngine(List<Double> mostCommonCoordinates) {
+    public PhoneLocalizationProcessor(List<Double> mostCommonCoordinates, List<Double> profileCoordinates) {
         super(TAG);
         this.mostCommonCoordinates = mostCommonCoordinates;
+        this.profileCoordinates = profileCoordinates;
         df = new DecimalFormat("#.####");
         df.setRoundingMode(RoundingMode.DOWN);
 
@@ -35,13 +36,13 @@ public class PhoneLocalizationEngine extends FuzzyLogicEngine {
     @Override
     public Double process() {
         URL resource = ExpertSystem.class.getResource("/therms/localization.csv");
-        fillTherms(therms, Objects.requireNonNull(resource));
+        fillTherms(therms, Objects.requireNonNull(resource), 5);
 
         List<Double> parsedCoordinatesDifferences = getParsedCoordinatesDifferences();
         Double parsedLatitudeDifference = parsedCoordinatesDifferences.get(0);
         Double parsedLongitudeDifference = parsedCoordinatesDifferences.get(1);
 
-        List<ArrayList<Double>> inferenceResult = inference(parsedLatitudeDifference, parsedLongitudeDifference);
+        List<List<Double>> inferenceResult = inference(parsedLatitudeDifference, parsedLongitudeDifference);
         List<Double> maxValues = inferenceResult.stream()
                 .map(doubles -> doubles.stream().max(Double::compare).get())
                 .collect(Collectors.toList());
@@ -49,7 +50,15 @@ public class PhoneLocalizationEngine extends FuzzyLogicEngine {
     }
 
     @Override
-    protected List<ArrayList<Double>> inference(Double latitude, Double longitude) {
+    protected List<List<Double>> inference(Double latitude, Double longitude) {
+        latitude = latitude == -0.0 ? 0.0 : latitude;
+        longitude = longitude == -0.0 ? 0.0 : longitude;
+
+        if (latitude < -0.006 || latitude > 0.006 || longitude < -0.006 || longitude > 0.006) {
+            List<Double> listWithZero = List.of(0.0);
+            return List.of(List.of(1.0), listWithZero, listWithZero, listWithZero, listWithZero);
+        }
+
         Double var1 = therm1.get(latitude);
         Double var2 = therm2.get(latitude);
         Double var3 = therm3.get(latitude);
@@ -105,8 +114,11 @@ public class PhoneLocalizationEngine extends FuzzyLogicEngine {
         Double mostCommonLatitude = mostCommonCoordinates.get(0);
         Double mostCommonLongitude = mostCommonCoordinates.get(1);
 
-        Double latitudeDifference = mostCommonLatitude - 54.2171;       // TODO: pobrac z profilu adres i prztorzyc i wrzucic tu zamiast tych hardcode liczb
-        Double longitudeDifference = mostCommonLongitude - 16.077090;   // TODO: tu też
+        Double profileLatitude = profileCoordinates.get(0);
+        Double profileLongitude = profileCoordinates.get(1);
+
+        Double latitudeDifference = mostCommonLatitude - profileLatitude;
+        Double longitudeDifference = mostCommonLongitude - profileLongitude;
 
         Double parsedLatitudeDifference = Double.parseDouble(df.format(latitudeDifference));
         Double parsedLongitudeDifference = Double.parseDouble(df.format(longitudeDifference));

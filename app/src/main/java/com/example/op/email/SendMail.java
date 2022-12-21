@@ -40,7 +40,7 @@ public class SendMail implements Runnable {
     }
 
     private void initSession() {
-        SharedPreferences sharPref = context.getSharedPreferences(context.getString(R.string.opium_preferences), Context.MODE_PRIVATE);
+        SharedPreferences sharPref = context.getSharedPreferences(context.getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
         email = sharPref.getString("gmail_address", null);
         password = sharPref.getString("gmail_password", null);
         session = Session.getDefaultInstance(SendMailConfig.getPropertiesSetup(),

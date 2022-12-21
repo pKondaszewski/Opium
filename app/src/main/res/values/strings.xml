@@ -49,19 +49,25 @@
     <!-- AnalyzeActivity labels -->
     <string name="phone_activity_analyze_button">Phone activity</string>
     <string name="fitbit_activity_analyze_button">Fitbit activity</string>
-    <string name="expert_system_analyze_button">Analyze results</string>
+    <string name="expert_system_analyze_button">Expert system</string>
     <string name="fitbit_analyze_steps_label_text_view">Graph of steps traveled</string>
     <string name="fitbit_analyze_spO2_label_text_view">Graph of SpO2</string>
     <string name="tab_item_days">Days</string>
     <string name="tab_item_months">Months</string>
-    <string name="no_data_text_view">Brak danych</string>
+    <string name="no_data_text_view">No Data</string>
+    <string name="most_common_localizations_text_view">The most frequently recorded locations of the phone</string>
+    <string name="amount_of_all_answers_text_view">Number of all answers: </string>
+    <string name="question_answers_label_text_view">Chart showing the percentage of correct answers</string>
+    <string name="phone_activity_label_text_view">Phone activity data</string>
+    <string name="daily_phone_movement_label_text_view">Number of today\'s recorded activities</string>
+    <string name="phone_movement_average_label_text_view">Average activity time</string>
 
     <!-- ReportActivity labels -->
     <string name="report_activity_title">Report</string>
     <string name="report_receivers_activity_title">Report receivers</string>
-    <string name="generalInfo_text_view">General info</string>
-    <string name="date_text_view">Report date</string>
-    <string name="nameLabel_text_view">Full name</string>
+    <string name="general_info_text_view">General info</string>
+    <string name="report_date_text_view">Report date</string>
+    <string name="name_label_text_view">Full name</string>
     <string name="daily_feelings_text_view">Daily feelings</string>
     <string name="mood_daily_feelings_text_view">Mood</string>
     <string name="ailments_daily_feelings_text_view">Ailments</string>
@@ -74,7 +80,7 @@
     <string name="fitbit_steps_label_text_view">Amount of steps</string>
     <string name="fitbit_spo2_label_text_view">SpO2</string>
     <string name="summary_label_text_view">Summary</string>
-    <string name="mood_daily_feelings_label_text_view">Analyze result</string>
+    <string name="analyze_result_label_text_view">Analyze result</string>
     <string name="ailments_daily_feelings_label_text_view">Remarks</string>
     <string name="send_report_button">Send report</string>
 
@@ -85,12 +91,15 @@
     <string name="sex_text_view" >Sex</string>
     <string name="contact_data_text_view">Contact data</string>
     <string name="phone_number_text_view">Phone number</string>
-    <string name="email_address_label_text_view">Email address</string>
+    <string name="email_address_label_text_view">Email address (Gmail)</string>
     <string name="home_address_label_text_view">Home address</string>
     <string name="firstname_text_view">Firstname</string>
     <string name="lastname_text_view">Lastname</string>
     <string name="postal_code_text_view">Postal code</string>
     <string name="country_text_view">Country</string>
+    <string name="male_sex_spinner_item">Male</string>
+    <string name="female_sex_spinner_item">Female</string>
+    <string name="other_sex_spinner_item">Other</string>
 
     <!-- ReportActivity/ReportReceiversActivity/ReportSettingsActivity  labels -->
     <string name="general_text_view">General</string>
@@ -101,20 +110,16 @@
     <string name="sms_switch">Sms</string>
     <string name="email_switch">Email</string>
 
-    <!-- Widget labels -->
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">This is an app widget description</string>
-
     <!-- SettingsActivity/SettingsFitbitActivity labels -->
     <string name="settings_activity_title">Application settings</string>
     <string name="language_button">Application language</string>
     <string name="fitbit_button">Fitbit pairing</string>
     <string name="gmail_button">Gmail pairing</string>
+    <string name="expert_system_button">Expert system</string>
     <string name="fitbit_switch">Fitbit</string>
     <string name="title_language_dialog">Select a language</string>
 
-    <!-- SmsReportReceiversFragment/EmailReportReceiversFragment -->
+    <!-- SmsReportReceiversFragment/EmailReportReceiversFragment labels -->
     <string name="selected_sms_contacts_text_view">Selected contacts</string>
     <string name="add_email_button">Add</string>
     <string name="all_sms_contacts_text_view">All contacts</string>
@@ -125,9 +130,25 @@
     <string name="dialog_positive_button">OK</string>
     <string name="dialog_negative_button">Cancel</string>
 
+    <!-- ExpertSystemActivity -->
+    <string name="launch_expert_system_label">Launch expert system</string>
+
+    <!-- QuestionActivity labels -->
+    <string name="daily_question_activity_title">Daily question</string>
+    <string name="daily_question_notification_label">Click to answer the daily question</string>
+
     <!-- MenuItems -->
     <string name="settings_menu_item">Settings</string>
 
     <!-- EmergencyActivity -->
     <string name="emergency_button">SEND SOS SIGNAL</string>
+
+    <!-- SettingsGmailActivity -->
+    <string name="email_password_label_text_view">Application password (Google two-step verification)*</string>
+
+    <!-- Activity descriptions -->
+    <string name="fitbit_settings_description">Pairing the app with a Fitbit smartwatch allows dynamic monitoring of the user\'s activity (steps, spo2), processing and analyzing the resulting data. In order to keep the data as fresh as possible, it is necessary to have a dedicated Fitbit app running in the background to synchronize the data (alternatively, synchronize Fitbit app manually)</string>
+    <string name="gmail_settings_description">The application allows you to send the report as an email. The currently supported email inbox is Gmail. In order to set up the email correctly, you need to provide an email address and password.</string>
+    <string name="gmail_settings_extra_description">*Google\'s policy for third-party applications requires you to set up two-factor verification in your Google account and set a password for the mail application, then save the generated password above.</string>
+    <string name="expert_system_settings_description">The expert system will analyze the provided data according to the set level. The higher the level, the more stringent the expert system\'s evaluation of the user\'s condition.</string>
 </resources>

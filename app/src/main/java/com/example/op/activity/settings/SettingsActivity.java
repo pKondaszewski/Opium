@@ -23,10 +23,14 @@ public class SettingsActivity extends TranslatedAppCompatActivity implements Vie
         Button fitbitSettingsBtn = findViewById(R.id.button_fitbit_settings);
         Button gmailSettingsBtn = findViewById(R.id.button_gmail_settings);
         Button appLanguageBtn = findViewById(R.id.button_app_language);
+        Button expertSystemBtn = findViewById(R.id.button_expert_system_settings);
+        Button notificationScheduleBtn = findViewById(R.id.button_notification_schedule_settings);
 
         fitbitSettingsBtn.setOnClickListener(this);
         gmailSettingsBtn.setOnClickListener(this);
         appLanguageBtn.setOnClickListener(this);
+        expertSystemBtn.setOnClickListener(this);
+        notificationScheduleBtn.setOnClickListener(this);
     }
 
     @Override
@@ -41,6 +45,12 @@ public class SettingsActivity extends TranslatedAppCompatActivity implements Vie
         } else if (id == R.id.button_app_language) {
             DialogFragment newFragment = new AppLanguageDialogFragment();
             newFragment.show(getSupportFragmentManager(), TAG);
+        } else if (id == R.id.button_expert_system_settings) {
+            Intent intent = new Intent(this, SettingsExpertSystemActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.button_notification_schedule_settings) {
+            Intent intent = new Intent(this, SettingsNotificationScheduleActivity.class);
+            startActivity(intent);
         }
     }
 }

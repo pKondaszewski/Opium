@@ -10,33 +10,62 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/questionAnswersLabelTextView"
+                android:id="@+id/text_view_question_answers_label"
                 style="@style/TextViewH2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Wykres prezentujący procent poprawnych odpowiedzi"/>
+                android:text="@string/question_answers_label_text_view"/>
             <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieChart"
+                android:id="@+id/pie_chart"
                 android:layout_width="match_parent"
-                android:layout_height="500sp">
-            </com.github.mikephil.charting.charts.PieChart>
-            <TextView
-                android:id="@+id/questionAnswers2LabelTextView"
-                style="@style/TextViewH2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Wykres prezentujący ilość odnotowanych aktywnosci w ciagu dnia"/>
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/barChart2"
+                android:layout_height="500sp"/>
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="500sp">
-            </com.github.mikephil.charting.charts.BarChart>
+                android:layout_height="match_parent">
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_view_phone_activity_label"
+                        style="@style/TextViewH2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/phone_activity_label_text_view"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_view_daily_phone_movement_label"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/daily_phone_movement_label_text_view"/>
+                    <TextView
+                        android:id="@+id/text_view_daily_phone_movement_value"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.1"
+                        android:gravity="end"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_view_phone_movement_average_label"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/phone_movement_average_label_text_view"/>
+                    <TextView
+                        android:id="@+id/text_view_phone_movement_average_value"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.1"
+                        android:gravity="end"/>
+                </TableRow>
+            </TableLayout>
             <LinearLayout
                 android:id="@+id/phoneMovementLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            </LinearLayout>
+                android:orientation="horizontal"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

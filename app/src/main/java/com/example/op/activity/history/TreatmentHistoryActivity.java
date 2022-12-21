@@ -23,9 +23,11 @@ import com.example.database.entity.DailyFeelings;
 import com.example.database.entity.FitbitSpO2Data;
 import com.example.database.entity.FitbitStepsData;
 import com.example.op.R;
+import com.example.op.activity.extra.TranslatedAppCompatActivity;
 import com.example.op.activity.user.DailyFeelingsActivity;
 import com.example.op.utils.FitbitUtils;
 import com.example.op.utils.JsonManipulator;
+import com.example.op.utils.Translation;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
-public class TreatmentHistoryActivity extends AppCompatActivity implements CalendarView.OnDateChangeListener, MenuItem.OnMenuItemClickListener {
+public class TreatmentHistoryActivity extends TranslatedAppCompatActivity implements CalendarView.OnDateChangeListener, MenuItem.OnMenuItemClickListener {
 
     private ActivityResultLauncher<Intent> startActivityForResult;
     private AppDatabase database;
@@ -43,15 +45,17 @@ public class TreatmentHistoryActivity extends AppCompatActivity implements Calen
     private TextView moodDailyFeelingsValueTv, ailmentsDailyFeelingsValueTv, noteDailyFeelingsValueTv,
             dailyFeelingsQuestionContentTv, dailyFeelingsQuestionAnswerTv, dailyFeelingsQuestionResultTv,
             fitbitDataLabelTv, fitbitStepsLabelTv, fitbitStepsValueTv, fitbitSp02LabelTv, fitbitSp02ValueTv;
+    private Translation translation;
     private SharedPreferences sharPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_treatment_history);
-        sharPref = getSharedPreferences(getString(R.string.opium_preferences), Context.MODE_PRIVATE);
+        sharPref = getSharedPreferences(getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
 
         database = AppDatabase.getDatabaseInstance(this);
+        translation = new Translation(this);
         calendar = Calendar.getInstance();
         localDate = LocalDate.now();
 
@@ -105,7 +109,7 @@ public class TreatmentHistoryActivity extends AppCompatActivity implements Calen
         outputDailyFeelings(dailyFeelings);
 
         Optional<ControlTextUserAnswer> controlTextUserAnswer = database.controlTextUserAnswerDao()
-                .getByDate(pickedDate);
+                .getNewestByDate(pickedDate);
         if (controlTextUserAnswer.isPresent()) {
             ControlTextUserAnswer userAnswer = controlTextUserAnswer.get();
             Integer questionId = userAnswer.getControlTextQuestionId();
@@ -134,7 +138,7 @@ public class TreatmentHistoryActivity extends AppCompatActivity implements Calen
                         .orElse(new DailyFeelings(pickedDate));
                 String dailyFeelingsString = JsonManipulator.stringifyDailyFeelings(dailyFeelings);
                 Intent intent = new Intent(this, DailyFeelingsActivity.class);
-                intent.putExtra(getString(R.string.daily_feelings_as_json), dailyFeelingsString);
+                intent.putExtra(getString(com.example.database.R.string.daily_feelings_as_json), dailyFeelingsString);
                 intent.setAction(Intent.ACTION_ASSIST);
                 startActivityForResult.launch(intent);
             } else {
@@ -145,7 +149,7 @@ public class TreatmentHistoryActivity extends AppCompatActivity implements Calen
     }
 
     private boolean isFitbitEnable() {
-        return FitbitUtils.isEnabled(sharPref, getString(R.string.fitbit_switch_state));
+        return FitbitUtils.isEnabled(sharPref, getString(com.example.database.R.string.fitbit_switch_state));
     }
 
     private void setFitbitDataVisible() {
@@ -166,7 +170,7 @@ public class TreatmentHistoryActivity extends AppCompatActivity implements Calen
     }
 
     private void outputDailyFeelings(DailyFeelings dailyFeelings) {
-        moodDailyFeelingsValueTv.setText(dailyFeelings.getMood());
+        moodDailyFeelingsValueTv.setText(translation.translateMood(dailyFeelings.getMood()));
         List<String> dailyFeelingsAilments = dailyFeelings.getAilments();
         if (dailyFeelingsAilments == null) {
             ailmentsDailyFeelingsValueTv.setText("");
@@ -174,12 +178,14 @@ public class TreatmentHistoryActivity extends AppCompatActivity implements Calen
             ArrayList<String> dailyFeelingsWithOtherAilments = new ArrayList<>(dailyFeelingsAilments);
             if (dailyFeelingsWithOtherAilments.contains("other")) {
                 String otherAilments = dailyFeelings.getOtherAilments();
-                String otherValue = String.format("%s: %s", getString(R.string.ailments_other_button), otherAilments);
+                String otherValue = "other: " + otherAilments;
                 int otherIndex = dailyFeelingsWithOtherAilments.indexOf("other");
                 dailyFeelingsWithOtherAilments.set(otherIndex, otherValue);
-                ailmentsDailyFeelingsValueTv.setText(String.join(", ", dailyFeelingsWithOtherAilments));
+                List<String> translatedAilments = translation.translateAilments(dailyFeelingsWithOtherAilments);
+                ailmentsDailyFeelingsValueTv.setText(String.join(", ", translatedAilments));
             } else {
-                ailmentsDailyFeelingsValueTv.setText(String.join(", ", dailyFeelingsAilments));
+                List<String> translatedAilments = translation.translateAilments(dailyFeelingsWithOtherAilments);
+                ailmentsDailyFeelingsValueTv.setText(String.join(", ", translatedAilments));
             }
         }
         noteDailyFeelingsValueTv.setText(dailyFeelings.getNote());

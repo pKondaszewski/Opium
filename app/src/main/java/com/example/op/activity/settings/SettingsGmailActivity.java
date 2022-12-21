@@ -21,18 +21,17 @@ public class SettingsGmailActivity extends TranslatedAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gmail_settings);
 
-        SharedPreferences sharPref = this.getSharedPreferences(getString(R.string.opium_preferences), MODE_PRIVATE);
+        SharedPreferences sharPref = this.getSharedPreferences(getString(com.example.database.R.string.opium_preferences), MODE_PRIVATE);
+        gmailAddress = getString(com.example.database.R.string.gmail_address);
+        gmailPassword = getString(com.example.database.R.string.gmail_password);
 
-        gmailAddress = getString(R.string.gmail_address);
-        gmailPassword = getString(R.string.gmail_password);
-
-        Button applyEmailCredentialsButton = findViewById(R.id.applyEmailCredentialsButton);
+        Button applyEmailCredentialsButton = findViewById(R.id.button_apply_email_credentials);
         EditText emailAddressEv = findViewById(R.id.edit_view_email_address);
         EditText emailPasswordEv = findViewById(R.id.edit_view_email_password);
 
         String gmailAddress = sharPref.getString(this.gmailAddress, "");
-        emailAddressEv.setText(gmailAddress);
         String gmailPassword = sharPref.getString(this.gmailPassword, "");
+        emailAddressEv.setText(gmailAddress);
         emailPasswordEv.setText(gmailPassword);
 
         applyEmailCredentialsButton.setOnClickListener(v -> {
