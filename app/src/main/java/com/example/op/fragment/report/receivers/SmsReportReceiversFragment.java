@@ -19,8 +19,8 @@ import androidx.core.content.ContextCompat;
 
 import com.example.database.AppDatabase;
 import com.example.database.entity.PhoneContact;
+import com.example.expertsystem.ResourceNotFoundException;
 import com.example.op.R;
-import com.example.op.exception.ResourceNotFoundException;
 import com.example.op.fragment.report.receivers.dialog.AddContactDialogFragment;
 import com.example.op.utils.simple.SimpleTextWatcher;
 import com.tomash.androidcontacts.contactgetter.entity.ContactData;
@@ -72,12 +72,7 @@ public class SmsReportReceiversFragment extends ReportReceiversFragment {
             String phoneContact = reportReceiversList.get(position);
             String[] contactAsArray = phoneContact.split(", ");
             PhoneContact dbPhoneContact = database.phoneContactDao()
-                    .findByNameAndPhoneNumber(contactAsArray[0], contactAsArray[1]).orElseThrow(() ->
-                            new ResourceNotFoundException(TAG,
-                                    String.format("Can't find user with username: %s, password: %s",
-                                            contactAsArray[0], contactAsArray[1])
-                            )
-                    );
+                    .findByNameAndPhoneNumber(contactAsArray[0], contactAsArray[1]).get();
             if (dbPhoneContact.isFromContactBook()) {
                 contactsList.add(reportReceiversList.get(position));
             }

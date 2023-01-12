@@ -5,15 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.expertsystem.ExpertSystem;
 import com.example.op.R;
-import com.example.op.activity.ExpertSystemActivity;
-import com.example.op.activity.PhoneAnalyzeActivity;
+import com.example.op.activity.extra.GlobalSetupAppCompatActivity;
 
-public class AnalyzeActivity extends AppCompatActivity implements View.OnClickListener {
-
+public class AnalyzeActivity extends GlobalSetupAppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

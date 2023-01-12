@@ -13,7 +13,6 @@ import java.util.List;
 
 
 public class FitbitStepsAdapter extends FragmentStateAdapter {
-
     private final List<Fragment> fragments;
 
     public FitbitStepsAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {

@@ -6,15 +6,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
 import androidx.core.app.ActivityCompat;
-import androidx.work.Data;
 import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.example.database.AppDatabase;
-import com.example.op.R;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -22,8 +18,6 @@ import java.time.ZoneId;
 import java.util.concurrent.TimeUnit;
 
 public class WorkerFactory {
-
-    private static final String TAG = WorkerFactory.class.getName();
     private static final String FITBIT_DATA_REQUEST = "fitbitDataRequest";
     private static final String LOCALIZATION_REQUEST = "localizationRequest";
     private static final String MOVEMENT_REQUEST = "movementRequest";
@@ -42,13 +36,10 @@ public class WorkerFactory {
 
         fitbitDataRequest = new PeriodicWorkRequest.Builder(FitbitDataWorker.class, 15, TimeUnit.MINUTES)
                 .build();
-
         localizationRequest = new PeriodicWorkRequest.Builder(PhoneLocalizationWorker.class, 15, TimeUnit.MINUTES)
                 .build();
-
         movementRequest = new PeriodicWorkRequest.Builder(PhoneMovementWorker.class, 15, TimeUnit.MINUTES)
                 .build();
-
         String dailyQuestionTime = sharPref.getString(context.getString(com.example.database.R.string.daily_question_time), "12:00");
         notificationRequest =
                 new PeriodicWorkRequest.Builder(NotificationWorker.class, 15, TimeUnit.MINUTES)

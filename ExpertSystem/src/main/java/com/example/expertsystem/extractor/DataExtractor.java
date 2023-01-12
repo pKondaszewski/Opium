@@ -1,13 +1,12 @@
 package com.example.expertsystem.extractor;
 
 import com.example.database.AppDatabase;
-import com.example.database.entity.ControlTextQuestion;
-import com.example.database.entity.ControlTextUserAnswer;
 import com.example.database.entity.DailyFeelings;
+import com.example.database.entity.DailyQuestion;
+import com.example.database.entity.DailyQuestionAnswer;
 import com.example.database.entity.FitbitSpO2Data;
 import com.example.database.entity.FitbitStepsData;
 import com.example.database.entity.PhoneLocalization;
-import com.example.database.entity.PhoneMovement;
 import com.example.expertsystem.ExpertSystemLevel;
 
 import java.time.LocalDate;
@@ -18,7 +17,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public class DataExtractor {
-
     private final AppDatabase database;
     private final LocalDate now;
 
@@ -39,13 +37,22 @@ public class DataExtractor {
     }
 
     public Integer extractAmountOfNotedMovements(ExpertSystemLevel level) {
-        List<PhoneMovement> allByDate = database.phoneMovementDao().getAllByDate(now);
-        int levelValue = switch (level) {
-            case LOW -> 1;
-            case MEDIUM -> 0;
-            case HIGH -> -1;
-        };
-        int size = allByDate.size() + levelValue;
+        Integer count = database.phoneMovementDao().getCountByDate(now);
+        int levelValue;
+        switch (level) {
+            case LOW:
+                levelValue = 1;
+                break;
+            case MEDIUM:
+                levelValue = 0;
+                break;
+            case HIGH:
+                levelValue = -1;
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + level);
+        }
+        int size = count + levelValue;
         return Math.min(size, 4);
     }
 
@@ -60,12 +67,23 @@ public class DataExtractor {
     }
 
     private Double dailyFeelingsToDoubleValue(DailyFeelings dailyFeelings) {
-        double moodValue = switch (DailyFeelingsEnum.valueOf(dailyFeelings.getMood().toUpperCase(Locale.ROOT))) {
-            case TRAGIC -> 0.0;
-            case BAD -> 1.0;
-            case OK -> 2.0;
-            case GOOD -> 3.0;
-            case GREAT -> 4.0;
+        double moodValue = 0.0;
+        switch (DailyFeelingsEnum.valueOf(dailyFeelings.getMood().toUpperCase(Locale.ROOT))) {
+            case TRAGIC:
+                moodValue = 0.0;
+                break;
+            case BAD:
+                moodValue = 1.0;
+                break;
+            case OK:
+                moodValue = 2.0;
+                break;
+            case GOOD:
+                moodValue = 3.0;
+                break;
+            case GREAT:
+                moodValue = 4.0;
+                break;
         };
         List<String> ailments = dailyFeelings.getAilments();
         moodValue -= ailments.get(0).equals("") ? 0 : ailments.size() * 0.2;
@@ -73,12 +91,12 @@ public class DataExtractor {
     }
 
     public Double extractAnswerValue() {
-        Optional<ControlTextUserAnswer> byDate = database.controlTextUserAnswerDao().getNewestByDate(now);
+        Optional<DailyQuestionAnswer> byDate = database.dailyQuestionAnswerDao().getNewestByDate(now);
         if (byDate.isPresent()) {
-            ControlTextUserAnswer controlTextUserAnswer = byDate.get();
-            Integer controlTextQuestionId = controlTextUserAnswer.getControlTextQuestionId();
-            ControlTextQuestion controlTextQuestion = database.controlTextQuestionDao().getById(controlTextQuestionId).get();
-            return controlTextUserAnswer.getUserAnswer().equals(controlTextQuestion.getCorrectAnswer()) ? 1.0 : 0.0;
+            DailyQuestionAnswer dailyQuestionAnswer = byDate.get();
+            Integer dailyQuestionId = dailyQuestionAnswer.getDailyQuestionId();
+            DailyQuestion dailyQuestion = database.dailyQuestionDao().getById(dailyQuestionId).get();
+            return dailyQuestionAnswer.getUserAnswer().equals(dailyQuestion.getCorrectAnswer()) ? 1.0 : 0.0;
         } else {
             return 0.0;
         }

@@ -3,21 +3,13 @@ package com.example.op.domain;
 import android.graphics.Color;
 
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class PhoneDataUseCase {
-
     public PhoneDataUseCase() {}
 
     public PieData getPhoneQuestionAnswersPieData(Integer numberOfCorrectAnswers, Integer numberOfIncorrectAnswers) {
@@ -42,9 +34,4 @@ public class PhoneDataUseCase {
         pieData.setDataSet(pieDataSet);
         return pieData;
     }
-//
-//    public BarData getPhoneMovementsPerDay(LocalDate date) {
-//
-//        return barData;
-//    }
 }

@@ -13,15 +13,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.op.R;
-import com.example.op.activity.extra.TranslatedAppCompatActivity;
+import com.example.op.activity.extra.GlobalSetupAppCompatActivity;
 import com.example.op.adapter.report.ReportAdapter;
 import com.example.op.utils.simple.SimpleOnTabSelectedListener;
 import com.google.android.material.tabs.TabLayout;
 
-public class ReportActivity extends TranslatedAppCompatActivity implements MenuItem.OnMenuItemClickListener {
-
-    private final String[] PERMISSIONS = new String[]
-            {Manifest.permission.READ_CONTACTS, Manifest.permission.SEND_SMS};
+public class ReportActivity extends GlobalSetupAppCompatActivity implements MenuItem.OnMenuItemClickListener {
+    private final String[] PERMISSIONS = new String[] {Manifest.permission.READ_CONTACTS, Manifest.permission.SEND_SMS};
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
@@ -36,7 +34,18 @@ public class ReportActivity extends TranslatedAppCompatActivity implements MenuI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+        setupTableLayout();
+        for (String permission : PERMISSIONS) {
+            if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, PERMISSIONS, 100);
+                return;
+            }
+        }
+    }
+
+    private void setupTableLayout() {
         FragmentManager fm = getSupportFragmentManager();
+
         ReportAdapter vsa = new ReportAdapter(fm, getLifecycle());
         ViewPager2 vp2 = findViewById(R.id.view_pager_report_receivers);
         TabLayout tabLayout = findViewById(R.id.tab_layout_report);
@@ -53,12 +62,6 @@ public class ReportActivity extends TranslatedAppCompatActivity implements MenuI
                 tabLayout.selectTab(tabLayout.getTabAt(position));
             }
         });
-        for (String permission : PERMISSIONS) {
-            if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, PERMISSIONS, 100);
-                return;
-            }
-        }
     }
 
     @Override

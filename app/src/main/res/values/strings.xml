@@ -2,15 +2,14 @@
 <resources>
     <!-- MainActivity labels -->
     <string name="app_name">Opium</string>
-    <string name="mainActivity_title">Main page</string>
-    <string name="daily_control_button_name">Hello, how are you feeling?</string>
-    <string name="daily_control_completed_button_name">Have a nice day!</string>
+    <string name="hello_label">Hello</string>
+    <string name="daily_feelings_button_name">How are you feeling?</string>
+    <string name="daily_feelings_completed_button_name">Have a nice day!</string>
     <string name="treatment_history_button_name">Treatment history</string>
     <string name="analyze_button_name">Analyze</string>
     <string name="report_button_name">Report</string>
     <string name="help_button_name">Help</string>
     <string name="settings_name">Settings</string>
-
     <string name="fitbit_switch_name">Turn on Fitbit</string>
 
     <!-- DailyFeelingsActivity labels -->
@@ -36,15 +35,14 @@
     <string name="saved_toast">Saved</string>
 
     <!-- TreatmentHistoryActivity labels -->
-    <string name="control_question_label_text_view">Daily question</string>
-    <string name="control_question_content_label_text_view">Question</string>
-    <string name="control_question_answer_label_text_view">User answer</string>
-    <string name="control_question_result_label_text_view">Correct answer</string>
+    <string name="daily_question_label_text_view">Daily question</string>
+    <string name="daily_question_content_label_text_view">Question</string>
+    <string name="daily_question_answer_label_text_view">User answer</string>
+    <string name="daily_question_result_label_text_view">Correct answer</string>
+    <string name="daily_question_time_of_save_text_view">Time of the save</string>
     <string name="treatment_history_activity_title">Treatment history</string>
     <string name="showCurrentDate_button">Show current date</string>
     <string name="unable_change_future_date_toast_label">Unable to edit date from future</string>
-    <string name="edit_date_menu_item">Edit date</string>
-    <string name="show_current_date_menu_item">Show current date</string>
 
     <!-- AnalyzeActivity labels -->
     <string name="phone_activity_analyze_button">Phone activity</string>
@@ -55,12 +53,22 @@
     <string name="tab_item_days">Days</string>
     <string name="tab_item_months">Months</string>
     <string name="no_data_text_view">No Data</string>
-    <string name="most_common_localizations_text_view">The most frequently recorded locations of the phone</string>
+    <string name="most_common_localizations_today_text_view">The most frequently recorded locations of the phone (today)</string>
+    <string name="most_common_localizations_all_time_text_view">The most frequently recorded locations of the phone (all time)</string>
     <string name="amount_of_all_answers_text_view">Number of all answers: </string>
     <string name="question_answers_label_text_view">Chart showing the percentage of correct answers</string>
     <string name="phone_activity_label_text_view">Phone activity data</string>
+    <string name="last_daily_question_label_text_view">Last asked question</string>
+    <string name="last_daily_question_answer_label_text_view">Last given answer</string>
+    <string name="last_daily_question_time_of_answer_label_text_view">Time of the answer</string>
+    <string name="last_phone_movement_label_text_view">Last recorded activity</string>
     <string name="daily_phone_movement_label_text_view">Number of today\'s recorded activities</string>
-    <string name="phone_movement_average_label_text_view">Average activity time</string>
+    <string name="phone_movement_average_today_label_text_view">Average activity time (today)</string>
+    <string name="phone_movement_average_all_label_text_view">Average activity time (all)</string>
+    <string name="phone_movement_count_label_text_view">Number of all recorded activities</string>
+    <string name="fitbit_days_text_view">Amount of days</string>
+    <string name="fitbit_year_text_view">Selected year</string>
+    <string name="phone_activity_title">Phone activity</string>
 
     <!-- ReportActivity labels -->
     <string name="report_activity_title">Report</string>
@@ -72,8 +80,9 @@
     <string name="mood_daily_feelings_text_view">Mood</string>
     <string name="ailments_daily_feelings_text_view">Ailments</string>
     <string name="note_daily_feelings_text_view">Note</string>
-    <string name="birthdate_Profile_text_view">Birthdate</string>
-    <string name="phone_Profile_text_view">Data retrieved from the phone</string>
+    <string name="time_of_save_daily_feelings_text_view">Time of the save</string>
+    <string name="birthdate_profile_text_view">Birthdate</string>
+    <string name="phone_profile_text_view">Data retrieved from the phone</string>
     <string name="phone_movement_label_text_view">Phone movement</string>
     <string name="phone_localization_label_text_view">Phone localization</string>
     <string name="fitbit_data_label_text_view">Data retrieved from the Fitbit</string>
@@ -85,21 +94,23 @@
     <string name="send_report_button">Send report</string>
 
     <!-- ProfileActivity/EditProfileActivity labels -->
+    <string name="personal_profile_title">Personal profile</string>
+    <string name="edit_profile_title">Edit personal profile</string>
     <string name="personal_data_text_view">Personal data</string>
     <string name="firstname_lastname_text_view">Firstname and lastname</string>
     <string name="birthdate_text_view">Birthdate</string>
-    <string name="sex_text_view" >Sex</string>
+    <string name="gender_text_view">Gender</string>
     <string name="contact_data_text_view">Contact data</string>
     <string name="phone_number_text_view">Phone number</string>
-    <string name="email_address_label_text_view">Email address (Gmail)</string>
+    <string name="email_address_label_text_view">Gmail address</string>
     <string name="home_address_label_text_view">Home address</string>
     <string name="firstname_text_view">Firstname</string>
     <string name="lastname_text_view">Lastname</string>
     <string name="postal_code_text_view">Postal code</string>
     <string name="country_text_view">Country</string>
-    <string name="male_sex_spinner_item">Male</string>
-    <string name="female_sex_spinner_item">Female</string>
-    <string name="other_sex_spinner_item">Other</string>
+    <string name="male_gender_spinner_item">Male</string>
+    <string name="female_gender_spinner_item">Female</string>
+    <string name="other_gender_spinner_item">Other</string>
 
     <!-- ReportActivity/ReportReceiversActivity/ReportSettingsActivity  labels -->
     <string name="general_text_view">General</string>
@@ -117,7 +128,12 @@
     <string name="gmail_button">Gmail pairing</string>
     <string name="expert_system_button">Expert system</string>
     <string name="fitbit_switch">Fitbit</string>
-    <string name="title_language_dialog">Select a language</string>
+    <string name="language_dialog_title">Select a language</string>
+    <string name="fitbit_pairing_title">Fitbit pairing</string>
+    <string name="fitbit_settings_title">Fitbit settings</string>
+    <string name="settings_notification_schedule_title">Notification schedule</string>
+    <string name="settings_expert_system_title">Expert system settings</string>
+    <string name="daily_question_notification_settings_title">Time of notification of daily question</string>
 
     <!-- SmsReportReceiversFragment/EmailReportReceiversFragment labels -->
     <string name="selected_sms_contacts_text_view">Selected contacts</string>
@@ -129,8 +145,16 @@
     <string name="email_hint_edit_text">Email address</string>
     <string name="dialog_positive_button">OK</string>
     <string name="dialog_negative_button">Cancel</string>
+    <string name="gmail_pairing_title">Gmail pairing</string>
 
     <!-- ExpertSystemActivity -->
+    <string name="expert_system_title">Expert system</string>
+    <string name="expert_system_user_movement_result_label_text_view">User movement (1–4)</string>
+    <string name="expert_system_location_result_label_text_view">Location (1–5)</string>
+    <string name="expert_system_user_feelings_result_label_text_view">User feelings (1–4)</string>
+    <string name="expert_system_fitbit_result_label_text_view">Fitbit</string>
+    <string name="expert_fitbit_steps_result_label_text_view">Fitbit - steps (1–3)</string>
+    <string name="expert_fitbit_spo2_result_label_text_view">Fitbit - spo2 (1–3)</string>
     <string name="launch_expert_system_label">Launch expert system</string>
 
     <!-- QuestionActivity labels -->
@@ -139,9 +163,16 @@
 
     <!-- MenuItems -->
     <string name="settings_menu_item">Settings</string>
+    <string name="edit_date_menu_item">Edit date</string>
+    <string name="show_current_date_menu_item">Show current date</string>
+    <string name="profile_menu_item">Profile</string>
+    <string name="edit_menu_item">Edit</string>
 
     <!-- EmergencyActivity -->
+    <string name="emergency_title">Emergency</string>
     <string name="emergency_button">SEND SOS SIGNAL</string>
+    <string name="emergency_message">EMERGENCY MESSAGE. SOS.</string>
+    <string name="emergency_toast_message">Emergency button pressed. Informing report receivers about it</string>
 
     <!-- SettingsGmailActivity -->
     <string name="email_password_label_text_view">Application password (Google two-step verification)*</string>
@@ -151,4 +182,8 @@
     <string name="gmail_settings_description">The application allows you to send the report as an email. The currently supported email inbox is Gmail. In order to set up the email correctly, you need to provide an email address and password.</string>
     <string name="gmail_settings_extra_description">*Google\'s policy for third-party applications requires you to set up two-factor verification in your Google account and set a password for the mail application, then save the generated password above.</string>
     <string name="expert_system_settings_description">The expert system will analyze the provided data according to the set level. The higher the level, the more stringent the expert system\'s evaluation of the user\'s condition.</string>
+    <string name="daily_question_notification_settings_description">The time when a notification redirecting to the question to be answered will appear.</string>
+    <string name="expert_system_user_movement_description">The user\'s movement is analyzed using fuzzy logic techniques. Two processors have been created, where one analyzes the location given in the profile with the location most frequently recorded today, and the other analyzes the result of the location processor and the amount of smartphone movement activity recorded today during the day.</string>
+    <string name="expert_system_user_feelings_description">The user\'s feelings is analyzed using fuzzy logic techniques. User feelings processor analyzes daily feelings selected mood and ailments with daily question user answer. Both values are from today.</string>
+    <string name="expert_system_fitbit_description">Fitbit provides data about steps and spo2. This data is analyzed with simple, separate processors, which return value from the scale based on the data collected by fitbit.</string>
 </resources>

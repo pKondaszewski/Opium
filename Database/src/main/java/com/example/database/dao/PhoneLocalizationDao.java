@@ -27,7 +27,12 @@ public interface PhoneLocalizationDao extends CrudDao<PhoneLocalization> {
     Optional<PhoneLocalization> getMostCommonLocationByDate(LocalDate date);
 
     @MapInfo(keyColumn = "homeAddress", valueColumn = "count")
-    @Query("SELECT homeAddress, COUNT(*) AS count FROM PhoneLocalization " +
+    @Query("SELECT homeAddress, COUNT(*) AS count FROM PhoneLocalization WHERE localizationCheckDate = :date " +
            "GROUP BY homeAddress ORDER BY COUNT(homeAddress) DESC LIMIT 5")
-    Map<HomeAddress, String> getMostFrequentLocationAndCount();
+    Map<HomeAddress, String> getMostFrequentLocationAndCountToday(LocalDate date);
+
+    @MapInfo(keyColumn = "homeAddress", valueColumn = "count")
+    @Query("SELECT homeAddress, COUNT(*) AS count FROM PhoneLocalization " +
+            "GROUP BY homeAddress ORDER BY COUNT(homeAddress) DESC LIMIT 5")
+    Map<HomeAddress, String> getMostFrequentLocationAndCountAllTime();
 }

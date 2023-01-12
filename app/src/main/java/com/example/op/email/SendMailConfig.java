@@ -3,7 +3,6 @@ package com.example.op.email;
 import java.util.Properties;
 
 final class SendMailConfig {
-
     static Properties getPropertiesSetup() {
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");

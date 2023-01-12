@@ -7,22 +7,16 @@ import android.content.SharedPreferences;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.example.op.R;
 import com.example.op.service.NotificationService;
-
-import java.util.Map;
 
 import lombok.NonNull;
 
 public class NotificationWorker extends Worker {
-
     private final Context context;
     private final Intent intent;
     private final SharedPreferences sharPref;
 
-    public NotificationWorker(
-            @NonNull Context context,
-            @NonNull WorkerParameters params) {
+    public NotificationWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
         this.context = context;
         sharPref = context.getSharedPreferences(context.getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);

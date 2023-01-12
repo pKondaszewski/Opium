@@ -8,11 +8,10 @@ import android.widget.Button;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.op.R;
-import com.example.op.activity.extra.TranslatedAppCompatActivity;
+import com.example.op.activity.extra.GlobalSetupAppCompatActivity;
 import com.example.op.fragment.settings.AppLanguageDialogFragment;
 
-public class SettingsActivity extends TranslatedAppCompatActivity implements View.OnClickListener {
-
+public class SettingsActivity extends GlobalSetupAppCompatActivity implements View.OnClickListener {
     private static final String TAG = SettingsActivity.class.getName();
 
     @Override

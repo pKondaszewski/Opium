@@ -8,49 +8,51 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 
 import com.example.database.AppDatabase;
-import com.example.database.entity.ControlTextQuestion;
-import com.example.database.entity.ControlTextUserAnswer;
 import com.example.database.entity.DailyFeelings;
-import com.example.database.entity.ExpertSystemResult;
+import com.example.database.entity.DailyQuestion;
 import com.example.database.entity.FitbitSpO2Data;
 import com.example.database.entity.FitbitStepsData;
 import com.example.database.entity.PhoneLocalization;
-import com.example.database.entity.PhoneMovement;
 import com.example.op.R;
 import com.example.op.utils.FitbitUtils;
+import com.example.op.utils.Translation;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class DetailedReportFragment extends GeneralReportFragment {
-
+    private static final String TAG = DetailedReportFragment.class.getName();
     private AppDatabase database;
+    private Context context;
     private CardView fitbitDataCv;
     private SharedPreferences sharPref;
     private TextView dateValueTextView, nameValueTextView, birthdateValueTextView, fitbitStepsValueTv,
             fitbitSpO2ValueTv, moodDailyFeelingsValueTv, ailmentsDailyFeelingsValueTv, noteDailyFeelingsValueTv,
-            phoneMovementValueTv, phoneLocalizationValueTv, controlQuestionContentTv,
-            controlQuestionAnswerTv, controlQuestionResultTv, analyzeResultValueTv;
+            timeOfSaveDailyFeelingsValueTv, phoneMovementValueTv, phoneLocalizationValueTv, dailyQuestionContentTv,
+            dailyQuestionAnswerTv, dailyQuestionResultTv, timeOfSaveDailyQuestionAnswerTv, analyzeResultValueTv;
+    private Translation translation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        context = getContext();
+        database = AppDatabase.getDatabaseInstance(context);
+        translation = new Translation(context);
         return inflater.inflate(R.layout.fragment_detailed_report, parent, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         LocalDate presentDate = LocalDate.now();
-        database = AppDatabase.getDatabaseInstance(getContext());
         sharPref = getContext().getSharedPreferences(getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
 
         dateValueTextView = view.findViewById(R.id.text_view_date);
@@ -59,10 +61,12 @@ public class DetailedReportFragment extends GeneralReportFragment {
         moodDailyFeelingsValueTv = view.findViewById(R.id.text_view_mood_daily_feelings_value);
         ailmentsDailyFeelingsValueTv = view.findViewById(R.id.text_view_ailments_daily_feelings_value);
         noteDailyFeelingsValueTv = view.findViewById(R.id.text_view_note_daily_feelings_value);
+        timeOfSaveDailyFeelingsValueTv = view.findViewById(R.id.text_view_time_of_save_daily_feelings_value);
 
-        controlQuestionContentTv = view.findViewById(R.id.text_view_control_question_content_value);
-        controlQuestionAnswerTv = view.findViewById(R.id.text_view_control_question_answer_value);
-        controlQuestionResultTv = view.findViewById(R.id.text_view_control_question_result_value);
+        dailyQuestionContentTv = view.findViewById(R.id.text_view_daily_question_content_value);
+        dailyQuestionAnswerTv = view.findViewById(R.id.text_view_daily_question_answer_value);
+        dailyQuestionResultTv = view.findViewById(R.id.text_view_daily_question_result_value);
+        timeOfSaveDailyQuestionAnswerTv = view.findViewById(R.id.text_view_daily_question_time_of_save_value);
 
         phoneMovementValueTv = view.findViewById(R.id.text_view_phone_movement_value);
         phoneLocalizationValueTv = view.findViewById(R.id.text_view_phone_localization_value);
@@ -74,6 +78,19 @@ public class DetailedReportFragment extends GeneralReportFragment {
         analyzeResultValueTv = view.findViewById(R.id.text_view_analyze_result_value);
 
         setupData(presentDate);
+
+        Button sendReportBtn = view.findViewById(R.id.button_send_report);
+        sendReportBtn.setOnClickListener(v -> {
+            boolean isMailSent = sendMail(TAG, getString(R.string.report_activity_title), getDetailedReportMessage(context), context);
+            boolean isSmsSent = sendSms(TAG, getDetailedReportMessage(context), context);
+            if (isMailSent || isSmsSent) {
+                requireActivity().finish();
+            } else {
+                Toast.makeText(context
+                        , "Can't send report. Check app permissions or internet connection",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
@@ -81,14 +98,14 @@ public class DetailedReportFragment extends GeneralReportFragment {
         try {
             setupPersonalData(presentDate, List.of(dateValueTextView, nameValueTextView, birthdateValueTextView), database);
             setupDailyFeelingsData(presentDate);
-            setupControlQuestion(presentDate);
+            setupDailyQuestion(presentDate);
             setupPhoneMovementData(presentDate);
             setupPhoneLocalizationData();
             if (isFitbitEnable()) {
                 setFitbitDataVisible();
                 setupFitbitData(presentDate);
             }
-            analyzeResultValueTv.setText(setupResults(presentDate, sharPref));
+            analyzeResultValueTv.setText(setupResults(presentDate, sharPref, database));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
@@ -106,7 +123,7 @@ public class DetailedReportFragment extends GeneralReportFragment {
         DailyFeelings dailyFeelings = database.dailyFeelingsDao().getByDate(presentDate)
                 .orElse(new DailyFeelings());
 
-        moodDailyFeelingsValueTv.setText(dailyFeelings.getMood());
+        moodDailyFeelingsValueTv.setText(translation.translateMood(dailyFeelings.getMood()));
         List<String> ailments = dailyFeelings.getAilments();
         if (ailments != null) {
             ArrayList<String> ailmentsArrayList = new ArrayList<>(ailments);
@@ -114,44 +131,42 @@ public class DetailedReportFragment extends GeneralReportFragment {
             if (otherIndex != -1) {
                 String otherValue = String.format("%s: %s", "other", dailyFeelings.getOtherAilments());
                 ailmentsArrayList.set(otherIndex, otherValue);
-                ailmentsDailyFeelingsValueTv.setText(String.join(", ", ailmentsArrayList));
+                ailmentsDailyFeelingsValueTv.setText(String.join(", ", translation.translateAilments(ailmentsArrayList)));
             } else {
-                ailmentsDailyFeelingsValueTv.setText(String.join(", ", ailments));
+                ailmentsDailyFeelingsValueTv.setText(String.join(", ", translation.translateAilments(ailments)));
             }
             noteDailyFeelingsValueTv.setText(dailyFeelings.getNote());
+            timeOfSaveDailyFeelingsValueTv.setText(timeFormatter.format(dailyFeelings.getTimeOfDailyFeelings()));
         }
     }
 
-    private void setupControlQuestion(LocalDate presentDate) {
-        Optional<ControlTextUserAnswer> controlTextUserAnswer = database.controlTextUserAnswerDao()
-                .getNewestByDate(presentDate);
-        if (controlTextUserAnswer.isPresent()) {
-            ControlTextUserAnswer userAnswer = controlTextUserAnswer.get();
-            Integer questionId = userAnswer.getControlTextQuestionId();
-            ControlTextQuestion controlQuestion = database.controlTextQuestionDao().
-                    getById(questionId).orElse(new ControlTextQuestion());
+    private void setupDailyQuestion(LocalDate presentDate) {
+        database.dailyQuestionAnswerDao().getNewestByDate(presentDate).ifPresent(
+                userAnswer -> {
+                            Integer questionId = userAnswer.getDailyQuestionId();
+                            DailyQuestion dailyQuestion = database.dailyQuestionDao().
+                                    getById(questionId).orElse(new DailyQuestion());
 
-            controlQuestionContentTv.setText(controlQuestion.getTextQuestion());
-            controlQuestionAnswerTv.setText(String.valueOf(userAnswer.getUserAnswer()));
-            controlQuestionResultTv.setText(String.valueOf(controlQuestion.getCorrectAnswer()));
-        } else {
-            controlQuestionContentTv.setText("");
-            controlQuestionAnswerTv.setText("");
-            controlQuestionResultTv.setText("");
-        }
+                            dailyQuestionContentTv.setText(dailyQuestion.getTextQuestion());
+                            dailyQuestionAnswerTv.setText(String.valueOf(userAnswer.getUserAnswer()));
+                            dailyQuestionResultTv.setText(String.valueOf(dailyQuestion.getCorrectAnswer()));
+                            timeOfSaveDailyQuestionAnswerTv.setText(timeFormatter.format(userAnswer.getTimeOfAnswer()));
+                        });
     }
 
     private void setupPhoneMovementData(LocalDate presentDate) {
-        List<LocalTime> averageTimeOfMovementsByDate = database.phoneMovementDao().getAverageTimeOfMovementsByDate(presentDate);
-        double average = averageTimeOfMovementsByDate.stream().mapToInt(LocalTime::toSecondOfDay).average().getAsDouble();
-        LocalTime localTime = LocalTime.ofSecondOfDay((long) average);
-
-        phoneMovementValueTv.setText(localTime.toString());
+        List<LocalTime> averageTimeOfMovementsByDate = database.phoneMovementDao().getAllTimeByDate(presentDate);
+        averageTimeOfMovementsByDate.stream().mapToInt(LocalTime::toSecondOfDay).average().ifPresent(
+                value -> {
+                    LocalTime localTime = LocalTime.ofSecondOfDay((long) value);
+                    phoneMovementValueTv.setText(localTime.toString());
+                }
+        );
     }
 
     private void setupPhoneLocalizationData() throws IOException {
-        PhoneLocalization phoneLocalization = database.phoneLocalizationDao().getNewestLocation().orElse(
-                new PhoneLocalization());
+        PhoneLocalization phoneLocalization = database.phoneLocalizationDao()
+                .getMostCommonLocationByDate(LocalDate.now()).orElse(new PhoneLocalization());
         Geocoder geocoder = new Geocoder(getContext());
         String postalAddress = null;
         for (Address address : geocoder.getFromLocation(phoneLocalization.getLatitude(), phoneLocalization.getLongitude(), 1)) {

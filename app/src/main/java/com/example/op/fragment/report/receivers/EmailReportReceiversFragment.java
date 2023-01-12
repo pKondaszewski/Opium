@@ -20,7 +20,6 @@ import androidx.core.content.ContextCompat;
 import com.example.database.AppDatabase;
 import com.example.database.entity.EmailContact;
 import com.example.op.R;
-import com.example.op.exception.ResourceNotFoundException;
 import com.example.op.fragment.report.receivers.dialog.AddEmailDialogFragment;
 import com.example.op.utils.simple.SimpleTextWatcher;
 import com.tomash.androidcontacts.contactgetter.entity.ContactData;
@@ -74,12 +73,7 @@ public class EmailReportReceiversFragment extends ReportReceiversFragment {
             String emailContact = reportReceiversList.get(position);
             String[] contactAsArray = emailContact.split(", ");
             EmailContact dbEmailContact = database.emailContactDao()
-                    .findByNameAndEmailAddress(contactAsArray[0], contactAsArray[1]).orElseThrow(() ->
-                            new ResourceNotFoundException(TAG,
-                                    String.format("Can't find user with username: %s, email: %s",
-                                            contactAsArray[0], contactAsArray[1])
-                            )
-                    );
+                    .findByNameAndEmailAddress(contactAsArray[0], contactAsArray[1]).get();
             if (dbEmailContact.isFromContactBook()) {
                 emailsList.add(reportReceiversList.get(position));
             }

@@ -21,13 +21,13 @@ public class AppLanguageDialogFragment extends DialogFragment {
         SharedPreferences.Editor editor = sharPref.edit();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(getString(R.string.title_language_dialog)).setSingleChoiceItems(
-                new CharSequence[]{"en", "pl"}, checkedItemValue, (dialog, which) -> {
+        builder.setTitle(getString(R.string.language_dialog_title)).setSingleChoiceItems(
+                new CharSequence[]{"EN", "PL"}, checkedItemValue, (dialog, which) -> {
                     if (which == 0) {
-                        editor.putString(language, "en");
+                        editor.putString(language, "EN");
                         editor.putInt(languageDialogValue, 0);
                     } else if (which == 1) {
-                        editor.putString(language, "pl");
+                        editor.putString(language, "PL");
                         editor.putInt(languageDialogValue, 1);
                     }
                     editor.apply();

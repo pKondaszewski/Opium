@@ -1,7 +1,6 @@
 package com.example.op.activity.user;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -16,14 +15,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.database.AppDatabase;
 import com.example.database.entity.DailyFeelings;
 import com.example.op.R;
-import com.example.op.activity.extra.TranslatedAppCompatActivity;
+import com.example.op.activity.extra.GlobalSetupAppCompatActivity;
 import com.example.op.utils.JsonManipulator;
 import com.example.op.utils.simple.SimpleTextWatcher;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -31,9 +34,8 @@ import co.ankurg.expressview.ExpressView;
 import co.ankurg.expressview.OnCheckListener;
 import lombok.SneakyThrows;
 
-public class DailyFeelingsActivity extends TranslatedAppCompatActivity implements View.OnClickListener,
+public class DailyFeelingsActivity extends GlobalSetupAppCompatActivity implements View.OnClickListener,
         OnCheckListener {
-
     private final ArrayList<String> ailments = new ArrayList<>();
     private AppDatabase database;
     private Button applyBtn;
@@ -53,6 +55,7 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
 
         database = AppDatabase.getDatabaseInstance(this);
         dailyFeelingsDate = LocalDate.now();
+        mood = "";
 
         otherAilmentsLl = findViewById(R.id.linear_layout_other_ailments);
         greatMoodBtn = findViewById(R.id.button_great_mood);
@@ -100,15 +103,9 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
             String jsonString = intent.getStringExtra(getString(com.example.database.R.string.daily_feelings_as_json));
             setupDailyFeelingsFromTreatmentHistory(jsonString);
         }
-        String formattedDate;
-        SharedPreferences sharPref = getSharedPreferences(getString(com.example.database.R.string.opium_preferences), MODE_PRIVATE);
-        String lang = sharPref.getString("language", "en");
-        if (lang.equals("pl")) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-            formattedDate = dailyFeelingsDate.format(formatter);
-        } else {
-            formattedDate = dailyFeelingsDate.toString();
-        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+                .withLocale(Locale.getDefault());
+        String formattedDate = dailyFeelingsDate.format(formatter);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(formattedDate);
     }
@@ -131,11 +128,21 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
             return;
         }
         switch (mood) {
-            case "great" -> greatMoodBtn.performClick();
-            case "good" -> goodMoodBtn.performClick();
-            case "ok" -> okMoodBtn.performClick();
-            case "bad" -> badMoodBtn.performClick();
-            case "tragic" -> tragicMoodBtn.performClick();
+            case "great":
+                greatMoodBtn.performClick();
+                break;
+            case "good":
+                goodMoodBtn.performClick();
+                break;
+            case "ok":
+                okMoodBtn.performClick();
+                break;
+            case "bad":
+                badMoodBtn.performClick();
+                break;
+            case "tragic":
+                tragicMoodBtn.performClick();
+                break;
         }
     }
 
@@ -145,15 +152,33 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
         }
         for (String ailment : ailments) {
             switch (ailment) {
-                case "fever" -> feverAilmentsBtn.performClick();
-                case "flu" -> fluAilmentsBtn.performClick();
-                case "cough" -> coughAilmentsBtn.performClick();
-                case "lethargy" -> lethargyAilmentsBtn.performClick();
-                case "sore throat" -> soreThroatAilmentsBtn.performClick();
-                case "headache" -> headacheAilmentsBtn.performClick();
-                case "vomiting" -> vomitingAilmentsBtn.performClick();
-                case "diarrhea" -> diarrheaAilmentsBtn.performClick();
-                case "other" -> otherAilmentsBtn.performClick();
+                case "fever":
+                    feverAilmentsBtn.performClick();
+                    break;
+                case "flu":
+                    fluAilmentsBtn.performClick();
+                    break;
+                case "cough":
+                    coughAilmentsBtn.performClick();
+                    break;
+                case "lethargy":
+                    lethargyAilmentsBtn.performClick();
+                    break;
+                case "sore throat":
+                    soreThroatAilmentsBtn.performClick();
+                    break;
+                case "headache":
+                    headacheAilmentsBtn.performClick();
+                    break;
+                case "vomiting":
+                    vomitingAilmentsBtn.performClick();
+                    break;
+                case "diarrhea":
+                    diarrheaAilmentsBtn.performClick();
+                    break;
+                case "other":
+                    otherAilmentsBtn.performClick();
+                    break;
             }
         }
     }
@@ -170,7 +195,7 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
                 otherAilments = otherAilmentsEt.getText().toString();
             }
             DailyFeelings dailyFeelings = new DailyFeelings(null, mood, ailments, otherAilments,
-                    noteTextInputEt.getText().toString(), dailyFeelingsDate);
+                    noteTextInputEt.getText().toString(), dailyFeelingsDate, LocalTime.now());
             Optional<DailyFeelings> dailyFeelingsOptional = database.dailyFeelingsDao().getByDate(dailyFeelingsDate);
             if (dailyFeelingsOptional.isPresent()) {
                 int dailyFeelingsId = dailyFeelingsOptional.get().getId();
@@ -181,7 +206,7 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
             }
             Toast.makeText(this, getString(R.string.saved_toast), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();
-            intent.putExtra(getString(R.string.picked_date_as_epoch_day), dailyFeelingsDate.toEpochDay());
+            intent.putExtra(getString(R.string.picked_date_to_millis), dailyFeelingsDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli());
             setResult(AppCompatActivity.RESULT_OK, intent);
             finish();
         }
@@ -273,7 +298,7 @@ public class DailyFeelingsActivity extends TranslatedAppCompatActivity implement
     }
 
     private void applyButtonVisibilityCheck() {
-        if (mood == null && ailments.isEmpty() && noteTextInputEt.getText().toString().equals("")) {
+        if (mood.equals("") && ailments.isEmpty() && noteTextInputEt.getText().toString().equals("")) {
             applyBtn.setVisibility(View.INVISIBLE);
         } else {
             applyBtn.setVisibility(View.VISIBLE);

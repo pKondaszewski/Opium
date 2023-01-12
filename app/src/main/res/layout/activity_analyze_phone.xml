@@ -15,6 +15,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/question_answers_label_text_view"/>
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="5dp"
+                android:background="?android:attr/listDivider"/>
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pie_chart"
                 android:layout_width="match_parent"
@@ -24,17 +30,87 @@
                 android:layout_height="match_parent">
                 <TableRow>
                     <TextView
-                        android:id="@+id/text_view_phone_activity_label"
-                        style="@style/TextViewH2"
+                        android:id="@+id/text_view_last_daily_question_label"
+                        style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/last_daily_question_label_text_view"/>
+                    <TextView
+                        android:id="@+id/text_view_last_daily_question_value"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="end"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_view_last_daily_question_answer_label"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/last_daily_question_answer_label_text_view"/>
+                    <TextView
+                        android:id="@+id/text_view_last_daily_question_answer_value"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="end"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_view_last_daily_question_time_of_answer_label"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/last_daily_question_time_of_answer_label_text_view"/>
+                    <TextView
+                        android:id="@+id/text_view_last_daily_question_time_of_answer_value"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="end"/>
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_view_phone_activity_label"
+                        style="@style/TextViewH2"
+                        android:layout_width="208dp"
+                        android:layout_height="wrap_content"
                         android:text="@string/phone_activity_label_text_view"/>
+                </TableRow>
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="5dp"
+                    android:background="?android:attr/listDivider"/>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_view_last_phone_movement_label"
+                        style="@style/TextViewH3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/last_phone_movement_label_text_view"/>
+                    <TextView
+                        android:id="@+id/text_view_last_phone_movement_value"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="end"/>
                 </TableRow>
                 <TableRow>
                     <TextView
                         android:id="@+id/text_view_daily_phone_movement_label"
                         style="@style/TextViewH3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/daily_phone_movement_label_text_view"/>
                     <TextView
@@ -42,27 +118,86 @@
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
+                        android:layout_weight="0.5"
                         android:gravity="end"/>
                 </TableRow>
                 <TableRow>
                     <TextView
-                        android:id="@+id/text_view_phone_movement_average_label"
+                        android:id="@+id/text_view_phone_movement_average_today_label"
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/phone_movement_average_label_text_view"/>
+                        android:text="@string/phone_movement_average_today_label_text_view"/>
                     <TextView
-                        android:id="@+id/text_view_phone_movement_average_value"
+                        android:id="@+id/text_view_phone_movement_average_today_value"
                         style="@style/TextViewH3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
+                        android:layout_weight="0.5"
+                        android:gravity="end"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_view_phone_movement_count_label"
+                        style="@style/TextViewH3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/phone_movement_count_label_text_view"/>
+                    <TextView
+                        android:id="@+id/text_view_phone_movement_count_value"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="end"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_view_phone_movement_average_all_label"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/phone_movement_average_all_label_text_view"/>
+                    <TextView
+                        android:id="@+id/text_view_phone_movement_average_all_value"
+                        style="@style/TextViewH3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="end"/>
                 </TableRow>
             </TableLayout>
+            <TextView
+                android:id="@+id/text_view_phone_localization_today_label"
+                style="@style/TextViewH2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/most_common_localizations_today_text_view"/>
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="5dp"
+                android:background="?android:attr/listDivider"/>
             <LinearLayout
-                android:id="@+id/phoneMovementLinearLayout"
+                android:id="@+id/linear_layout_phone_movement_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"/>
+            <TextView
+                android:id="@+id/text_view_phone_localization_all_time_label"
+                style="@style/TextViewH2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/most_common_localizations_all_time_text_view"/>
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="5dp"
+                android:background="?android:attr/listDivider"/>
+            <LinearLayout
+                android:id="@+id/linear_layout_phone_movement_all_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"/>

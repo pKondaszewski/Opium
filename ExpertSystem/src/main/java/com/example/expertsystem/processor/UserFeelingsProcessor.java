@@ -9,7 +9,6 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class UserFeelingsProcessor extends FuzzyLogicProcessor {
-
     private static final String TAG = PhoneActivityProcessor.class.getName();
     private final Double moodValue, answerValue;
     private final List<TreeMap<Double, Double>> therms, therms1;

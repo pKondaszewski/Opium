@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.example.database.FitbitData;
 import com.example.database.entity.FitbitSpO2Data;
 import com.example.database.entity.FitbitStepsData;
+import com.example.op.utils.LocalDateUtils;
 import com.github.mikephil.charting.data.BarEntry;
 
 import java.time.LocalDate;
@@ -23,32 +24,30 @@ public class FitbitDataUseCase {
         cal = Calendar.getInstance();
     }
 
-    public ArrayList<BarEntry> getFitbitStepsDaysBarData(@NonNull List<FitbitStepsData> data, LocalDate date, int numberOfDays) {
+    public ArrayList<BarEntry> getFitbitStepsDaysBarData(@NonNull List<FitbitStepsData> data, LocalDate date) {
         Map<Integer, FitbitData> dayOfTheYearAndFitbitDataMap = data.stream()
                 .collect(Collectors.toMap(
                         fitbitStepsData -> fitbitStepsData.getDate().getDayOfYear(),
                         fitbitStepsData -> fitbitStepsData));
-        return getDayEntries(dayOfTheYearAndFitbitDataMap, date, numberOfDays, "steps");
+        return getDayEntries(dayOfTheYearAndFitbitDataMap, date, "steps");
     }
 
     public ArrayList<BarEntry> getFitbitAverageMonthBarData(@NonNull Map<Integer, Double> data) {
         return getAverageMonthEntries(data);
     }
 
-    public ArrayList<BarEntry> getFitbitSpO2BarData(@NonNull List<FitbitSpO2Data> data, LocalDate date, int numberOfDays) {
+    public ArrayList<BarEntry> getFitbitSpO2BarData(@NonNull List<FitbitSpO2Data> data, LocalDate date) {
         Map<Integer, FitbitData> dayOfTheYearAndFitbitDataMap = data.stream()
                 .collect(Collectors.toMap(
                         fitbitSpO2Data -> fitbitSpO2Data.getDate().getDayOfYear(),
                         fitbitSpO2Data -> fitbitSpO2Data));
-        return getDayEntries(dayOfTheYearAndFitbitDataMap, date, numberOfDays, "spO2");
+        return getDayEntries(dayOfTheYearAndFitbitDataMap, date, "spO2");
     }
 
-    private ArrayList<BarEntry> getDayEntries(Map<Integer, FitbitData> dayOfTheYearAndFitbitDataMap, LocalDate date, int numberOfDays, String dataType) {
-        cal.set(Calendar.YEAR, date.getYear());
-        int endDay = date.getDayOfYear();
-        int startDay = endDay - numberOfDays;
+    private ArrayList<BarEntry> getDayEntries(Map<Integer, FitbitData> dayOfTheYearAndFitbitDataMap, LocalDate date, String dataType) {
+        int days = LocalDateUtils.extractNumberOfPastDaysFromYear(date);
         ArrayList<BarEntry> entries = new ArrayList<>();
-        for (int i = startDay+1; i <= endDay; i++) {
+        for (int i = 1; i <= days; i++) {
             FitbitData fitbitData = dayOfTheYearAndFitbitDataMap.get(i);
             if (fitbitData == null) {
                 entries.add(new BarEntry((float) i, null));

@@ -1,5 +1,6 @@
 package com.example.op.fragment.fitbit.steps;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.example.op.R;
 import com.example.op.domain.FitbitDataUseCase;
 import com.example.op.fragment.fitbit.utils.FitbitDataChartGenerator;
 import com.example.op.fragment.fitbit.utils.ChartUtils;
+import com.example.op.utils.LocalDateUtils;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarEntry;
@@ -25,12 +27,14 @@ public class FitbitMonthsStepsFragment extends Fragment implements FitbitDataCha
     private static final LocalDate now = LocalDate.now();
     private static final int months = Math.min(now.getMonthValue(), 6);
     private AppDatabase database;
+    private Context context;
     private BarChart barChart;
     private FitbitDataUseCase fitbitDataUseCase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        database = AppDatabase.getDatabaseInstance(getContext());
+        context = getContext();
+        database = AppDatabase.getDatabaseInstance(context);
         fitbitDataUseCase = new FitbitDataUseCase();
         return inflater.inflate(R.layout.fragment_months_chart_fitbit_steps_data, parent, false);
     }
@@ -38,26 +42,28 @@ public class FitbitMonthsStepsFragment extends Fragment implements FitbitDataCha
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         barChart = view.findViewById(R.id.bar_chart_fitbit_months_steps);
-        generateFitbitDataChart(months);
+        generateFitbitDataChart();
     }
 
     @Override
-    public void generateFitbitDataChart(int limit) {
-        TreeMap<Integer, Double> averageMonthValues = getAverageMonthValues(limit);
+    public void generateFitbitDataChart() {
+        TreeMap<Integer, Double> averageMonthValues = getAverageMonthValues();
         ArrayList<BarEntry> barEntries = averageMonthValues.isEmpty() ?
                 new ArrayList<>() : fitbitDataUseCase.getFitbitAverageMonthBarData(averageMonthValues);
         BarData barData = ChartUtils.generateBarData(barEntries);
         barChart.setData(barData);
-        ChartUtils.generateBarChart(barChart, 1, getContext());
+        ChartUtils.generateBarChart(barChart, 1, context);
     }
 
-    private TreeMap<Integer, Double> getAverageMonthValues(int limit) {
+    private TreeMap<Integer, Double> getAverageMonthValues() {
         TreeMap<Integer, Double> averageMonthValues = new TreeMap<>();
-        LocalDate date = LocalDate.now();
-        for (int i = 0; i < limit; i++) {
-            Double averageBetweenTwoDates = database.fitbitStepsDataDao().getAverageBetweenTwoDates(date.minusMonths(1), date);
-            averageMonthValues.put(date.getMonthValue(), averageBetweenTwoDates);
-            date = date.minusMonths(1);
+        LocalDate date = LocalDateUtils.extractFromSharPref(context);
+        int months = LocalDateUtils.extractNumberOfPastMonthsFromYear(date);
+        String yearAsString = String.valueOf(date.getYear());
+        for (int i = 1; i <= months; i++) {
+            String monthAsString = LocalDateUtils.monthFromInt(i);
+            Double avgResult = database.fitbitStepsDataDao().getAverageFromMonth(monthAsString, yearAsString);
+            averageMonthValues.put(i, avgResult);
         }
         return averageMonthValues;
     }

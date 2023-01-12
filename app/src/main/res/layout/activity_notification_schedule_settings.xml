@@ -13,7 +13,7 @@
                 style="@style/TextViewH2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Czas codziennego pytania"/>
+                android:text="@string/daily_question_activity_title"/>
             <TimePicker
                 android:id="@+id/time_picker_daily_question"
                 android:layout_width="match_parent"
@@ -22,7 +22,7 @@
                 style="@style/TextViewH3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Czas, w którym pojawi powiadomienie przekierowujące do pytania, na które należy odpowiedzieć."/>
+                android:text="@string/daily_question_notification_settings_description"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

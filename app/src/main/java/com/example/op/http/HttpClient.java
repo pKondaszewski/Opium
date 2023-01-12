@@ -13,7 +13,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class HttpClient {
-
     private static volatile OkHttpClient client;
     private static AppDatabase database;
 

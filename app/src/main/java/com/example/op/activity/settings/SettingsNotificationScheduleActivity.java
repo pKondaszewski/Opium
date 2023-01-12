@@ -3,19 +3,13 @@ package com.example.op.activity.settings;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TimePicker;
 
-import androidx.work.WorkManager;
-
 import com.example.op.R;
-import com.example.op.activity.extra.TranslatedAppCompatActivity;
+import com.example.op.activity.extra.GlobalSetupAppCompatActivity;
 import com.example.op.worker.WorkerFactory;
 
-import java.time.Duration;
-
-public class SettingsNotificationScheduleActivity extends TranslatedAppCompatActivity {
-
+public class SettingsNotificationScheduleActivity extends GlobalSetupAppCompatActivity {
     private static final String TAG = SettingsNotificationScheduleActivity.class.getName();
     private SharedPreferences sharPref;
     private TimePicker dailyQuestionTp;

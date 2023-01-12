@@ -23,4 +23,10 @@ public class HomeAddress {
                                      .collect(Collectors.toList());
         return String.join(", ", collection);
     }
+
+    public boolean isEmpty() {
+        return Objects.equals(streetAddress, "") &&
+               Objects.equals(postalCode, "")  &&
+               Objects.equals(country, "");
+    }
 }

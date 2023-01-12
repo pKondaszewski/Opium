@@ -12,7 +12,6 @@ import com.example.op.fragment.report.GeneralReportFragment;
 import java.util.List;
 
 public class ReportAdapter extends FragmentStateAdapter {
-
     private final List<Fragment> fragments;
 
     public ReportAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {

@@ -72,7 +72,7 @@
                             style="@style/TextViewH3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/birthdate_Profile_text_view"/>
+                            android:text="@string/birthdate_profile_text_view"/>
                         <TextView
                             android:id="@+id/text_view_birthdate_value"
                             style="@style/TextViewH3"
@@ -153,6 +153,23 @@
                             android:layout_weight="0.1"
                             android:gravity="end"/>
                     </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/text_view_time_of_save_daily_feelings_label"
+                            style="@style/TextViewH3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/time_of_save_daily_feelings_text_view"/>
+                        <TextView
+                            android:id="@+id/text_view_time_of_save_daily_feelings_value"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="end"/>
+                    </TableRow>
                 </TableLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
@@ -163,11 +180,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/text_view_control_question_label"
+                        android:id="@+id/text_view_daily_question_label"
                         style="@style/TextViewH2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/control_question_label_text_view"/>
+                        android:text="@string/daily_question_label_text_view"/>
                     <View
                         android:id="@+id/divider3"
                         android:layout_width="match_parent"
@@ -178,30 +195,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <TextView
-                            android:id="@+id/text_view_control_question_content_label"
+                            android:id="@+id/text_view_daily_question_content_label"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/control_question_content_label_text_view"/>
+                            android:text="@string/daily_question_content_label_text_view"/>
                         <TextView
-                            android:id="@+id/text_view_control_question_content_value"
-                            style="@style/TextViewH3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.1"
-                            android:gravity="end"/>
-                    </TableRow>
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:id="@+id/text_view_control_question_answer_label"
-                            style="@style/TextViewH3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/control_question_answer_label_text_view"/>
-                        <TextView
-                            android:id="@+id/text_view_control_question_answer_value"
+                            android:id="@+id/text_view_daily_question_content_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -212,13 +212,47 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <TextView
-                            android:id="@+id/text_view_control_question_result_label"
+                            android:id="@+id/text_view_daily_question_answer_label"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/control_question_result_label_text_view"/>
+                            android:text="@string/daily_question_answer_label_text_view"/>
                         <TextView
-                            android:id="@+id/text_view_control_question_result_value"
+                            android:id="@+id/text_view_daily_question_answer_value"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="end"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/text_view_daily_question_result_label"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/daily_question_result_label_text_view"/>
+                        <TextView
+                            android:id="@+id/text_view_daily_question_result_value"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="end"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/text_view_daily_question_time_of_save_label"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/daily_question_time_of_save_text_view"/>
+                        <TextView
+                            android:id="@+id/text_view_daily_question_time_of_save_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -239,7 +273,7 @@
                         style="@style/TextViewH2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/phone_Profile_text_view"/>
+                        android:text="@string/phone_profile_text_view"/>
                     <View
                         android:id="@+id/divider4"
                         android:layout_width="match_parent"
@@ -267,7 +301,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <TextView
-                            android:id="@+id/text_view_phone_localization_label"
+                            android:id="@+id/text_view_phone_localization_all_time_label"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

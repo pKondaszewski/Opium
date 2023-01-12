@@ -14,12 +14,8 @@ import com.example.database.AppDatabase;
 import com.example.database.HomeAddress;
 import com.example.database.entity.PhoneLocalization;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -27,10 +23,8 @@ import java.time.LocalTime;
 import java.util.List;
 
 import lombok.NonNull;
-import lombok.SneakyThrows;
 
 public class PhoneLocalizationWorker extends Worker {
-
     private static final String TAG = PhoneLocalizationWorker.class.getName();
     private final AppDatabase database;
 

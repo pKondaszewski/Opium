@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="client_id">238QMY</string>
-    <string name="client_secret">03925a3c6ab40718a2322caf22a6fd1d</string>
-    <string name="redirect_url">oauth-testing://finished</string>
-    <string name="scopes">activity heartrate location nutrition profile settings sleep social weight oxygen_saturation respiratory_rate</string>
+    <string name="client_id">23928D</string>
+    <string name="client_secret">38aab31d9312a672f74d703b69b08767</string>
+    <string name="redirect_url">redirect://finished</string>
+    <string name="scopes">activity oxygen_saturation</string>
     <string name="token_url">https://api.fitbit.com/oauth2/token</string>
 </resources>
+

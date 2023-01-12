@@ -11,17 +11,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(foreignKeys = @ForeignKey(entity = ControlTextQuestion.class,
+@Entity(foreignKeys = @ForeignKey(entity = DailyQuestion.class,
         parentColumns = "id",
-        childColumns = "controlTextQuestionId",
+        childColumns = "dailyQuestionId",
         onDelete = ForeignKey.CASCADE))
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ControlTextUserAnswer {
+public class DailyQuestionAnswer {
     @PrimaryKey(autoGenerate = true)
     private Integer id;
-    private Integer controlTextQuestionId;
+    private Integer dailyQuestionId;
     private Integer userAnswer;
     private LocalTime timeOfAnswer;
     private LocalDate dateOfAnswer;

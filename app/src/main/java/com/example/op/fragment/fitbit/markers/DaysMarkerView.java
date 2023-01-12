@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.time.Year;
 
 public class DaysMarkerView extends MarkerView {
-
     private final TextView dateTv, valueTv;
 
     public DaysMarkerView(Context context, int layoutResource) {
@@ -23,7 +22,8 @@ public class DaysMarkerView extends MarkerView {
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        LocalDate date = Year.of(LocalDate.now().getYear()).atDay((int) e.getX());
+        float x = Math.max(e.getX(), 1);
+        LocalDate date = Year.of(LocalDate.now().getYear()).atDay((int) x);
         String finalDate = String.format("%d.%d", date.getDayOfMonth(), date.getMonth().getValue());
         dateTv.setText(finalDate);
         valueTv.setText(String.valueOf((int) e.getY()));

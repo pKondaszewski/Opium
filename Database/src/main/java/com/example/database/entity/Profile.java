@@ -21,7 +21,7 @@ public class Profile {
     private String firstname;
     private String lastname;
     private LocalDate birthdate;
-    private String sex;
+    private String gender;
     private String phoneNumber;
     private String emailAddress;
     private HomeAddress homeAddress;

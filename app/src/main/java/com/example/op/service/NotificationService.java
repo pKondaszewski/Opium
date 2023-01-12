@@ -25,7 +25,7 @@ public class NotificationService extends Service {
                 .getActivity(context, 0, questionIntent, PendingIntent.FLAG_IMMUTABLE);
         String CHANNEL_ID = "1";
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.opium_notification_icon)
                 .setContentTitle(context.getString(R.string.daily_question_activity_title))
                 .setContentText(context.getString(R.string.daily_question_notification_label))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)

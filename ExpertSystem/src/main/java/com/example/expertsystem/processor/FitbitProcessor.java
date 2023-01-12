@@ -41,18 +41,20 @@ public class FitbitProcessor {
     }
 
     private Integer getStepsValueByLevel() {
-        return switch (level) {
-            case LOW -> 1;
-            case MEDIUM -> 3;
-            case HIGH -> 6;
-        };
+        switch (level) {
+            case LOW: return 1;
+            case MEDIUM: return 3;
+            case HIGH: return 6;
+            default: return null;
+        }
     }
 
     private Integer getSpO2ValueByLevel() {
-        return switch (level) {
-            case LOW -> 65;
-            case MEDIUM -> 75;
-            case HIGH -> 85;
-        };
+        switch (level) {
+            case LOW: return 65;
+            case MEDIUM: return 75;
+            case HIGH: return 85;
+            default: return null;
+        }
     }
 }

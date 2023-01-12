@@ -9,10 +9,9 @@ import android.widget.EditText;
 import com.example.database.AppDatabase;
 import com.example.database.entity.Profile;
 import com.example.op.R;
-import com.example.op.activity.extra.TranslatedAppCompatActivity;
+import com.example.op.activity.extra.GlobalSetupAppCompatActivity;
 
-public class SettingsGmailActivity extends TranslatedAppCompatActivity {
-
+public class SettingsGmailActivity extends GlobalSetupAppCompatActivity {
     private static final String TAG = SettingsGmailActivity.class.getName();
     private String gmailAddress, gmailPassword;
 
@@ -25,14 +24,16 @@ public class SettingsGmailActivity extends TranslatedAppCompatActivity {
         gmailAddress = getString(com.example.database.R.string.gmail_address);
         gmailPassword = getString(com.example.database.R.string.gmail_password);
 
-        Button applyEmailCredentialsButton = findViewById(R.id.button_apply_email_credentials);
         EditText emailAddressEv = findViewById(R.id.edit_view_email_address);
         EditText emailPasswordEv = findViewById(R.id.edit_view_email_password);
 
         String gmailAddress = sharPref.getString(this.gmailAddress, "");
         String gmailPassword = sharPref.getString(this.gmailPassword, "");
+
         emailAddressEv.setText(gmailAddress);
         emailPasswordEv.setText(gmailPassword);
+
+        Button applyEmailCredentialsButton = findViewById(R.id.button_apply_email_credentials);
 
         applyEmailCredentialsButton.setOnClickListener(v -> {
             SharedPreferences.Editor edit = sharPref.edit();
@@ -44,9 +45,9 @@ public class SettingsGmailActivity extends TranslatedAppCompatActivity {
             profile.setEmailAddress(emailAddress);
             database.profileDao().update(profile);
 
-            edit.putString(this.gmailAddress, emailAddress);
-            edit.putString(this.gmailPassword, emailPassword);
-            edit.apply();
+            edit.putString(this.gmailAddress, emailAddress)
+                .putString(this.gmailPassword, emailPassword)
+                .apply();
             Log.i(TAG, "Email credentials changed to mail: " + emailAddress + ", password: " + emailPassword);
             SettingsGmailActivity.this.finish();
         });

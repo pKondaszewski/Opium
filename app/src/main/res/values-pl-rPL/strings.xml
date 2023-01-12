@@ -2,9 +2,9 @@
 <resources>
     <!-- MainActivity labels -->
     <string name="app_name">Opium</string>
-    <string name="mainActivity_title">Strona główna</string>
-    <string name="daily_control_button_name">Witaj, jak się czujesz?</string>
-    <string name="daily_control_completed_button_name">Życze ci miłego dnia!</string>
+    <string name="hello_label">Cześć</string>
+    <string name="daily_feelings_button_name">Jak się czujesz?</string>
+    <string name="daily_feelings_completed_button_name">Miłego dnia!</string>
     <string name="treatment_history_button_name">Historia leczenia</string>
     <string name="analyze_button_name">Analiza</string>
     <string name="report_button_name">Raport</string>
@@ -19,7 +19,7 @@
     <string name="mood_badFeelings_radio_button">Zły</string>
     <string name="mood_okFeelings_radio_button">OK</string>
     <string name="mood_goodFeelings_radio_button">Dobry</string>
-    <string name="mood_greatFeelings_radio_button">Świetnie</string>
+    <string name="mood_greatFeelings_radio_button">Świetny</string>
     <string name="ailments_text_view">Objawy</string>
     <string name="ailments_headache_button">Ból głowy</string>
     <string name="ailments_fever_button">Gorączka</string>
@@ -36,15 +36,14 @@
     <string name="saved_toast">Zapisano</string>
 
     <!-- TreatmentHistoryActivity labels -->
-    <string name="control_question_label_text_view">Codzienne pytanie</string>
-    <string name="control_question_content_label_text_view">Treść pytania</string>
-    <string name="control_question_answer_label_text_view">Odpowiedź użytkownika</string>
-    <string name="control_question_result_label_text_view">Poprawna odpowiedź</string>
+    <string name="daily_question_label_text_view">Codzienne pytanie</string>
+    <string name="daily_question_content_label_text_view">Treść pytania</string>
+    <string name="daily_question_answer_label_text_view">Odpowiedź użytkownika</string>
+    <string name="daily_question_result_label_text_view">Poprawna odpowiedź</string>
+    <string name="daily_question_time_of_save_text_view">Czas zapisu</string>
     <string name="treatment_history_activity_title">Historia leczenia</string>
     <string name="showCurrentDate_button">Pokaż dzisiejszą datę</string>
     <string name="unable_change_future_date_toast_label">Nie można edytować daty z przyszości</string>
-    <string name="edit_date_menu_item">Edytuj datę</string>
-    <string name="show_current_date_menu_item">Pokaż dzisiejszą datę</string>
 
     <!-- AnalyzeActivity labels -->
     <string name="phone_activity_analyze_button">Aktywność telefonu</string>
@@ -54,12 +53,23 @@
     <string name="fitbit_analyze_spO2_label_text_view">Wykres SpO2</string>
     <string name="tab_item_days">Dni</string>
     <string name="tab_item_months">Miesiące</string>
-    <string name="most_common_localizations_text_view">Najczęściej odnotowane lokalizacje telefonu</string>
+    <string name="no_data_text_view">Brak danych</string>
+    <string name="most_common_localizations_today_text_view">Najczęściej odnotowane lokalizacje telefonu (dzisiaj)</string>
+    <string name="most_common_localizations_all_time_text_view">Najczęściej odnotowane lokalizacje telefonu (wszystkie)</string>
     <string name="amount_of_all_answers_text_view">Ilość wszyskich odpowiedzi: </string>
     <string name="question_answers_label_text_view">Wykres prezentujący procent poprawnych odpowiedzi</string>
-    <string name="phone_activity_label_text_view">Dane dotyczace aktywności telefonu</string>
-    <string name="daily_phone_movement_label_text_view">Liczba zarejestrowanych dziś aktywności</string>
-    <string name="phone_movement_average_label_text_view">Średni czas aktywnosci</string>
+    <string name="phone_activity_label_text_view">Dane aktywności telefonu</string>
+    <string name="last_daily_question_label_text_view">Ostatnie zadane pytanie</string>
+    <string name="last_daily_question_answer_label_text_view">Ostatnia oddana odpowiedź</string>
+    <string name="last_daily_question_time_of_answer_label_text_view">Czas odpowiedzi</string>
+    <string name="last_phone_movement_label_text_view">Ostatnia zarejestrowana aktywność</string>
+    <string name="daily_phone_movement_label_text_view">Ilość wszystkich dzisiejszych aktywności</string>
+    <string name="phone_movement_average_today_label_text_view">Średni czas aktywności (dzisiaj)</string>
+    <string name="phone_movement_average_all_label_text_view">Średni czas aktywności (wszystkie)</string>
+    <string name="phone_movement_count_label_text_view">Ilość wszystkich aktywności</string>
+    <string name="fitbit_days_text_view">Ilość dni</string>
+    <string name="fitbit_year_text_view">Wybrany rok</string>
+    <string name="phone_activity_title">Aktywność telefonu</string>
 
     <!-- ReportActivity labels -->
     <string name="report_activity_title">Raport</string>
@@ -71,8 +81,9 @@
     <string name="mood_daily_feelings_text_view">Nastrój</string>
     <string name="ailments_daily_feelings_text_view">Objawy</string>
     <string name="note_daily_feelings_text_view">Notatka</string>
-    <string name="birthdate_Profile_text_view">Data urodzenia</string>
-    <string name="phone_Profile_text_view">Dane pobrane z telefonu</string>
+    <string name="time_of_save_daily_feelings_text_view">Czas zapisu</string>
+    <string name="birthdate_profile_text_view">Data urodzenia</string>
+    <string name="phone_profile_text_view">Dane pobrane z telefonu</string>
     <string name="phone_movement_label_text_view">Aktywność telefonu</string>
     <string name="phone_localization_label_text_view">Lokalizacja telefonu</string>
     <string name="fitbit_data_label_text_view">Dane pobrane z Fitbit</string>
@@ -84,21 +95,23 @@
     <string name="send_report_button">Wyślij raport</string>
 
     <!-- ProfileActivity/EditProfileActivity labels -->
+    <string name="personal_profile_title">Profil osobisty</string>
+    <string name="edit_profile_title">Edycja profilu osobistego</string>
     <string name="personal_data_text_view">Dane personalne</string>
     <string name="firstname_lastname_text_view">Imię i nazwisko</string>
     <string name="birthdate_text_view">Data urodzenia</string>
-    <string name="sex_text_view">Płeć</string>
+    <string name="gender_text_view">Płeć</string>
     <string name="contact_data_text_view">Dane kontaktowe</string>
     <string name="phone_number_text_view">Numer telefonu</string>
-    <string name="email_address_label_text_view">Adres email (Gmail)</string>
+    <string name="email_address_label_text_view">Adres gmail</string>
     <string name="home_address_label_text_view">Adres domu</string>
     <string name="firstname_text_view">Imię</string>
     <string name="lastname_text_view">Nazwisko</string>
     <string name="postal_code_text_view">Kod pocztowy</string>
     <string name="country_text_view">Państwo</string>
-    <string name="male_sex_spinner_item">Mężczyzna</string>
-    <string name="female_sex_spinner_item">Kobieta</string>
-    <string name="other_sex_spinner_item">Inne</string>
+    <string name="male_gender_spinner_item">Mężczyzna</string>
+    <string name="female_gender_spinner_item">Kobieta</string>
+    <string name="other_gender_spinner_item">Inne</string>
 
     <!-- ReportActivity/ReportReceiversActivity/ReportSettingsActivity  labels -->
     <string name="general_text_view">Ogólny</string>
@@ -116,7 +129,12 @@
     <string name="gmail_button">Parowanie Gmail</string>
     <string name="expert_system_button">System ekspertowy</string>
     <string name="fitbit_switch">Fitbit</string>
-    <string name="title_language_dialog">Wybierz język</string>
+    <string name="language_dialog_title">Wybierz język</string>
+    <string name="fitbit_pairing_title">Parowanie Fitbit</string>
+    <string name="fitbit_settings_title">Ustawienia Fitbit</string>
+    <string name="settings_notification_schedule_title">Ustawienia powiadomień</string>
+    <string name="settings_expert_system_title">Ustawienia systemu ekspertowego</string>
+    <string name="daily_question_notification_settings_title">Czas powiadomienia codziennego pytania</string>
 
     <!-- SmsReportReceiversFragment -->
     <string name="selected_sms_contacts_text_view">Wybrane kontakty</string>
@@ -128,9 +146,17 @@
     <string name="email_hint_edit_text">Adres email</string>
     <string name="dialog_positive_button">OK</string>
     <string name="dialog_negative_button">Anuluj</string>
+    <string name="gmail_pairing_title">Parowanie Gmail</string>
 
     <!-- ExpertSystemActivity -->
-    <string name="launch_expert_system_label">Launch expert system</string>
+    <string name="expert_system_title">System ekspertowy</string>
+    <string name="expert_system_user_movement_result_label_text_view">Aktywność użytkownika (1–4)</string>
+    <string name="expert_system_location_result_label_text_view">Lokalizacja (1–5)</string>
+    <string name="expert_system_user_feelings_result_label_text_view">Odczucia użytkownika (1–4)</string>
+    <string name="expert_system_fitbit_result_label_text_view">Fitbit</string>
+    <string name="expert_fitbit_steps_result_label_text_view">Fitbit - kroki (1–3)</string>
+    <string name="expert_fitbit_spo2_result_label_text_view">Fitbit - spo2 (1–3)</string>
+    <string name="launch_expert_system_label">Uruchom system ekspertowy</string>
 
     <!-- QuestionActivity labels -->
     <string name="daily_question_activity_title">Codzienne pytanie</string>
@@ -138,9 +164,16 @@
 
     <!-- MenuItems -->
     <string name="settings_menu_item">Ustawienia</string>
+    <string name="edit_date_menu_item">Edytuj date</string>
+    <string name="show_current_date_menu_item">Pokaż aktualną datę</string>
+    <string name="profile_menu_item">Profil</string>
+    <string name="edit_menu_item">Edytuj</string>
 
     <!-- EmergencyActivity -->
+    <string name="emergency_title">Nagły wypadek</string>
     <string name="emergency_button">WYŚLIJ SYGNAŁ SOS</string>
+    <string name="emergency_message">WIADOMOŚĆ ALARMOWA. SOS.</string>
+    <string name="emergency_toast_message">Naciśnieto przycisk alarmowy. Informowanie odbiorców raportów.</string>
 
     <!-- SettingsGmailActivity -->
     <string name="email_password_label_text_view">Hasło do aplikacji (weryfikacja dwuetapowa Google)*</string>
@@ -150,4 +183,8 @@
     <string name="gmail_settings_description">Aplikacja umożliwia wysłanie raportu w formie wiadomości e-mail. Aktualnie obsługiwaną skrzynką e-mail jest Gmail. W celu poprawnego skonfigurowania poczty elektronicznej należy podać adres e-mail oraz hasło.</string>
     <string name="gmail_settings_extra_description">*Polityka Google dotycząca aplikacji firm trzecich wymaga skonfigurowania weryfikacji dwuskładnikowej na koncie Google i ustawienia hasła do aplikacji pocztowej, a następnie zapisania wygenerowanego hasła powyżej.</string>
     <string name="expert_system_settings_description">System ekspertowy będzie analizował dostarczone dane wedle ustawionego poziomu. Im wyższy poziom, tym bardziej surowa ocena stanu użytkownika przez system ekspertowy.</string>
+    <string name="daily_question_notification_settings_description">Czas, w którym pojawi powiadomienie przekierowujące do pytania, na które należy odpowiedzieć.</string>
+    <string name="expert_system_user_movement_description">Aktywność użytkownika jest analizowane za pomocą technik logiki rozmytej. Zostały stworzone dwa procesory, gdzie jeden analizuje lokalizację podaną w profilu z lokalizacją najczęściej dziś odnotowaną, a drugi analizuje wynik działania procesora lokalizacyjnego oraz ilość odnotowanych dziś aktywności przemieszczania się smartfona w ciągu dnia.</string>
+    <string name="expert_system_user_feelings_description">Odczucia użytkownika są analizowane przy użyciu technik logiki rozmytej. Procesor uczuć użytkownika analizuje codzienne uczucia wybrane nastroje i dolegliwości z codziennymi pytaniami użytkownika. Obie wartości są z dnia dzisiejszego.</string>
+    <string name="expert_system_fitbit_description">Fitbit dostarcza dane o krokach i spo2. Dane te są analizowane za pomocą prostych, oddzielnych procesorów, które zwracają wartość ze skali na podstawie danych zebranych przez fitbit.</string>
 </resources>

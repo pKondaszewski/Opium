@@ -26,14 +26,18 @@ public class ChartUtils {
         barChart.getLegend().setEnabled(false);
         barChart.setNoDataText(context.getString(R.string.no_data_text_view));
         barChart.setVisibleXRangeMaximum(25);
+        barChart.moveViewTo(barChart.getXChartMax(), 0, YAxis.AxisDependency.RIGHT);
 
+        barChart.getAxisLeft().setTextSize(13);
         XAxis xAxis = barChart.getXAxis();
+        xAxis.setTextSize(13);
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         if (gran != 1) {
             xAxis.setValueFormatter(new ValueFormatter() {
                 @Override
                 public String getFormattedValue(float value) {
+                    value = Math.max(value, 1);
                     LocalDate date = Year.of(LocalDate.now().getYear()).atDay((int) value);
                     return date.getDayOfMonth() + "." + date.getMonth().getValue();
                 }
@@ -45,6 +49,7 @@ public class ChartUtils {
             xAxis.setValueFormatter(new ValueFormatter() {
                 @Override
                 public String getFormattedValue(float value) {
+                    value = Math.max(value, 1);
                     int date = Year.of(LocalDate.now().getYear()).atDay((int) value).getDayOfYear();
                     return String.valueOf(date);
                 }

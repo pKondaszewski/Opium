@@ -26,21 +26,25 @@
             android:id="@+id/button_first_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"/>
+            android:layout_weight="0.15"
+            android:textSize="25sp"/>
         <Button
             android:id="@+id/button_second_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"/>
+            android:layout_weight="0.15"
+            android:textSize="25sp"/>
         <Button
             android:id="@+id/button_third_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"/>
+            android:layout_weight="0.15"
+            android:textSize="25sp"/>
         <Button
             android:id="@+id/button_fourth_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"/>
+            android:layout_weight="0.15"
+            android:textSize="25sp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

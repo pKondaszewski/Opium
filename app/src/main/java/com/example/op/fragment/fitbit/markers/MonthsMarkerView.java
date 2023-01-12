@@ -9,7 +9,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 
 public class MonthsMarkerView extends MarkerView {
-
     private final TextView dateTv;
 
     public MonthsMarkerView(Context context, int layoutResource) {

@@ -13,14 +13,12 @@ import androidx.work.WorkerParameters;
 
 import com.example.database.AppDatabase;
 import com.example.database.entity.PhoneMovement;
-import com.example.op.R;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class PhoneMovementWorker extends Worker implements SensorEventListener {
-
     private static final String TAG = PhoneMovementWorker.class.getName();
     private AppDatabase database;
     private LocalDateTime lastLocalDateTime;
@@ -60,8 +58,6 @@ public class PhoneMovementWorker extends Worker implements SensorEventListener {
             currentAcceleration = (float) Math.sqrt(x*x + y*y + z*z);
             float delta = currentAcceleration - lastAcceleration;
             deviceAcceleration = deviceAcceleration * 0.9f + delta;
-            // Make this higher or lower according to how much
-            // motion you want to detect
             if (deviceAcceleration > 1 && LocalDateTime.now().isAfter(lastLocalDateTime)) {
                 PhoneMovement phoneMovement = new PhoneMovement(null, LocalDate.now(), LocalTime.now());
                 database.phoneMovementDao().insert(phoneMovement);

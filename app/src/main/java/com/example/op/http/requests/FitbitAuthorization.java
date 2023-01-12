@@ -20,7 +20,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class FitbitAuthorization {
-
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final OkHttpClient client = new OkHttpClient().newBuilder().build();
 

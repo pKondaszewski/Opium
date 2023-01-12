@@ -2,7 +2,6 @@ package com.example.op.activity.profile;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.TransactionTooLargeException;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,64 +9,60 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.database.HomeAddress;
-import com.example.op.R;
 import com.example.database.AppDatabase;
+import com.example.database.HomeAddress;
 import com.example.database.entity.Profile;
-import com.example.op.activity.extra.TranslatedAppCompatActivity;
-import com.example.op.exception.ResourceNotFoundException;
+import com.example.op.R;
+import com.example.op.activity.extra.GlobalSetupAppCompatActivity;
 
 import java.time.LocalDate;
-import java.util.Map;
 
-public class EditProfileActivity extends TranslatedAppCompatActivity implements AdapterView.OnItemSelectedListener {
-
+public class EditProfileActivity extends GlobalSetupAppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = EditProfileActivity.class.getName();
+    private final String[] genders = {"Male", "Female", "Other"};
     private AppDatabase database;
     private DatePicker birthdateValueDp;
     private EditText firstnameValueEt, lastnameValueEt, phoneNumberValueEt,
             emailAddressValueEt, streetAddressValueEt, postalCodeValueEt, countryNameValueEt;
     private SharedPreferences sharPref;
-    private Spinner sexValueSp;
-    private String sex;
+    private Spinner genderValueSp;
+    private String gender;
     private Profile profile;
-
-    private final String[] sexes = {"Male", "Female", "Other"};
-    private String[] translatedSexes;
+    private String[] translatedGenders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        translatedSexes = new String[]{ getString(R.string.male_sex_spinner_item),
-                                        getString(R.string.female_sex_spinner_item),
-                                        getString(R.string.other_sex_spinner_item)};
+        translatedGenders = new String[]{ getString(R.string.male_gender_spinner_item),
+                                        getString(R.string.female_gender_spinner_item),
+                                        getString(R.string.other_gender_spinner_item)};
 
         database = AppDatabase.getDatabaseInstance(this);
         sharPref = getSharedPreferences(getString(com.example.database.R.string.opium_preferences), MODE_PRIVATE);
-        profile = database.profileDao().get().orElseThrow(
-                () -> new ResourceNotFoundException(TAG, "Profile doesn't exist in database"));
+        profile = database.profileDao().get().orElse(new Profile());
 
         firstnameValueEt = findViewById(R.id.edit_text_firstname_value);
         lastnameValueEt = findViewById(R.id.edit_text_lastname_value);
         birthdateValueDp = findViewById(R.id.date_picker_birthdate_value);
-        sexValueSp = findViewById(R.id.spinner_sex);
+        genderValueSp = findViewById(R.id.spinner_gender);
         phoneNumberValueEt = findViewById(R.id.edit_text_phone_number_value);
         emailAddressValueEt = findViewById(R.id.edit_text_email_address_value);
         streetAddressValueEt = findViewById(R.id.edit_text_street_address_value);
         postalCodeValueEt = findViewById(R.id.edit_text_postal_code_value);
         countryNameValueEt = findViewById(R.id.edit_text_country_name_value);
 
+        setupEditTexts();
+    }
+
+    private void setupEditTexts() {
         firstnameValueEt.setText(profile.getFirstname());
         lastnameValueEt.setText(profile.getLastname());
         LocalDate birthdate = profile.getBirthdate();
         birthdateValueDp.init(birthdate.getYear(), birthdate.getMonthValue()-1, birthdate.getDayOfMonth(), null);
-        setupSexSpinner();
+        setupGenderSpinner();
         phoneNumberValueEt.setText(profile.getPhoneNumber());
         emailAddressValueEt.setText(profile.getEmailAddress());
         HomeAddress homeAddress = profile.getHomeAddress();
@@ -76,14 +71,14 @@ public class EditProfileActivity extends TranslatedAppCompatActivity implements 
         countryNameValueEt.setText(homeAddress == null ? "" : homeAddress.getCountry());
     }
 
-    private void setupSexSpinner() {
-        ArrayAdapter translatedAd = new ArrayAdapter(this, android.R.layout.simple_spinner_item, translatedSexes);
-        sexValueSp.setAdapter(translatedAd);
-        sexValueSp.setOnItemSelectedListener(this);
+    private void setupGenderSpinner() {
+        ArrayAdapter<String> translatedAd = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, translatedGenders);
+        genderValueSp.setAdapter(translatedAd);
+        genderValueSp.setOnItemSelectedListener(this);
 
-        ArrayAdapter ad = new ArrayAdapter(this, android.R.layout.simple_spinner_item, sexes);
-        int selectionPosition = ad.getPosition(profile.getSex());
-        sexValueSp.setSelection(selectionPosition);
+        ArrayAdapter<String> ad = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, genders);
+        int selectionPosition = ad.getPosition(profile.getGender());
+        genderValueSp.setSelection(selectionPosition);
     }
 
     @Override
@@ -91,20 +86,20 @@ public class EditProfileActivity extends TranslatedAppCompatActivity implements 
         super.onPause();
         int profileId = profile.getId();
 
-        String firstname = firstnameValueEt.getText().toString();
-        String lastname = lastnameValueEt.getText().toString();
+        String firstname = firstnameValueEt.getText().toString().trim();
+        String lastname = lastnameValueEt.getText().toString().trim();
         LocalDate birthdate = LocalDate.of(birthdateValueDp.getYear(),
                 birthdateValueDp.getMonth()+1,
                 birthdateValueDp.getDayOfMonth());
-        String phoneNumber = phoneNumberValueEt.getText().toString();
-        String emailAddress = emailAddressValueEt.getText().toString();
+        String phoneNumber = phoneNumberValueEt.getText().toString().trim();
+        String emailAddress = emailAddressValueEt.getText().toString().trim();
         sharPref.edit().putString(getString(com.example.database.R.string.gmail_address), emailAddress).apply();
-        String streetAddress = streetAddressValueEt.getText().toString();
-        String postalCode = postalCodeValueEt.getText().toString();
-        String countryName = countryNameValueEt.getText().toString();
+        String streetAddress = streetAddressValueEt.getText().toString().trim();
+        String postalCode = postalCodeValueEt.getText().toString().trim();
+        String countryName = countryNameValueEt.getText().toString().trim();
         HomeAddress homeAddress = new HomeAddress(streetAddress, postalCode, countryName);
 
-        profile = new Profile(profileId, firstname, lastname, birthdate, sex, phoneNumber, emailAddress, homeAddress);
+        profile = new Profile(profileId, firstname, lastname, birthdate, gender, phoneNumber, emailAddress, homeAddress);
         database.profileDao().update(profile);
         Log.i(TAG, "Profile updated: " + profile);
 
@@ -117,11 +112,17 @@ public class EditProfileActivity extends TranslatedAppCompatActivity implements 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
-            case 0 -> sex = "Male";
-            case 1 -> sex = "Female";
-            case 2 -> sex = "Other";
+            case 0:
+                gender = "Male";
+                break;
+            case 1:
+                gender = "Female";
+                break;
+            case 2:
+                gender = "Other";
+                break;
         }
-        sexValueSp.setSelection(position);
+        genderValueSp.setSelection(position);
     }
 
     @Override

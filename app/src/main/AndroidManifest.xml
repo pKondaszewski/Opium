@@ -16,102 +16,89 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/opium_logo"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:screenOrientation="portrait"
+        android:logo="@mipmap/opium_logo"
+        android:roundIcon="@mipmap/opium_logo_round"
         android:supportsRtl="true"
         android:theme="@style/CustomTheme"
         tools:targetApi="32">
         <activity
             android:name="com.example.op.activity.MainActivity"
             android:exported="true">
-            <intent-filter android:label="@string/mainActivity_title">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name="com.example.op.activity.profile.ProfileActivity"
-            android:exported="true"
-            android:label="Profil osobisty"
-            android:screenOrientation="fullSensor"/>
+            android:label="@string/personal_profile_title"/>
         <activity
             android:name="com.example.op.activity.profile.EditProfileActivity"
-            android:exported="true"
-            android:label="Edycja profilu osobistego"
-            android:screenOrientation="fullSensor"/>
+            android:label="@string/edit_profile_title"/>
         <activity
             android:name="com.example.op.activity.user.DailyFeelingsActivity"
-            android:exported="true"
-            android:screenOrientation="fullSensor">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.ASSIST"/>
             </intent-filter>
         </activity>
         <activity
             android:name="com.example.op.activity.history.TreatmentHistoryActivity"
-            android:exported="true"
-            android:label="@string/treatment_history_activity_title"
-            android:screenOrientation="fullSensor"/>
+            android:label="@string/treatment_history_activity_title"/>
         <activity
             android:name="com.example.op.activity.analyze.AnalyzeActivity"
-            android:exported="true"
-            android:label="@string/analyze_button_name"
-            android:screenOrientation="fullSensor"/>
+            android:label="@string/analyze_button_name"/>
         <activity
             android:name="com.example.op.activity.analyze.FitbitAnalyzeActivity"
-            android:exported="true"
-            android:screenOrientation="fullSensor"/>
+            android:label="@string/fitbit_activity_analyze_button"/>
         <activity
             android:name="com.example.op.activity.analyze.FitbitAnalyzeSettingsActivity"
-            android:exported="true"
-            android:screenOrientation="fullSensor"/>
+            android:label="@string/fitbit_settings_title"/>
         <activity
-            android:name="com.example.op.activity.PhoneAnalyzeActivity"
-            android:exported="true"
-            android:screenOrientation="fullSensor"/>
+            android:name="com.example.op.activity.analyze.PhoneAnalyzeActivity"
+            android:label="@string/phone_activity_title"/>
         <activity
             android:name="com.example.op.activity.report.ReportActivity"
-            android:exported="true"
-            android:label="@string/report_activity_title"
-            android:screenOrientation="fullSensor"/>
+            android:label="@string/report_activity_title"/>
         <activity
             android:name="com.example.op.activity.report.ReportReceiversActivity"
-            android:exported="true"
-            android:label="@string/report_receivers_activity_title"
-            android:screenOrientation="fullSensor"/>
+            android:label="@string/report_receivers_activity_title"/>
         <activity
             android:name="com.example.op.activity.settings.SettingsActivity"
-            android:exported="true"
-            android:label="@string/settings_activity_title"
-            android:screenOrientation="fullSensor"/>
+            android:label="@string/settings_activity_title"/>
         <activity
             android:name="com.example.op.activity.settings.SettingsFitbitActivity"
-            android:exported="true"
+            android:label="@string/fitbit_pairing_title"
             android:parentActivityName="com.example.op.activity.MainActivity"
-            android:screenOrientation="fullSensor">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="oauth-testing"/>
+                <data android:scheme="redirect"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.example.op.activity.settings.SettingsGmailActivity"/>
-        <activity android:name=".activity.ExpertSystemActivity"/>
-        <activity android:name=".activity.settings.SettingsNotificationScheduleActivity"/>
-        <activity android:name="com.example.op.activity.settings.SettingsExpertSystemActivity"/>
+        <activity
+            android:name="com.example.op.activity.settings.SettingsGmailActivity"
+            android:label="@string/gmail_pairing_title"/>
+        <activity
+            android:name=".activity.analyze.ExpertSystemActivity"
+            android:label="@string/expert_system_title"/>
+        <activity
+            android:name=".activity.settings.SettingsNotificationScheduleActivity"
+            android:label="@string/settings_notification_schedule_title"/>
+        <activity
+            android:name="com.example.op.activity.settings.SettingsExpertSystemActivity"
+            android:label="@string/settings_expert_system_title"/>
         <activity
             android:name="com.example.op.activity.user.DailyQuestionActivity"
-            android:exported="true"
-            android:label="@string/daily_question_activity_title"
-            android:screenOrientation="fullSensor"/>
+            android:label="@string/daily_question_activity_title"/>
         <activity
             android:name="com.example.op.activity.extra.EmergencyActivity"
-            android:exported="true"
-            android:screenOrientation="fullSensor"/>
+            android:label="@string/emergency_button"/>
         <service android:name=".service.NotificationService"/>
     </application>
 </manifest>

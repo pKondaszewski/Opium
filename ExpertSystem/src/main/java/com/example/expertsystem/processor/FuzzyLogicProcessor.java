@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.TreeMap;
@@ -15,7 +14,6 @@ import java.util.stream.Collectors;
 import lombok.Cleanup;
 
 public abstract class FuzzyLogicProcessor {
-
     private final String TAG;
 
     public FuzzyLogicProcessor(String TAG) {

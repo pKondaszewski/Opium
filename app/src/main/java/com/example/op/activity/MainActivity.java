@@ -16,34 +16,32 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import com.example.database.AppDatabase;
 import com.example.database.InitialDatabaseData;
-import com.example.expertsystem.ExpertSystem;
+import com.example.database.entity.Profile;
 import com.example.op.R;
 import com.example.op.activity.analyze.AnalyzeActivity;
 import com.example.op.activity.extra.EmergencyActivity;
-import com.example.op.activity.extra.TranslatedAppCompatActivity;
+import com.example.op.activity.extra.GlobalSetupAppCompatActivity;
 import com.example.op.activity.history.TreatmentHistoryActivity;
 import com.example.op.activity.profile.ProfileActivity;
 import com.example.op.activity.report.ReportActivity;
 import com.example.op.activity.settings.SettingsActivity;
 import com.example.op.activity.user.DailyFeelingsActivity;
-import com.example.op.utils.LocaleHelper;
 import com.example.op.service.NotificationService;
+import com.example.op.utils.LocaleHelper;
 import com.example.op.worker.WorkerFactory;
 
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.Objects;
 
-import lombok.SneakyThrows;
-
-public class MainActivity extends TranslatedAppCompatActivity implements View.OnClickListener {
-
+public class MainActivity extends GlobalSetupAppCompatActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getName();
     private AppDatabase database;
-    private Button dailyControlBtn;
+    private Button dailyFeelingsBtn;
     private WorkerFactory workerFactory;
     private float screenX1, screenX2;
 
@@ -52,35 +50,34 @@ public class MainActivity extends TranslatedAppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        database = AppDatabase.getDatabaseInstance(this);
+        InitialDatabaseData.initDailyQuestions(database);
+        InitialDatabaseData.initProfile(database);
+//        InitialDatabaseData.initData(database);
+
         createNotificationChannel();
 
-        dailyControlBtn = findViewById(R.id.button_daily_feelings);
+        dailyFeelingsBtn = findViewById(R.id.button_daily_feelings);
         Button treatmentHistoryBtn = findViewById(R.id.button_treatment_history);
         Button reportBtn = findViewById(R.id.button_report);
         Button analyzeBtn = findViewById(R.id.button_analyze);
         Button settingsBtn = findViewById(R.id.button_settings);
 
-        dailyControlBtn.setOnClickListener(this);
+        dailyFeelingsBtn.setOnClickListener(this);
         treatmentHistoryBtn.setOnClickListener(this);
         reportBtn.setOnClickListener(this);
         analyzeBtn.setOnClickListener(this);
         settingsBtn.setOnClickListener(this);
 
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        dailyControlBtn.startAnimation(animation);
+        dailyFeelingsBtn.startAnimation(animation);
         treatmentHistoryBtn.startAnimation(animation);
         reportBtn.startAnimation(animation);
         analyzeBtn.startAnimation(animation);
         settingsBtn.startAnimation(animation);
 
-        database = AppDatabase.getDatabaseInstance(this);
-        InitialDatabaseData.initControlTextQuestions(database);
-        InitialDatabaseData.initProfile(database);
-        InitialDatabaseData.initData(database);
-
         SharedPreferences sharPref = getSharedPreferences(getString(com.example.database.R.string.opium_preferences), MODE_PRIVATE);
         String isRepeatable = sharPref.getString(getString(com.example.database.R.string.is_repeatable), "false");
-
         if (Boolean.parseBoolean(isRepeatable)) {
             Intent intent = new Intent(this, NotificationService.class);
             startService(intent);
@@ -103,7 +100,26 @@ public class MainActivity extends TranslatedAppCompatActivity implements View.On
         notificationManager.createNotificationChannel(channel);
     }
 
-    @SneakyThrows
+    private void setupDailyFeelingButtonState() {
+        if (database.dailyFeelingsDao().getByDate(LocalDate.now()).isPresent()) {
+            dailyFeelingsBtn.setEnabled(false);
+            dailyFeelingsBtn.setText(R.string.daily_feelings_completed_button_name);
+        }
+    }
+
+    private void setupHelloTitle() {
+        String helloLabel = getString(R.string.hello_label);
+        Profile profile = database.profileDao().get().orElse(new Profile());
+        String firstname = profile.getFirstname();
+        if (firstname != null && !firstname.equals("")) {
+            Objects.requireNonNull(getSupportActionBar())
+                    .setTitle(helloLabel + ", " + firstname);
+        } else {
+            Objects.requireNonNull(getSupportActionBar())
+                    .setTitle(helloLabel);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -126,7 +142,7 @@ public class MainActivity extends TranslatedAppCompatActivity implements View.On
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         LocaleHelper.setLocale(getApplicationContext());
     }
@@ -136,10 +152,8 @@ public class MainActivity extends TranslatedAppCompatActivity implements View.On
         super.onResume();
         LocaleHelper.setLocale(getApplicationContext());
         workerFactory.enqueueWorks();
-        if (database.dailyFeelingsDao().getByDate(LocalDate.now()).isPresent()) {
-            dailyControlBtn.setEnabled(false);
-            dailyControlBtn.setText(R.string.daily_control_completed_button_name);
-        }
+        setupDailyFeelingButtonState();
+        setupHelloTitle();
     }
 
     @Override

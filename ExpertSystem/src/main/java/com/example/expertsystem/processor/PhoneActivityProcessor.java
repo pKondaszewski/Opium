@@ -11,20 +11,17 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class PhoneActivityProcessor extends FuzzyLogicProcessor {
-
     private static final String TAG = PhoneActivityProcessor.class.getName();
     private final Integer notedMovements;
     private final Double phoneLocalizationProcessorResult;
-    private final ExpertSystemLevel level;
-    private List<TreeMap<Double, Double>> therms, therms1;
-    private TreeMap<Double, Double> therm1, therm2, therm3, therm4, therm5,
+    private final List<TreeMap<Double, Double>> therms, therms1;
+    private final TreeMap<Double, Double> therm1, therm2, therm3, therm4, therm5,
             therm11, therm22, therm33, therm44, therm55;
 
     public PhoneActivityProcessor(Integer notedMovements, Double phoneLocalizationProcessorResult, ExpertSystemLevel level) {
         super(TAG);
         this.notedMovements = notedMovements;
         this.phoneLocalizationProcessorResult = phoneLocalizationProcessorResult;
-        this.level = level;
 
         therm1 = new TreeMap<>();
         therm2 = new TreeMap<>();

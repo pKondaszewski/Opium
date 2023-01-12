@@ -1,11 +1,12 @@
 package com.example.expertsystem.processor;
 
+import androidx.annotation.NonNull;
+
 import com.example.expertsystem.ExpertSystem;
 
-import java.math.RoundingMode;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -13,7 +14,6 @@ import java.util.stream.Collectors;
 
 public class PhoneLocalizationProcessor extends FuzzyLogicProcessor {
     private static final String TAG = PhoneLocalizationProcessor.class.getName();
-    private final DecimalFormat df;
     private final List<Double> mostCommonCoordinates, profileCoordinates;
     private final TreeMap<Double, Double> therm1, therm2, therm3, therm4, therm5;
     private final List<TreeMap<Double, Double>> therms;
@@ -22,8 +22,6 @@ public class PhoneLocalizationProcessor extends FuzzyLogicProcessor {
         super(TAG);
         this.mostCommonCoordinates = mostCommonCoordinates;
         this.profileCoordinates = profileCoordinates;
-        df = new DecimalFormat("#.####");
-        df.setRoundingMode(RoundingMode.DOWN);
 
         therm1 = new TreeMap<>();
         therm2 = new TreeMap<>();
@@ -39,6 +37,9 @@ public class PhoneLocalizationProcessor extends FuzzyLogicProcessor {
         fillTherms(therms, Objects.requireNonNull(resource), 5);
 
         List<Double> parsedCoordinatesDifferences = getParsedCoordinatesDifferences();
+        if (parsedCoordinatesDifferences.isEmpty()) {
+            return 1.0;
+        }
         Double parsedLatitudeDifference = parsedCoordinatesDifferences.get(0);
         Double parsedLongitudeDifference = parsedCoordinatesDifferences.get(1);
 
@@ -110,18 +111,20 @@ public class PhoneLocalizationProcessor extends FuzzyLogicProcessor {
         return List.of(rules1, rules2, rules3, rules4, rules5);
     }
 
+    @NonNull
     private List<Double> getParsedCoordinatesDifferences() {
+        if (profileCoordinates.isEmpty()) {
+            return Collections.emptyList();
+        }
+        Double profileLatitude = profileCoordinates.get(0);
+        Double profileLongitude = profileCoordinates.get(1);
         Double mostCommonLatitude = mostCommonCoordinates.get(0);
         Double mostCommonLongitude = mostCommonCoordinates.get(1);
 
-        Double profileLatitude = profileCoordinates.get(0);
-        Double profileLongitude = profileCoordinates.get(1);
-
-        Double latitudeDifference = mostCommonLatitude - profileLatitude;
-        Double longitudeDifference = mostCommonLongitude - profileLongitude;
-
-        Double parsedLatitudeDifference = Double.parseDouble(df.format(latitudeDifference));
-        Double parsedLongitudeDifference = Double.parseDouble(df.format(longitudeDifference));
+        double latitudeDifference = mostCommonLatitude - profileLatitude;
+        double longitudeDifference = mostCommonLongitude - profileLongitude;
+        Double parsedLatitudeDifference = Math.floor(latitudeDifference * 10000) / 10000;
+        Double parsedLongitudeDifference = Math.floor(longitudeDifference * 10000) / 10000;
 
         return List.of(parsedLatitudeDifference, parsedLongitudeDifference);
     }

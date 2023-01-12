@@ -22,9 +22,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class FitbitRequest {
-
     private static final String TAG = FitbitRequest.class.getName();
-
     private final String accessToken;
     private final OkHttpClient httpClient;
     private final AppDatabase database;
@@ -73,7 +71,6 @@ public class FitbitRequest {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String string = response.body().string();
-                System.out.println(string);
                 String spO2ByDayValue = JsonManipulator.extractSpo2(string);
                 FitbitSpO2Data uploadedFitbitSpO2Data = new FitbitSpO2Data(null, LocalDate.now(), LocalTime.now(), spO2ByDayValue);
                 FitbitStepsData recentDatabaseFitbitSpO2Data = database.fitbitStepsDataDao().getNewestFitbitStepsDataByDate(LocalDate.now()).orElse(null);

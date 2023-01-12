@@ -12,7 +12,6 @@ import com.example.op.fragment.fitbit.spo2.FitbitDaysSpO2Fragment;
 import java.util.List;
 
 public class FitbitSpO2Adapter extends FragmentStateAdapter {
-
     private final List<Fragment> fragments;
 
     public FitbitSpO2Adapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {

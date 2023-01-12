@@ -1,10 +1,10 @@
 package com.example.op.utils;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.op.R;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,23 +12,19 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class Translation {
-
-    private static final String TAG = Translation.class.getName();
     private final Context context;
 
-    public String translateSex(String sex) {
-        switch (sex) {
+    public String translateGender(String gender) {
+        switch (gender) {
             case "Male":
-                return context.getString(R.string.male_sex_spinner_item);
+                return context.getString(R.string.male_gender_spinner_item);
             case "Female":
-                return context.getString(R.string.female_sex_spinner_item);
+                return context.getString(R.string.female_gender_spinner_item);
             case "Other":
-                return context.getString(R.string.other_sex_spinner_item);
+                return context.getString(R.string.other_gender_spinner_item);
             default:
-                Log.e(TAG, "Sex isn't recognised. Can't be translated");
                 break;
         }
-        Log.e(TAG, "Sex to be translated is null.");
         return null;
     }
 
@@ -46,18 +42,15 @@ public class Translation {
                 case "tragic":
                     return context.getString(R.string.mood_tragicFeelings_radio_button);
                 default:
-                    Log.e(TAG, "Sex isn't recognised. Can't be translated");
                     break;
             }
         }
-        Log.e(TAG, "Mood to be translated is null.");
         return null;
     }
 
     public List<String> translateAilments(List<String> ailments) {
-        return ailments.stream()
-                .map(this::translateAilment)
-                .collect(Collectors.toList());
+        return ailments.isEmpty() ?
+                Collections.emptyList() : ailments.stream().map(this::translateAilment).collect(Collectors.toList());
     }
 
     private String translateAilment(String ailment) {
@@ -80,11 +73,10 @@ public class Translation {
                 return context.getString(R.string.ailments_diarrhea_button);
             } else if (ailment.startsWith("other")) {
                 return context.getString(R.string.ailments_other_button) + ailment.substring(5);
-            } else {
-                Log.e("TAG", "Ailment isn't recognised. Can't be translated");
+            } else if (ailment.equals("")) {
+                return "";
             }
         }
-        Log.e(TAG, "Ailment to be translated is null.");
         return null;
     }
 }

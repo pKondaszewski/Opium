@@ -4,6 +4,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -22,6 +24,7 @@ public class DailyFeelings {
     private String otherAilments;
     private String note;
     private LocalDate dateOfDailyFeelings;
+    private LocalTime timeOfDailyFeelings;
 
     public DailyFeelings(LocalDate dateOfDailyFeelings) {
         this.dateOfDailyFeelings = dateOfDailyFeelings;

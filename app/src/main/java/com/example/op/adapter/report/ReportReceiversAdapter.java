@@ -12,7 +12,6 @@ import com.example.op.fragment.report.receivers.SmsReportReceiversFragment;
 import java.util.List;
 
 public class ReportReceiversAdapter extends FragmentStateAdapter {
-
     private final List<Fragment> fragments;
 
     public ReportReceiversAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {

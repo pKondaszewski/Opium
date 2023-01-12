@@ -6,21 +6,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.database.AppDatabase;
 import com.example.database.HomeAddress;
 import com.example.database.entity.Profile;
 import com.example.op.R;
-import com.example.op.exception.ResourceNotFoundException;
+import com.example.op.activity.extra.GlobalSetupAppCompatActivity;
 import com.example.op.utils.Translation;
 
-public class ProfileActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 
-    private static final String TAG = ProfileActivity.class.getName();
+public class ProfileActivity extends GlobalSetupAppCompatActivity implements MenuItem.OnMenuItemClickListener {
     private AppDatabase database;
+    private DateTimeFormatter dateTimeFormatter;
     private Profile profile;
-    private TextView nameValueTv, birthdateValueTv, sexValueTv, phoneNumberValueTv, emailAddressValueTv,
+    private TextView nameValueTv, birthdateValueTv, genderValueTv, phoneNumberValueTv, emailAddressValueTv,
             homeAddressValueTv;
     private Translation translation;
 
@@ -31,12 +32,13 @@ public class ProfileActivity extends AppCompatActivity implements MenuItem.OnMen
 
         database = AppDatabase.getDatabaseInstance(this);
         translation = new Translation(this);
-        profile = database.profileDao().get().orElseThrow(
-                () -> new ResourceNotFoundException(TAG, "Profile doesn't exist in database"));
+        profile = database.profileDao().get().orElse(new Profile());
+        dateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+                .withLocale(Locale.getDefault());
 
         nameValueTv = findViewById(R.id.text_view_name_value);
         birthdateValueTv = findViewById(R.id.text_view_birthdate_value);
-        sexValueTv = findViewById(R.id.text_view_sex_value);
+        genderValueTv = findViewById(R.id.text_view_gender_value);
         phoneNumberValueTv = findViewById(R.id.text_view_phone_number_value);
         emailAddressValueTv = findViewById(R.id.text_view_email_address_value);
         homeAddressValueTv = findViewById(R.id.text_view_home_address_value);
@@ -49,12 +51,11 @@ public class ProfileActivity extends AppCompatActivity implements MenuItem.OnMen
     }
 
     private void updateUI() {
-        profile = database.profileDao().get().orElseThrow(
-                () -> new ResourceNotFoundException(TAG, "Profile doesn't exist in database"));
+        profile = database.profileDao().get().get();
 
         nameValueTv.setText(String.format("%s %s", profile.getFirstname(), profile.getLastname()));
-        birthdateValueTv.setText(profile.getBirthdate().toString());
-        sexValueTv.setText(translation.translateSex(profile.getSex()));
+        birthdateValueTv.setText(profile.getBirthdate().format(dateTimeFormatter));
+        genderValueTv.setText(translation.translateGender(profile.getGender()));
         phoneNumberValueTv.setText(profile.getPhoneNumber());
         emailAddressValueTv.setText(profile.getEmailAddress());
         homeAddressValueTv.setText(extractHomeAddress(profile.getHomeAddress()));

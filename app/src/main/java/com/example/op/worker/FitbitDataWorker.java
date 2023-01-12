@@ -20,9 +20,9 @@ import java.time.LocalDate;
 import okhttp3.OkHttpClient;
 
 public class FitbitDataWorker extends Worker {
-
     private static final String TAG = FitbitDataWorker.class.getName();
     private final FitbitRequest fitbitRequest, fitbitRequest1;
+    private final LocalDate now = LocalDate.now();
 
     public FitbitDataWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
@@ -48,12 +48,11 @@ public class FitbitDataWorker extends Worker {
         fitbitRequest1 = new FitbitRequest(accessToken, httpClient, database);
     }
 
-    @NonNull
     @Override
     public Result doWork() {
         try {
-            fitbitRequest.getStepsByDay(FitbitUrlBuilder.stepsUrl(LocalDate.now()));
-            fitbitRequest1.getSpO2ByDay(FitbitUrlBuilder.spO2Url(LocalDate.of(2022,7,5)));
+            fitbitRequest.getStepsByDay(FitbitUrlBuilder.stepsUrl(now));
+            fitbitRequest1.getSpO2ByDay(FitbitUrlBuilder.spO2Url(now));
         } catch (InterruptedException exception) {
             exception.printStackTrace();
         }
