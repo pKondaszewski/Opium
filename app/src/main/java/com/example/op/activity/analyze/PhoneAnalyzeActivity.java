@@ -8,13 +8,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.database.AppDatabase;
 import com.example.database.HomeAddress;
 import com.example.database.dao.PhoneLocalizationDao;
 import com.example.database.dao.PhoneMovementDao;
 import com.example.op.R;
+import com.example.op.activity.analyze.marker.PieDataMarkerView;
 import com.example.op.activity.extra.GlobalSetupAppCompatActivity;
 import com.example.op.domain.PhoneDataUseCase;
 import com.github.mikephil.charting.animation.Easing;
@@ -43,7 +42,7 @@ public class PhoneAnalyzeActivity extends GlobalSetupAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analyze_phone);
 
-        database = AppDatabase.getDatabaseInstance(this);
+        database = AppDatabase.getInstance(this);
         formatter = DateTimeFormatter.ofPattern("HH:mm");
 
         LinearLayout todayPhoneMovementLl = findViewById(R.id.linear_layout_phone_movement_today);
@@ -59,6 +58,8 @@ public class PhoneAnalyzeActivity extends GlobalSetupAppCompatActivity {
         phoneMovementAverageAllValueTv = findViewById(R.id.text_view_phone_movement_average_all_value);
 
         pieChart = findViewById(R.id.pie_chart);
+        PieDataMarkerView mv = new PieDataMarkerView(this, R.layout.custom_marker_view_layout);
+        pieChart.setMarker(mv);
         phoneDataUseCase = new PhoneDataUseCase();
 
         PhoneLocalizationDao phoneLocalizationDao = database.phoneLocalizationDao();
@@ -94,7 +95,7 @@ public class PhoneAnalyzeActivity extends GlobalSetupAppCompatActivity {
         Integer correctAnswersCount = database.dailyQuestionAnswerDao().getAllCorrectCount().get();
         Integer incorrectAnswersCount = database.dailyQuestionAnswerDao().getAllIncorrectCount().get();
         int allAnswersCount = correctAnswersCount + incorrectAnswersCount;
-        PieData pieData = phoneDataUseCase.getPhoneQuestionAnswersPieData(correctAnswersCount, incorrectAnswersCount);
+        PieData pieData = phoneDataUseCase.getPhoneQuestionAnswersPieData(this, correctAnswersCount, incorrectAnswersCount);
 
         pieData.setValueTextSize(20f);
         pieData.setValueFormatter(new PercentFormatter(pieChart));

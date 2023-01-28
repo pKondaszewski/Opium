@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment;
 import com.example.database.AppDatabase;
 import com.example.op.R;
 import com.example.op.domain.FitbitDataUseCase;
-import com.example.op.fragment.fitbit.utils.FitbitDataChartGenerator;
 import com.example.op.fragment.fitbit.utils.ChartUtils;
+import com.example.op.fragment.fitbit.utils.FitbitDataChartGenerator;
 import com.example.op.utils.LocalDateUtils;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.BarEntry;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.TreeMap;
 
 public class FitbitMonthsStepsFragment extends Fragment implements FitbitDataChartGenerator {
@@ -34,7 +35,7 @@ public class FitbitMonthsStepsFragment extends Fragment implements FitbitDataCha
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         context = getContext();
-        database = AppDatabase.getDatabaseInstance(context);
+        database = AppDatabase.getInstance(context);
         fitbitDataUseCase = new FitbitDataUseCase();
         return inflater.inflate(R.layout.fragment_months_chart_fitbit_steps_data, parent, false);
     }
@@ -63,7 +64,9 @@ public class FitbitMonthsStepsFragment extends Fragment implements FitbitDataCha
         for (int i = 1; i <= months; i++) {
             String monthAsString = LocalDateUtils.monthFromInt(i);
             Double avgResult = database.fitbitStepsDataDao().getAverageFromMonth(monthAsString, yearAsString);
-            averageMonthValues.put(i, avgResult);
+            if (Objects.nonNull(avgResult)) {
+                averageMonthValues.put(i, avgResult);
+            }
         }
         return averageMonthValues;
     }

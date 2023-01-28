@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Dao
 public interface EmailContactDao extends CrudDao<EmailContact> {
-
     @Query("SELECT * from EmailContact")
     List<EmailContact> getAll();
 

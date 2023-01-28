@@ -46,10 +46,14 @@ public class FitbitRequest {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String string = Objects.requireNonNull(response.body()).string();
-                String stepsByDayValue = JsonManipulator.extractSteps(string);
-                FitbitStepsData uploadedFitbitStepsData = new FitbitStepsData(null, LocalDate.now(), LocalTime.now(), stepsByDayValue);
-                FitbitStepsData recentDatabaseFitbitStepsData = database.fitbitStepsDataDao().getNewestFitbitStepsDataByDate(LocalDate.now()).orElse(null);
-                if (!uploadedFitbitStepsData.equals(recentDatabaseFitbitStepsData)) {
+                String uploadedStepsValue = JsonManipulator.extractSteps(string);
+                FitbitStepsData uploadedFitbitStepsData = new FitbitStepsData(null, LocalDate.now(), LocalTime.now(), uploadedStepsValue);
+                FitbitStepsData recentDatabaseFitbitStepsData = database.fitbitStepsDataDao().getMaxFitbitStepsDataByDate(LocalDate.now()).orElse(null);
+                if (recentDatabaseFitbitStepsData == null) {
+                    return;
+                }
+                String recentStepsValue = recentDatabaseFitbitStepsData.getStepsValue();
+                if (!uploadedStepsValue.equals(recentStepsValue)) {
                     database.fitbitStepsDataDao().insert(uploadedFitbitStepsData);
                     Log.i(TAG, String.format("Insertion of fitbit steps data into database. Date: %s. Time: %s. Steps value:  %s",
                             uploadedFitbitStepsData.getDate(), uploadedFitbitStepsData.getTime(), uploadedFitbitStepsData.getStepsValue()));
@@ -70,11 +74,15 @@ public class FitbitRequest {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                String string = response.body().string();
-                String spO2ByDayValue = JsonManipulator.extractSpo2(string);
-                FitbitSpO2Data uploadedFitbitSpO2Data = new FitbitSpO2Data(null, LocalDate.now(), LocalTime.now(), spO2ByDayValue);
-                FitbitStepsData recentDatabaseFitbitSpO2Data = database.fitbitStepsDataDao().getNewestFitbitStepsDataByDate(LocalDate.now()).orElse(null);
-                if (!uploadedFitbitSpO2Data.equals(recentDatabaseFitbitSpO2Data)) {
+                String string = Objects.requireNonNull(response.body()).string();
+                String uploadedSpO2Value = JsonManipulator.extractSpo2(string);
+                FitbitSpO2Data uploadedFitbitSpO2Data = new FitbitSpO2Data(null, LocalDate.now(), LocalTime.now(), uploadedSpO2Value);
+                FitbitSpO2Data recentFitbitSpO2Data = database.fitbitSpO2DataDao().getMaxFitbitSpO2DataByDate(LocalDate.now()).orElse(null);
+                if (recentFitbitSpO2Data == null) {
+                    return;
+                }
+                String recentSpO2Value = recentFitbitSpO2Data.getSpO2Value();
+                if (!uploadedSpO2Value.equals(recentSpO2Value)) {
                     database.fitbitSpO2DataDao().insert(uploadedFitbitSpO2Data);
                     Log.i(TAG, String.format("Insertion of fitbit spO2 data into database. Date: %s. Time: %s. SpO2 value:  %s",
                             uploadedFitbitSpO2Data.getDate(), uploadedFitbitSpO2Data.getTime(), uploadedFitbitSpO2Data.getSpO2Value()));

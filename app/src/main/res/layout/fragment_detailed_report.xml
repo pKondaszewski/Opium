@@ -40,7 +40,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/report_date_text_view"/>
                         <TextView
-                            android:id="@+id/text_view_date"
+                            android:id="@+id/text_view_label"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -288,9 +288,26 @@
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/phone_movement_label_text_view"/>
+                            android:text="@string/phone_movement_detailed_report_label"/>
                         <TextView
                             android:id="@+id/text_view_phone_movement_value"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="end"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/text_view_phone_movement_count_label"
+                            style="@style/TextViewH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/daily_phone_movement_report_label_text_view"/>
+                        <TextView
+                            android:id="@+id/text_view_phone_movement_count_value"
                             style="@style/TextViewH3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

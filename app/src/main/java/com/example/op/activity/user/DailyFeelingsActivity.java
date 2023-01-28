@@ -53,7 +53,7 @@ public class DailyFeelingsActivity extends GlobalSetupAppCompatActivity implemen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_feelings);
 
-        database = AppDatabase.getDatabaseInstance(this);
+        database = AppDatabase.getInstance(this);
         dailyFeelingsDate = LocalDate.now();
         mood = "";
 
@@ -275,7 +275,6 @@ public class DailyFeelingsActivity extends GlobalSetupAppCompatActivity implemen
             mood = "";
         } else if (id == R.id.button_fever_ailments) {
             ailments.remove("fever");
-            System.out.println(mood);
         } else if (id == R.id.button_flu_ailments) {
             ailments.remove("flu");
         } else if (id == R.id.button_cough_ailments) {

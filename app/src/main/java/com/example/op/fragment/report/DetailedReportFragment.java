@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,14 +39,15 @@ public class DetailedReportFragment extends GeneralReportFragment {
     private SharedPreferences sharPref;
     private TextView dateValueTextView, nameValueTextView, birthdateValueTextView, fitbitStepsValueTv,
             fitbitSpO2ValueTv, moodDailyFeelingsValueTv, ailmentsDailyFeelingsValueTv, noteDailyFeelingsValueTv,
-            timeOfSaveDailyFeelingsValueTv, phoneMovementValueTv, phoneLocalizationValueTv, dailyQuestionContentTv,
-            dailyQuestionAnswerTv, dailyQuestionResultTv, timeOfSaveDailyQuestionAnswerTv, analyzeResultValueTv;
+            timeOfSaveDailyFeelingsValueTv, phoneMovementValueTv, phoneMovementCountValueTv,
+            phoneLocalizationValueTv, dailyQuestionContentTv, dailyQuestionAnswerTv,
+            dailyQuestionResultTv, timeOfSaveDailyQuestionAnswerTv, analyzeResultValueTv;
     private Translation translation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        context = getContext();
-        database = AppDatabase.getDatabaseInstance(context);
+        context = requireContext();
+        database = AppDatabase.getInstance(context);
         translation = new Translation(context);
         return inflater.inflate(R.layout.fragment_detailed_report, parent, false);
     }
@@ -55,7 +57,7 @@ public class DetailedReportFragment extends GeneralReportFragment {
         LocalDate presentDate = LocalDate.now();
         sharPref = getContext().getSharedPreferences(getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
 
-        dateValueTextView = view.findViewById(R.id.text_view_date);
+        dateValueTextView = view.findViewById(R.id.text_view_label);
         nameValueTextView = view.findViewById(R.id.text_view_name_value);
         birthdateValueTextView = view.findViewById(R.id.text_view_birthdate_value);
         moodDailyFeelingsValueTv = view.findViewById(R.id.text_view_mood_daily_feelings_value);
@@ -69,6 +71,7 @@ public class DetailedReportFragment extends GeneralReportFragment {
         timeOfSaveDailyQuestionAnswerTv = view.findViewById(R.id.text_view_daily_question_time_of_save_value);
 
         phoneMovementValueTv = view.findViewById(R.id.text_view_phone_movement_value);
+        phoneMovementCountValueTv = view.findViewById(R.id.text_view_phone_movement_count_value);
         phoneLocalizationValueTv = view.findViewById(R.id.text_view_phone_localization_value);
 
         fitbitDataCv = view.findViewById(R.id.fitbitDataCardView);
@@ -81,14 +84,12 @@ public class DetailedReportFragment extends GeneralReportFragment {
 
         Button sendReportBtn = view.findViewById(R.id.button_send_report);
         sendReportBtn.setOnClickListener(v -> {
-            boolean isMailSent = sendMail(TAG, getString(R.string.report_activity_title), getDetailedReportMessage(context), context);
+            boolean isMailSent = sendMail(getString(R.string.report_activity_title), getDetailedReportMessage(context), context);
             boolean isSmsSent = sendSms(TAG, getDetailedReportMessage(context), context);
             if (isMailSent || isSmsSent) {
                 requireActivity().finish();
             } else {
-                Toast.makeText(context
-                        , "Can't send report. Check app permissions or internet connection",
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.no_email_and_sms_send, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -105,9 +106,9 @@ public class DetailedReportFragment extends GeneralReportFragment {
                 setFitbitDataVisible();
                 setupFitbitData(presentDate);
             }
-            analyzeResultValueTv.setText(setupResults(presentDate, sharPref, database));
+            setupDetailedReportResult(presentDate);
         } catch (IOException ioException) {
-            ioException.printStackTrace();
+            Log.e(TAG, "There are ioException during setup data for detailed report", ioException);
         }
     }
 
@@ -159,9 +160,11 @@ public class DetailedReportFragment extends GeneralReportFragment {
         averageTimeOfMovementsByDate.stream().mapToInt(LocalTime::toSecondOfDay).average().ifPresent(
                 value -> {
                     LocalTime localTime = LocalTime.ofSecondOfDay((long) value);
-                    phoneMovementValueTv.setText(localTime.toString());
+                    phoneMovementValueTv.setText(timeFormatter.format(localTime));
                 }
         );
+        Integer count = database.phoneMovementDao().getCountByDate(presentDate);
+        phoneMovementCountValueTv.setText(String.valueOf(count));
     }
 
     private void setupPhoneLocalizationData() throws IOException {
@@ -176,12 +179,18 @@ public class DetailedReportFragment extends GeneralReportFragment {
     }
 
     private void setupFitbitData(LocalDate presentDate) {
-        FitbitStepsData fitbitStepsData = database.fitbitStepsDataDao().getNewestFitbitStepsDataByDate(presentDate)
+        FitbitStepsData fitbitStepsData = database.fitbitStepsDataDao().getMaxFitbitStepsDataByDate(presentDate)
                 .orElse(new FitbitStepsData());
-        FitbitSpO2Data fitbitSpO2Data = database.fitbitSpO2DataDao().getNewestFitbitSpO2DataByDate(presentDate)
+        FitbitSpO2Data fitbitSpO2Data = database.fitbitSpO2DataDao().getMaxFitbitSpO2DataByDate(presentDate)
                 .orElse(new FitbitSpO2Data());
 
         fitbitStepsValueTv.setText(fitbitStepsData.getStepsValue());
         fitbitSpO2ValueTv.setText(fitbitSpO2Data.getSpO2Value());
+    }
+
+    private void setupDetailedReportResult(LocalDate presentDate) {
+        String isFitbitEnabledString = sharPref.getString(getString(com.example.database.R.string.fitbit_switch_state), "false");
+        boolean isFitbitEnabled = Boolean.parseBoolean(isFitbitEnabledString);
+        analyzeResultValueTv.setText(setupResults(presentDate, isFitbitEnabled, database));
     }
 }

@@ -45,7 +45,7 @@ public class ExpertSystemActivity extends GlobalSetupAppCompatActivity implement
         sharPref = getSharedPreferences(getString(com.example.database.R.string.opium_preferences), MODE_PRIVATE);
         setFitbitVisibility();
 
-        AppDatabase database = AppDatabase.getDatabaseInstance(this);
+        AppDatabase database = AppDatabase.getInstance(this);
         database.expertSystemResultDao().getByDate(LocalDate.now()).ifPresent(this::setupTextViews);
 
         Button launchExpertSystemBtn = findViewById(R.id.button_launch_expert_system);
@@ -68,7 +68,7 @@ public class ExpertSystemActivity extends GlobalSetupAppCompatActivity implement
     }
 
     private void setupTextViews(ExpertSystemResult result) {
-        String NA = "N/A";
+        String NA = getString(R.string.none_data);;
         Locale localeDefault = Locale.getDefault();
         Double userMovementResult = result.getUserMovementResult();
         Double locationResult = result.getLocationResult();
@@ -98,6 +98,7 @@ public class ExpertSystemActivity extends GlobalSetupAppCompatActivity implement
             Log.i(TAG, message);
             runOnUiThread(
                     () -> Toast.makeText(ExpertSystemActivity.this, message, Toast.LENGTH_SHORT).show());
+            finish();
         } catch (ResourceNotFoundException e) {
             Log.e(TAG, e.getMessage());
             runOnUiThread(

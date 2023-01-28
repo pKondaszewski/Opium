@@ -33,7 +33,7 @@ public class AddEmailDialogFragment extends ExtendedDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        AppDatabase database = AppDatabase.getDatabaseInstance(context);
+        AppDatabase database = AppDatabase.getInstance(context);
 
         View view = inflater.inflate(R.layout.fragment_add_email, null);
         EditText nameEt = (EditText) view.findViewById(R.id.edit_text_add_contact_name);
@@ -45,7 +45,7 @@ public class AddEmailDialogFragment extends ExtendedDialogFragment {
                     String email = emailEt.getText().toString();
                     if (!email.isEmpty()) {
                         if (name.isEmpty()) {
-                            name = "N/A";
+                            name = getString(R.string.none_data);
                         }
                         EmailContact emailContact = new EmailContact(null, name, email, false);
                         database.emailContactDao().insert(emailContact);

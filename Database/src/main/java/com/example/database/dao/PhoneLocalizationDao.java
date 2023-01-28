@@ -17,13 +17,7 @@ public interface PhoneLocalizationDao extends CrudDao<PhoneLocalization> {
     @Query("SELECT * FROM PhoneLocalization")
     List<PhoneLocalization> getAll();
 
-    @Query("SELECT * FROM PhoneLocalization WHERE localizationCheckDate = :date")
-    List<PhoneLocalization> getAllByDate(LocalDate date);
-
-    @Query("SELECT * FROM PhoneLocalization ORDER BY id DESC LIMIT 1")
-    Optional<PhoneLocalization> getNewestLocation();
-
-    @Query("SELECT * FROM PhoneLocalization WHERE localizationCheckDate = :date ORDER BY id DESC LIMIT 1")
+    @Query("SELECT * FROM (SELECT *, COUNT(*) AS count FROM PhoneLocalization WHERE localizationCheckDate = :date GROUP BY homeAddress) ORDER BY count DESC LIMIT 1")
     Optional<PhoneLocalization> getMostCommonLocationByDate(LocalDate date);
 
     @MapInfo(keyColumn = "homeAddress", valueColumn = "count")

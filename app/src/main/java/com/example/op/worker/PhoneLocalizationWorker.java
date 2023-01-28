@@ -14,6 +14,8 @@ import com.example.database.AppDatabase;
 import com.example.database.HomeAddress;
 import com.example.database.entity.PhoneLocalization;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationAvailability;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 
@@ -27,23 +29,31 @@ import lombok.NonNull;
 public class PhoneLocalizationWorker extends Worker {
     private static final String TAG = PhoneLocalizationWorker.class.getName();
     private final AppDatabase database;
+    private FusedLocationProviderClient fusedLocationClient;
 
     public PhoneLocalizationWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
-        database = AppDatabase.getDatabaseInstance(getApplicationContext());
+        database = AppDatabase.getInstance(getApplicationContext());
     }
 
     @SuppressLint("MissingPermission")
     @Override
     public Result doWork() {
-        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
         fusedLocationClient
-                .getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY,  null)
-                .addOnSuccessListener(location -> {
-            if (location != null) {
-                processLocation(location);
-            }
-        });
+                    .getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
+                    .addOnSuccessListener(location -> {
+                        if (location != null) {
+                            processLocation(location);
+                        }
+                    })
+                    .addOnCompleteListener(task -> fusedLocationClient.removeLocationUpdates(
+                            new LocationCallback() {
+                        @Override
+                        public void onLocationAvailability(@androidx.annotation.NonNull LocationAvailability locationAvailability) {
+                            super.onLocationAvailability(locationAvailability);
+                        }
+                    }));
         return Result.success();
     }
 
@@ -55,7 +65,7 @@ public class PhoneLocalizationWorker extends Worker {
             database.phoneLocalizationDao().insert(phoneLocalization);
             Log.i(TAG, "Insertion of phone localization into database: " + phoneLocalization);
         } catch (IOException exception) {
-            exception.printStackTrace();
+            Log.e(TAG, "There are ioException during processing location", exception);
         }
     }
 

@@ -40,7 +40,7 @@ public class EditProfileActivity extends GlobalSetupAppCompatActivity implements
                                         getString(R.string.female_gender_spinner_item),
                                         getString(R.string.other_gender_spinner_item)};
 
-        database = AppDatabase.getDatabaseInstance(this);
+        database = AppDatabase.getInstance(this);
         sharPref = getSharedPreferences(getString(com.example.database.R.string.opium_preferences), MODE_PRIVATE);
         profile = database.profileDao().get().orElse(new Profile());
 

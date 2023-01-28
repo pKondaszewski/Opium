@@ -31,7 +31,7 @@ public class FitbitMonthSpO2Fragment extends Fragment implements FitbitDataChart
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         context = getContext();
-        database = AppDatabase.getDatabaseInstance(context);
+        database = AppDatabase.getInstance(context);
         fitbitDataUseCase = new FitbitDataUseCase();
         return inflater.inflate(R.layout.fragment_month_chart_fitbit_spo2_data, parent, false);
     }
@@ -57,7 +57,7 @@ public class FitbitMonthSpO2Fragment extends Fragment implements FitbitDataChart
         LocalDate date = LocalDateUtils.extractFromSharPref(context);
         int months = LocalDateUtils.extractNumberOfPastMonthsFromYear(date);
         String yearAsString = String.valueOf(date.getYear());
-        for (int i = 0; i <= months; i++) {
+        for (int i = 1; i <= months; i++) {
             String monthAsString = LocalDateUtils.monthFromInt(i);
             Double avgResult = database.fitbitSpO2DataDao().getAverageFromMonth(monthAsString, yearAsString);
             averageMonthValues.put(i, avgResult);

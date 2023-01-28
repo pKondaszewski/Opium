@@ -1,7 +1,6 @@
 package com.example.op.activity.report;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.op.R;
 import com.example.op.activity.extra.GlobalSetupAppCompatActivity;
 import com.example.op.adapter.report.ReportAdapter;
+import com.example.op.utils.Start;
 import com.example.op.utils.simple.SimpleOnTabSelectedListener;
 import com.google.android.material.tabs.TabLayout;
 
@@ -67,8 +67,7 @@ public class ReportActivity extends GlobalSetupAppCompatActivity implements Menu
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         if (item.getItemId() == R.id.settingsReportMenuItem) {
-            Intent intent = new Intent(this, ReportReceiversActivity.class);
-            startActivity(intent);
+            Start.activity(this, ReportReceiversActivity.class);
         }
         return false;
     }

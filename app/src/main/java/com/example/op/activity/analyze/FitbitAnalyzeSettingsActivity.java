@@ -28,7 +28,7 @@ public class FitbitAnalyzeSettingsActivity extends GlobalSetupAppCompatActivity 
         int yearValue = sharPref.getInt(context.getString(com.example.database.R.string.year_on_chart), now.getYear());
 
         yearNp = findViewById(R.id.number_picker_year_value);
-        yearNp.setMinValue(2020);
+        yearNp.setMinValue(2022);
         yearNp.setMaxValue(now.getYear());
         yearNp.setValue(yearValue);
 

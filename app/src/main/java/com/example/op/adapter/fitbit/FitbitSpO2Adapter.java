@@ -6,8 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.op.fragment.fitbit.spo2.FitbitMonthSpO2Fragment;
 import com.example.op.fragment.fitbit.spo2.FitbitDaysSpO2Fragment;
+import com.example.op.fragment.fitbit.spo2.FitbitMonthSpO2Fragment;
 
 import java.util.List;
 

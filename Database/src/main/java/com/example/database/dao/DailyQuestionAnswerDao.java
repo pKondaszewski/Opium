@@ -3,8 +3,8 @@ package com.example.database.dao;
 import androidx.room.Dao;
 import androidx.room.Query;
 
-import com.example.database.entity.DailyQuestionAnswer;
 import com.example.database.dto.DailyQuestionAnswerDto;
+import com.example.database.entity.DailyQuestionAnswer;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,17 +18,8 @@ public interface DailyQuestionAnswerDao extends CrudDao<DailyQuestionAnswer> {
     @Query("SELECT * FROM DailyQuestionAnswer WHERE dateOfAnswer = :date ORDER BY timeOfAnswer DESC LIMIT 1")
     Optional<DailyQuestionAnswer> getNewestByDate(LocalDate date);
 
-    @Query("SELECT dailyQuestionId, userAnswer FROM DailyQuestionAnswer WHERE dateOfAnswer = :date ORDER BY timeOfAnswer DESC LIMIT 1")
-    Optional<DailyQuestionAnswerDto> getNewestIdByDate(LocalDate date);
-
     @Query("SELECT dailyQuestionId, userAnswer, timeOfAnswer FROM DailyQuestionAnswer ORDER BY id DESC LIMIT 1")
     Optional<DailyQuestionAnswerDto> getNewestId();
-
-    @Query("SELECT COUNT(id) FROM DailyQuestionAnswer;")
-    Optional<Integer> getAllCount();
-
-    @Query("SELECT * FROM DailyQuestionAnswer;")
-    List<DailyQuestionAnswer> getAllAns();
 
     @Query("SELECT COUNT(*) " +
            "FROM DailyQuestionAnswer, DailyQuestion " +

@@ -34,7 +34,7 @@ public class FitbitDaysStepsFragment extends Fragment implements FitbitDataChart
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         context = getContext();
-        database = AppDatabase.getDatabaseInstance(context);
+        database = AppDatabase.getInstance(context);
         fitbitDataUseCase = new FitbitDataUseCase();
         date = LocalDateUtils.extractFromSharPref(context);
         sharPrefYear = String.valueOf(date.getYear());

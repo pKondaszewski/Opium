@@ -49,7 +49,7 @@ public class DailyQuestionActivity extends GlobalSetupAppCompatActivity implemen
         fourthAnswerBtn.setOnClickListener(this);
         List<Button> allAnswerButtons = List.of(firstAnswerBtn, secondAnswerBtn, thirdAnswerBtn, fourthAnswerBtn);
 
-        database = AppDatabase.getDatabaseInstance(this);
+        database = AppDatabase.getInstance(this);
         sharPref = getSharedPreferences(getString(com.example.database.R.string.opium_preferences), MODE_PRIVATE);
 
         DailyQuestionDao dailyQuestionDao = database.dailyQuestionDao();

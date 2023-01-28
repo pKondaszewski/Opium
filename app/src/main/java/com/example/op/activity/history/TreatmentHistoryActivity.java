@@ -65,7 +65,7 @@ public class TreatmentHistoryActivity extends GlobalSetupAppCompatActivity imple
         setContentView(R.layout.activity_treatment_history);
         sharPref = getSharedPreferences(getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
 
-        database = AppDatabase.getDatabaseInstance(this);
+        database = AppDatabase.getInstance(this);
         translation = new Translation(this);
         presentDate = new Date();
 
@@ -175,9 +175,9 @@ public class TreatmentHistoryActivity extends GlobalSetupAppCompatActivity imple
     }
 
     private void setupFitbitData(LocalDate pickedDate) {
-        FitbitStepsData fitbitStepsData = database.fitbitStepsDataDao().getNewestFitbitStepsDataByDate(pickedDate)
+        FitbitStepsData fitbitStepsData = database.fitbitStepsDataDao().getMaxFitbitStepsDataByDate(pickedDate)
                 .orElse(new FitbitStepsData());
-        FitbitSpO2Data fitbitSpO2Data = database.fitbitSpO2DataDao().getNewestFitbitSpO2DataByDate(pickedDate)
+        FitbitSpO2Data fitbitSpO2Data = database.fitbitSpO2DataDao().getMaxFitbitSpO2DataByDate(pickedDate)
                 .orElse(new FitbitSpO2Data());
         fitbitStepsValueTv.setText(fitbitStepsData.getStepsValue());
         fitbitSp02ValueTv.setText(fitbitSpO2Data.getSpO2Value());
@@ -253,6 +253,7 @@ public class TreatmentHistoryActivity extends GlobalSetupAppCompatActivity imple
 
     @Override
     public void onMonthScroll(Date firstDayOfNewMonth) {
+        onDayClick(firstDayOfNewMonth);
         int monthValue = firstDayOfNewMonth.getMonth() + 1;
         String month = Month.of(monthValue).getDisplayName(TextStyle.SHORT, Locale.getDefault());
         calendarMonthTv.setText(String.format(Locale.getDefault(), "%s %d", StringUtils.capitalize(month), firstDayOfNewMonth.getYear() + 1900));

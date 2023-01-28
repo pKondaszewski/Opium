@@ -10,7 +10,6 @@
     <string name="report_button_name">Raport</string>
     <string name="help_button_name">Pomoc</string>
     <string name="settings_name">Ustawienia</string>
-
     <string name="fitbit_switch_name">Włącz Fitbit</string>
 
     <!-- DailyFeelingsActivity labels -->
@@ -47,13 +46,15 @@
 
     <!-- AnalyzeActivity labels -->
     <string name="phone_activity_analyze_button">Aktywność telefonu</string>
-    <string name="fitbit_activity_analyze_button">Aktywność fitbit</string>
+    <string name="fitbit_activity_analyze_button">Aktywność Fitbit</string>
     <string name="expert_system_analyze_button">System ekspertowy</string>
     <string name="fitbit_analyze_steps_label_text_view">Wykres przebytych kroków</string>
     <string name="fitbit_analyze_spO2_label_text_view">Wykres SpO2</string>
     <string name="tab_item_days">Dni</string>
     <string name="tab_item_months">Miesiące</string>
     <string name="no_data_text_view">Brak danych</string>
+    <string name="correct_chart_legend_label">Poprawne</string>
+    <string name="incorrect_chart_legend_label">Niepoprawne</string>
     <string name="most_common_localizations_today_text_view">Najczęściej odnotowane lokalizacje telefonu (dzisiaj)</string>
     <string name="most_common_localizations_all_time_text_view">Najczęściej odnotowane lokalizacje telefonu (wszystkie)</string>
     <string name="amount_of_all_answers_text_view">Ilość wszyskich odpowiedzi: </string>
@@ -64,6 +65,7 @@
     <string name="last_daily_question_time_of_answer_label_text_view">Czas odpowiedzi</string>
     <string name="last_phone_movement_label_text_view">Ostatnia zarejestrowana aktywność</string>
     <string name="daily_phone_movement_label_text_view">Ilość wszystkich dzisiejszych aktywności</string>
+    <string name="daily_phone_movement_report_label_text_view">Ilość dzisiejszych\naktywności</string>
     <string name="phone_movement_average_today_label_text_view">Średni czas aktywności (dzisiaj)</string>
     <string name="phone_movement_average_all_label_text_view">Średni czas aktywności (wszystkie)</string>
     <string name="phone_movement_count_label_text_view">Ilość wszystkich aktywności</string>
@@ -85,6 +87,8 @@
     <string name="birthdate_profile_text_view">Data urodzenia</string>
     <string name="phone_profile_text_view">Dane pobrane z telefonu</string>
     <string name="phone_movement_label_text_view">Aktywność telefonu</string>
+    <string name="phone_movement_report_label">Średnia aktywność telefonu</string>
+    <string name="phone_movement_detailed_report_label">Średnia aktywność\ntelefonu</string>
     <string name="phone_localization_label_text_view">Lokalizacja telefonu</string>
     <string name="fitbit_data_label_text_view">Dane pobrane z Fitbit</string>
     <string name="fitbit_steps_label_text_view">Ilość kroków</string>
@@ -121,6 +125,7 @@
     <string name="report_receivers_button">Odbiorcy raportu</string>
     <string name="sms_switch">Sms</string>
     <string name="email_switch">Email</string>
+    <string name="none_data">Brak</string>
 
     <!-- SettingsActivity/SettingsFitbitActivity labels -->
     <string name="settings_activity_title">Ustawienia aplikacji</string>
@@ -135,6 +140,10 @@
     <string name="settings_notification_schedule_title">Ustawienia powiadomień</string>
     <string name="settings_expert_system_title">Ustawienia systemu ekspertowego</string>
     <string name="daily_question_notification_settings_title">Czas powiadomienia codziennego pytania</string>
+    <string name="info_about_author_title">Informacje o autorze</string>
+    <string name="info_about_author_author">Autor</string>
+    <string name="info_about_author_name">Przemysław Kondaszewski</string>
+    <string name="info_about_author_contact">Kontakt</string>
 
     <!-- SmsReportReceiversFragment -->
     <string name="selected_sms_contacts_text_view">Wybrane kontakty</string>
@@ -160,7 +169,7 @@
 
     <!-- QuestionActivity labels -->
     <string name="daily_question_activity_title">Codzienne pytanie</string>
-    <string name="daily_question_notification_label">Naciśnij aby udzielić odpowiedzi na codzienne pytanie</string>
+    <string name="daily_question_notification_label">Naciśnij, aby udzielić odpowiedzi na codzienne pytanie</string>
 
     <!-- MenuItems -->
     <string name="settings_menu_item">Ustawienia</string>
@@ -187,4 +196,13 @@
     <string name="expert_system_user_movement_description">Aktywność użytkownika jest analizowane za pomocą technik logiki rozmytej. Zostały stworzone dwa procesory, gdzie jeden analizuje lokalizację podaną w profilu z lokalizacją najczęściej dziś odnotowaną, a drugi analizuje wynik działania procesora lokalizacyjnego oraz ilość odnotowanych dziś aktywności przemieszczania się smartfona w ciągu dnia.</string>
     <string name="expert_system_user_feelings_description">Odczucia użytkownika są analizowane przy użyciu technik logiki rozmytej. Procesor uczuć użytkownika analizuje codzienne uczucia wybrane nastroje i dolegliwości z codziennymi pytaniami użytkownika. Obie wartości są z dnia dzisiejszego.</string>
     <string name="expert_system_fitbit_description">Fitbit dostarcza dane o krokach i spo2. Dane te są analizowane za pomocą prostych, oddzielnych procesorów, które zwracają wartość ze skali na podstawie danych zebranych przez fitbit.</string>
+
+    <!-- Sms/Email messages-->
+    <string name="sms_report_success">Raport SMS wysłany</string>
+    <string name="sms_no_permission_message">Aplikacja nie ma uprawnień do wysyłania wiadomości tekstowych. Proszę o nadanie uprawnień we właściwościach aplikacji.</string>
+    <string name="email_report_success">Raport Email wysłany</string>
+    <string name="email_report_failure">Raport Email nie został wysłany. Sprawdź adres gmail i hasło w ustawieniach</string>
+    <string name="email_no_permission_message">Aplikacja nie ma uprawnień do korzystania z internetu. Proszę o nadanie uprawnień we właściwościach aplikacji.</string>
+    <string name="no_email_and_sms_send">Nie można wysłać raportu. Sprawdź uprawnienia aplikacji lub połączenie internetowe.</string>
+    <string name="wrong_email_configuration_message">Błędna konfiguracja gmail</string>
 </resources>

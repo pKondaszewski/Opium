@@ -34,7 +34,7 @@ public class PhoneMovementWorker extends Worker implements SensorEventListener {
 
     @Override
     public Result doWork() {
-        database = AppDatabase.getDatabaseInstance(getApplicationContext());
+        database = AppDatabase.getInstance(getApplicationContext());
         lastLocalDateTime = LocalDateTime.now();
         deviceAcceleration = 0.00f;
         currentAcceleration = SensorManager.GRAVITY_EARTH;

@@ -3,7 +3,6 @@ package com.example.database.dao;
 import androidx.room.Dao;
 import androidx.room.Query;
 
-import com.example.database.entity.EmailContact;
 import com.example.database.entity.ExpertSystemResult;
 
 import java.time.LocalDate;

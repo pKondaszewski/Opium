@@ -19,7 +19,6 @@ import androidx.core.content.ContextCompat;
 
 import com.example.database.AppDatabase;
 import com.example.database.entity.PhoneContact;
-import com.example.expertsystem.ResourceNotFoundException;
 import com.example.op.R;
 import com.example.op.fragment.report.receivers.dialog.AddContactDialogFragment;
 import com.example.op.utils.simple.SimpleTextWatcher;
@@ -41,14 +40,14 @@ public class SmsReportReceiversFragment extends ReportReceiversFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        database = AppDatabase.getDatabaseInstance(getActivity());
+        database = AppDatabase.getInstance(getActivity());
         return inflater.inflate(R.layout.fragment_report_receivers, parent, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         context = getContext();
-        database = AppDatabase.getDatabaseInstance(context);
+        database = AppDatabase.getInstance(context);
 
         Button addContactBtn = view.findViewById(R.id.button_add_email);
         addContactBtn.setOnClickListener(v -> {

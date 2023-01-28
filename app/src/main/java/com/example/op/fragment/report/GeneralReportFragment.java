@@ -26,25 +26,26 @@ public class GeneralReportFragment extends ReportFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         context = getContext();
-        database = AppDatabase.getDatabaseInstance(context);
+        database = AppDatabase.getInstance(context);
         sharPref = context.getSharedPreferences(context.getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
         return inflater.inflate(R.layout.fragment_general_report, parent, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        TextView dateValueTv = view.findViewById(R.id.text_view_date);
+        TextView dateValueTv = view.findViewById(R.id.text_view_label);
         TextView nameValueTv = view.findViewById(R.id.text_view_name_value);
-
         LocalDate now = LocalDate.now();
+        String isFitbitEnabledString = sharPref.getString(getString(com.example.database.R.string.fitbit_switch_state), "false");
+        boolean isFitbitEnabled = Boolean.parseBoolean(isFitbitEnabledString);
 
-        TextView analyzeResultValueTv = view.findViewById(R.id.text_view_analyze_result_value);
-        analyzeResultValueTv.setText(setupResults(now, sharPref, database));
         setupPersonalData(now, List.of(dateValueTv, nameValueTv), database);
+        TextView analyzeResultValueTv = view.findViewById(R.id.text_view_analyze_result_value);
+        analyzeResultValueTv.setText(setupResults(now, isFitbitEnabled, database));
 
         Button sendReportBtn = view.findViewById(R.id.button_send_report);
         sendReportBtn.setOnClickListener(v -> {
-            boolean isMailSent = sendMail(TAG, getString(R.string.report_activity_title), getGeneralReportMessage(context), context);
+            boolean isMailSent = sendMail(getString(R.string.report_activity_title), getGeneralReportMessage(context), context);
             boolean isSmsSent = sendSms(TAG, getGeneralReportMessage(context), context);
             if (isMailSent || isSmsSent) {
                 requireActivity().finish();

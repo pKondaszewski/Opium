@@ -6,8 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.op.fragment.fitbit.steps.FitbitMonthsStepsFragment;
 import com.example.op.fragment.fitbit.steps.FitbitDaysStepsFragment;
+import com.example.op.fragment.fitbit.steps.FitbitMonthsStepsFragment;
 
 import java.util.List;
 

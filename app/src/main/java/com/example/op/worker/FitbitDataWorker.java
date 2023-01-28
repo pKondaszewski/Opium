@@ -1,6 +1,7 @@
 package com.example.op.worker;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -31,7 +32,7 @@ public class FitbitDataWorker extends Worker {
         String scopes = context.getString(R.string.scopes);
         String redirectUrl = context.getString(R.string.redirect_url);
         Authorization authorization = new Authorization(clientId, clientSecret, scopes, redirectUrl);
-        AppDatabase database = AppDatabase.getDatabaseInstance(context);
+        AppDatabase database = AppDatabase.getInstance(context);
 
         FitbitAccessToken fitbitAccessToken = database.fitbitAccessTokenDao().getNewestAccessToken().orElseThrow(
                 () -> new UnauthorizedFitbitException(TAG, "There are no fitbit access token. Please authorize fitbit in settings activity.")
@@ -54,7 +55,8 @@ public class FitbitDataWorker extends Worker {
             fitbitRequest.getStepsByDay(FitbitUrlBuilder.stepsUrl(now));
             fitbitRequest1.getSpO2ByDay(FitbitUrlBuilder.spO2Url(now));
         } catch (InterruptedException exception) {
-            exception.printStackTrace();
+            Log.e(TAG, "There are unresolved exception during Fitbit worker", exception);
+            return Result.failure();
         }
         return Result.success();
     }

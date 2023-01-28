@@ -1,5 +1,7 @@
 package com.example.op.domain;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.database.FitbitData;
@@ -10,19 +12,13 @@ import com.github.mikephil.charting.data.BarEntry;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FitbitDataUseCase {
-
-    private final Calendar cal;
-
-    public FitbitDataUseCase() {
-        cal = Calendar.getInstance();
-    }
+    private final String TAG = FitbitDataUseCase.class.getName();
 
     public ArrayList<BarEntry> getFitbitStepsDaysBarData(@NonNull List<FitbitStepsData> data, LocalDate date) {
         Map<Integer, FitbitData> dayOfTheYearAndFitbitDataMap = data.stream()
@@ -52,8 +48,9 @@ public class FitbitDataUseCase {
             if (fitbitData == null) {
                 entries.add(new BarEntry((float) i, null));
             } else {
-                String stepsValue = getFitbitDataValue(fitbitData, dataType);
-                entries.add(new BarEntry((float) i, Float.parseFloat(stepsValue)));
+                String extractedValue = getFitbitDataValue(fitbitData, dataType);
+                float parsedValue = Objects.nonNull(extractedValue) ? Float.parseFloat(extractedValue) : 0.0f;
+                entries.add(new BarEntry((float) i, parsedValue));
             }
         }
         return entries;
@@ -79,7 +76,8 @@ public class FitbitDataUseCase {
             FitbitSpO2Data fitbitSpO2Data = (FitbitSpO2Data) fitbitData;
             return fitbitSpO2Data.getSpO2Value();
         } else {
-            return "abc";
+            Log.e(TAG, "Can't retrieve data from unknown type of fitbit data: " + type);
+            return null;
         }
     }
 }

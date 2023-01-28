@@ -42,14 +42,14 @@ public class EmailReportReceiversFragment extends ReportReceiversFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        database = AppDatabase.getDatabaseInstance(getActivity());
+        database = AppDatabase.getInstance(getActivity());
         return inflater.inflate(R.layout.fragment_report_receivers, parent, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         context = getContext();
-        database = AppDatabase.getDatabaseInstance(context);
+        database = AppDatabase.getInstance(context);
 
         Button addEmailBtn = view.findViewById(R.id.button_add_email);
         addEmailBtn.setOnClickListener(v -> {

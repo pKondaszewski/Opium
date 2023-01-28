@@ -30,7 +30,7 @@ public class WorkerFactory {
 
     public WorkerFactory(Context context) {
         this.context = context;
-        database = AppDatabase.getDatabaseInstance(context);
+        database = AppDatabase.getInstance(context);
         sharPref = context.getSharedPreferences(context.getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
         workManager = WorkManager.getInstance(context);
 
@@ -47,19 +47,19 @@ public class WorkerFactory {
                         .build();
     }
 
-    public void enqueueWorks() {
+    public void enqueueWorks(ExistingPeriodicWorkPolicy policy) {
         if (database.fitbitAccessTokenDao().getNewestAccessToken().isPresent() &&
                 sharPref.getString(context.getString(com.example.database.R.string.fitbit_switch_state), "false").equals("true")) {
-            workManager.enqueueUniquePeriodicWork(FITBIT_DATA_REQUEST, ExistingPeriodicWorkPolicy.KEEP, fitbitDataRequest);
+            workManager.enqueueUniquePeriodicWork(FITBIT_DATA_REQUEST, policy, fitbitDataRequest);
         } else {
             workManager.cancelUniqueWork(FITBIT_DATA_REQUEST);
         }
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            workManager.enqueueUniquePeriodicWork(LOCALIZATION_REQUEST, ExistingPeriodicWorkPolicy.KEEP, this.localizationRequest);
+            workManager.enqueueUniquePeriodicWork(LOCALIZATION_REQUEST, policy, localizationRequest);
         }
-        workManager.enqueueUniquePeriodicWork(MOVEMENT_REQUEST, ExistingPeriodicWorkPolicy.KEEP, movementRequest);
-        workManager.enqueueUniquePeriodicWork(NOTIFICATION_REQUEST, ExistingPeriodicWorkPolicy.KEEP, notificationRequest);
+        workManager.enqueueUniquePeriodicWork(MOVEMENT_REQUEST, policy, movementRequest);
+        workManager.enqueueUniquePeriodicWork(NOTIFICATION_REQUEST, policy, notificationRequest);
     }
 
     public void enqueueNewNotificationRequest() {

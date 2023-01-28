@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fitbit_data_interval_start_time">12:00</string>
+    <string name="phone_movement_interval_start_time">12:00</string>
+    <string name="notification_interval_start_time">12:00</string>
+    <string name="picked_date_to_millis">pickedDateAsEpochDay</string>
+</resources>

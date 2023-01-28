@@ -1,6 +1,7 @@
 package com.example.database.dao;
 
 import androidx.room.Dao;
+import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.example.database.entity.DailyQuestion;
@@ -15,6 +16,9 @@ public interface DailyQuestionDao extends CrudDao<DailyQuestion> {
 
     @Query("SELECT COUNT(id) FROM DailyQuestion;")
     Integer getAllCount();
+
+    @Insert
+    void insertAll(DailyQuestion... DailyQuestions);
 
     @Query("SELECT * FROM DailyQuestion WHERE id = :id")
     Optional<DailyQuestion> getById(Integer id);

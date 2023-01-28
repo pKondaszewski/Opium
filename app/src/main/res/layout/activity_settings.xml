@@ -35,6 +35,12 @@
             style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Notification schedule"/>
+            android:text="@string/settings_notification_schedule_title"/>
+        <Button
+            android:id="@+id/button_info_about_author_settings"
+            style="@style/CustomButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/info_about_author_title"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

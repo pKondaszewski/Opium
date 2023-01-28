@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.browser.customtabs.CustomTabsIntent;
 
@@ -16,7 +15,6 @@ import com.example.op.activity.extra.GlobalSetupAppCompatActivity;
 import com.example.op.http.requests.FitbitAuthorization;
 import com.example.op.utils.Authorization;
 
-import java.util.Map;
 import java.util.Objects;
 
 public class SettingsFitbitActivity extends GlobalSetupAppCompatActivity {
@@ -29,7 +27,7 @@ public class SettingsFitbitActivity extends GlobalSetupAppCompatActivity {
         setContentView(R.layout.activity_fitbit_settings);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
 
-        database = AppDatabase.getDatabaseInstance(this);
+        database = AppDatabase.getInstance(this);
         SharedPreferences sharPref = getSharedPreferences(getString(com.example.database.R.string.opium_preferences), Context.MODE_PRIVATE);
 
         String clientId = getString(R.string.client_id);

@@ -3,8 +3,8 @@ package com.example.op.fragment.fitbit.utils;
 import android.content.Context;
 
 import com.example.op.R;
-import com.example.op.fragment.fitbit.markers.DaysMarkerView;
-import com.example.op.fragment.fitbit.markers.MonthsMarkerView;
+import com.example.op.fragment.fitbit.marker.DaysMarkerView;
+import com.example.op.fragment.fitbit.marker.MonthsMarkerView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -24,11 +24,12 @@ public class ChartUtils {
         barChart.getDescription().setEnabled(false);
         barChart.getAxisRight().setEnabled(false);
         barChart.getLegend().setEnabled(false);
-        barChart.setNoDataText(context.getString(R.string.no_data_text_view));
         barChart.setVisibleXRangeMaximum(25);
         barChart.moveViewTo(barChart.getXChartMax(), 0, YAxis.AxisDependency.RIGHT);
 
+
         barChart.getAxisLeft().setTextSize(13);
+        barChart.getAxisLeft().setGranularity(1);
         XAxis xAxis = barChart.getXAxis();
         xAxis.setTextSize(13);
         xAxis.setDrawGridLines(false);

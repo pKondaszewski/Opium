@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<!--    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>-->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
@@ -26,7 +27,8 @@
         tools:targetApi="32">
         <activity
             android:name="com.example.op.activity.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -34,46 +36,58 @@
         </activity>
         <activity
             android:name="com.example.op.activity.profile.ProfileActivity"
-            android:label="@string/personal_profile_title"/>
+            android:label="@string/personal_profile_title"
+            android:enabled="true"/>
         <activity
             android:name="com.example.op.activity.profile.EditProfileActivity"
-            android:label="@string/edit_profile_title"/>
+            android:label="@string/edit_profile_title"
+            android:enabled="true"/>
         <activity
             android:name="com.example.op.activity.user.DailyFeelingsActivity"
-            android:exported="true">
+            android:exported="true"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.ASSIST"/>
             </intent-filter>
         </activity>
         <activity
             android:name="com.example.op.activity.history.TreatmentHistoryActivity"
-            android:label="@string/treatment_history_activity_title"/>
+            android:label="@string/treatment_history_activity_title"
+            android:enabled="true"/>
         <activity
             android:name="com.example.op.activity.analyze.AnalyzeActivity"
-            android:label="@string/analyze_button_name"/>
+            android:label="@string/analyze_button_name"
+            android:enabled="true"/>
         <activity
             android:name="com.example.op.activity.analyze.FitbitAnalyzeActivity"
-            android:label="@string/fitbit_activity_analyze_button"/>
+            android:label="@string/fitbit_activity_analyze_button"
+            android:enabled="true"/>
         <activity
             android:name="com.example.op.activity.analyze.FitbitAnalyzeSettingsActivity"
-            android:label="@string/fitbit_settings_title"/>
+            android:label="@string/fitbit_settings_title"
+            android:enabled="true"/>
         <activity
             android:name="com.example.op.activity.analyze.PhoneAnalyzeActivity"
-            android:label="@string/phone_activity_title"/>
+            android:label="@string/phone_activity_title"
+            android:enabled="true"/>
         <activity
             android:name="com.example.op.activity.report.ReportActivity"
-            android:label="@string/report_activity_title"/>
+            android:label="@string/report_activity_title"
+            android:enabled="true"/>
         <activity
             android:name="com.example.op.activity.report.ReportReceiversActivity"
-            android:label="@string/report_receivers_activity_title"/>
+            android:label="@string/report_receivers_activity_title"
+            android:enabled="true"/>
         <activity
             android:name="com.example.op.activity.settings.SettingsActivity"
-            android:label="@string/settings_activity_title"/>
+            android:label="@string/settings_activity_title"
+            android:enabled="true"/>
         <activity
             android:name="com.example.op.activity.settings.SettingsFitbitActivity"
             android:label="@string/fitbit_pairing_title"
             android:parentActivityName="com.example.op.activity.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -83,22 +97,31 @@
         </activity>
         <activity
             android:name="com.example.op.activity.settings.SettingsGmailActivity"
-            android:label="@string/gmail_pairing_title"/>
+            android:label="@string/gmail_pairing_title"
+            android:enabled="true"/>
         <activity
             android:name=".activity.analyze.ExpertSystemActivity"
-            android:label="@string/expert_system_title"/>
+            android:label="@string/expert_system_title"
+            android:enabled="true"/>
         <activity
             android:name=".activity.settings.SettingsNotificationScheduleActivity"
-            android:label="@string/settings_notification_schedule_title"/>
+            android:label="@string/settings_notification_schedule_title"
+            android:enabled="true"/>
         <activity
             android:name="com.example.op.activity.settings.SettingsExpertSystemActivity"
-            android:label="@string/settings_expert_system_title"/>
+            android:label="@string/settings_expert_system_title"
+            android:enabled="true"/>
         <activity
-            android:name="com.example.op.activity.user.DailyQuestionActivity"
-            android:label="@string/daily_question_activity_title"/>
+            android:name=".activity.user.DailyQuestionActivity"
+            android:label="@string/daily_question_activity_title"
+            android:enabled="true"/>
         <activity
-            android:name="com.example.op.activity.extra.EmergencyActivity"
-            android:label="@string/emergency_button"/>
+            android:name=".activity.extra.EmergencyActivity"
+            android:label="@string/emergency_button"
+            android:enabled="true"/>
+        <activity android:name="com.example.op.activity.settings.SettingsInfoAboutAuthorActivity"
+            android:label="@string/info_about_author_title"
+            android:enabled="true"/>
         <service android:name=".service.NotificationService"/>
     </application>
 </manifest>

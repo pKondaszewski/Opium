@@ -6,11 +6,6 @@ public class FitbitUrlBuilder {
 
     private static final String baseUrl = "https://api.fitbit.com/1/user/-/";
 
-    /**
-     *
-     * @param date end date
-     * @return
-     */
     public static String stepsUrl(LocalDate date) {
         return baseUrl + "activities/steps/date/" + date + "/1d.json";
     }

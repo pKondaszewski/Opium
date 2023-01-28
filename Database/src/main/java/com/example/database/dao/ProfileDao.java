@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Dao
 public interface ProfileDao extends CrudDao<Profile> {
-    @Query("SELECT * FROM Profile WHERE id = 1")
+    @Query("SELECT * FROM Profile")
     Optional<Profile> get();
 }

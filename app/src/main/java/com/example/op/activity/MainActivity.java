@@ -3,7 +3,6 @@ package com.example.op.activity;
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -18,6 +17,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.work.ExistingPeriodicWorkPolicy;
 
 import com.example.database.AppDatabase;
 import com.example.database.InitialDatabaseData;
@@ -33,6 +33,7 @@ import com.example.op.activity.settings.SettingsActivity;
 import com.example.op.activity.user.DailyFeelingsActivity;
 import com.example.op.service.NotificationService;
 import com.example.op.utils.LocaleHelper;
+import com.example.op.utils.Start;
 import com.example.op.worker.WorkerFactory;
 
 import java.time.LocalDate;
@@ -50,11 +51,8 @@ public class MainActivity extends GlobalSetupAppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        database = AppDatabase.getDatabaseInstance(this);
-        InitialDatabaseData.initDailyQuestions(database);
-        InitialDatabaseData.initProfile(database);
-//        InitialDatabaseData.initData(database);
-
+        database = AppDatabase.getInstance(this);
+        database.dailyQuestionDao().getAll().forEach(System.out::println);
         createNotificationChannel();
 
         dailyFeelingsBtn = findViewById(R.id.button_daily_feelings);
@@ -79,8 +77,7 @@ public class MainActivity extends GlobalSetupAppCompatActivity implements View.O
         SharedPreferences sharPref = getSharedPreferences(getString(com.example.database.R.string.opium_preferences), MODE_PRIVATE);
         String isRepeatable = sharPref.getString(getString(com.example.database.R.string.is_repeatable), "false");
         if (Boolean.parseBoolean(isRepeatable)) {
-            Intent intent = new Intent(this, NotificationService.class);
-            startService(intent);
+            Start.service(this, NotificationService.class);
         }
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -124,20 +121,15 @@ public class MainActivity extends GlobalSetupAppCompatActivity implements View.O
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.button_daily_feelings) {
-            Intent intent = new Intent(this, DailyFeelingsActivity.class);
-            startActivity(intent);
+            Start.activity(this, DailyFeelingsActivity.class);
         } else if (id == R.id.button_treatment_history) {
-            Intent intent = new Intent(this, TreatmentHistoryActivity.class);
-            startActivity(intent);
+            Start.activity(this, TreatmentHistoryActivity.class);
         } else if (id == R.id.button_report) {
-            Intent intent = new Intent(this, ReportActivity.class);
-            startActivity(intent);
+            Start.activity(this, ReportActivity.class);
         } else if (id == R.id.button_analyze) {
-            Intent intent = new Intent(this, AnalyzeActivity.class);
-            startActivity(intent);
+            Start.activity(this, AnalyzeActivity.class);
         } else if (id == R.id.button_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+            Start.activity(this, SettingsActivity.class);
         }
     }
 
@@ -151,7 +143,7 @@ public class MainActivity extends GlobalSetupAppCompatActivity implements View.O
     public void onResume() {
         super.onResume();
         LocaleHelper.setLocale(getApplicationContext());
-        workerFactory.enqueueWorks();
+        workerFactory.enqueueWorks(ExistingPeriodicWorkPolicy.KEEP);
         setupDailyFeelingButtonState();
         setupHelloTitle();
     }
@@ -165,8 +157,7 @@ public class MainActivity extends GlobalSetupAppCompatActivity implements View.O
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_item_profile) {
-            Intent intent = new Intent(this, ProfileActivity.class);
-            startActivity(intent);
+            Start.activity(this, ProfileActivity.class);
             return true;
         }
         return false;
@@ -179,8 +170,7 @@ public class MainActivity extends GlobalSetupAppCompatActivity implements View.O
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             screenX2 = event.getX();
             if (screenX1 - screenX2 > 0) {
-                Intent intent = new Intent(this, EmergencyActivity.class);
-                startActivity(intent);
+                Start.activity(this, EmergencyActivity.class);
             }
         }
         return false;

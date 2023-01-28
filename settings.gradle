@@ -16,4 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "Opium"
 include ':app'
 include ':Database'
-include ':ExpertSystem'
+include ':VerdictSystem'

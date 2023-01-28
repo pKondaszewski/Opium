@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
-import com.example.op.R;
-
 import java.util.Locale;
 
 public class LocaleHelper {

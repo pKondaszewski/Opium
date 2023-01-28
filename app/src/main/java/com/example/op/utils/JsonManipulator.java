@@ -13,32 +13,33 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JsonManipulator {
-
     private static final String TAG = JsonManipulator.class.getName();
     private static final ObjectMapper objectMapper = new ObjectMapper()
             .registerModule(new JavaTimeModule())
             .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
     public static String extractSteps(String response) {
-        String value = null;
+        String value;
         try {
             JSONObject jsonObject = new JSONObject(response);
             JSONArray jsonArray = jsonObject.getJSONArray("activities-steps");
             value = (String) jsonArray.getJSONObject(0).get("value");
         } catch (JSONException exception) {
-            exception.printStackTrace();
+            Log.e(TAG, "There are problems with extracting steps data from JSON", exception);
+            return "0";
         }
         return value;
     }
 
 
     public static String extractSpo2(String response) {
-        String value = null;
+        String value;
         try {
             String spO2Values = new JSONObject(response).getString("value");
             value = new JSONObject(spO2Values).getString("avg");
         } catch (JSONException exception) {
-            exception.printStackTrace();
+            Log.e(TAG, "There are problems with extracting spo2 data from JSON", exception);
+            return "0";
         }
         return value;
     }

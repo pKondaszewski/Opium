@@ -1,6 +1,5 @@
 package com.example.op.activity.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +10,7 @@ import com.example.database.HomeAddress;
 import com.example.database.entity.Profile;
 import com.example.op.R;
 import com.example.op.activity.extra.GlobalSetupAppCompatActivity;
+import com.example.op.utils.Start;
 import com.example.op.utils.Translation;
 
 import java.time.format.DateTimeFormatter;
@@ -30,7 +30,7 @@ public class ProfileActivity extends GlobalSetupAppCompatActivity implements Men
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        database = AppDatabase.getDatabaseInstance(this);
+        database = AppDatabase.getInstance(this);
         translation = new Translation(this);
         profile = database.profileDao().get().orElse(new Profile());
         dateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
@@ -77,8 +77,7 @@ public class ProfileActivity extends GlobalSetupAppCompatActivity implements Men
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         if (item.getItemId() == R.id.editProfileMenuItem) {
-            Intent intent = new Intent(this, EditProfileActivity.class);
-            startActivity(intent);
+            Start.activity(this, EditProfileActivity.class);
             return true;
         }
         return false;

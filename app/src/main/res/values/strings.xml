@@ -48,11 +48,13 @@
     <string name="phone_activity_analyze_button">Phone activity</string>
     <string name="fitbit_activity_analyze_button">Fitbit activity</string>
     <string name="expert_system_analyze_button">Expert system</string>
-    <string name="fitbit_analyze_steps_label_text_view">Graph of steps traveled</string>
-    <string name="fitbit_analyze_spO2_label_text_view">Graph of SpO2</string>
+    <string name="fitbit_analyze_steps_label_text_view">Chart of steps traveled</string>
+    <string name="fitbit_analyze_spO2_label_text_view">Chart of SpO2</string>
     <string name="tab_item_days">Days</string>
     <string name="tab_item_months">Months</string>
     <string name="no_data_text_view">No Data</string>
+    <string name="correct_chart_legend_label">Correct</string>
+    <string name="incorrect_chart_legend_label">Incorrect</string>
     <string name="most_common_localizations_today_text_view">The most frequently recorded locations of the phone (today)</string>
     <string name="most_common_localizations_all_time_text_view">The most frequently recorded locations of the phone (all time)</string>
     <string name="amount_of_all_answers_text_view">Number of all answers: </string>
@@ -63,6 +65,7 @@
     <string name="last_daily_question_time_of_answer_label_text_view">Time of the answer</string>
     <string name="last_phone_movement_label_text_view">Last recorded activity</string>
     <string name="daily_phone_movement_label_text_view">Number of today\'s recorded activities</string>
+    <string name="daily_phone_movement_report_label_text_view">Number of recorded\nactivities</string>
     <string name="phone_movement_average_today_label_text_view">Average activity time (today)</string>
     <string name="phone_movement_average_all_label_text_view">Average activity time (all)</string>
     <string name="phone_movement_count_label_text_view">Number of all recorded activities</string>
@@ -84,6 +87,8 @@
     <string name="birthdate_profile_text_view">Birthdate</string>
     <string name="phone_profile_text_view">Data retrieved from the phone</string>
     <string name="phone_movement_label_text_view">Phone movement</string>
+    <string name="phone_movement_report_label">Average phone movement</string>
+    <string name="phone_movement_detailed_report_label">Average phone\nmovement</string>
     <string name="phone_localization_label_text_view">Phone localization</string>
     <string name="fitbit_data_label_text_view">Data retrieved from the Fitbit</string>
     <string name="fitbit_steps_label_text_view">Amount of steps</string>
@@ -120,6 +125,7 @@
     <string name="report_receivers_button">Report receivers</string>
     <string name="sms_switch">Sms</string>
     <string name="email_switch">Email</string>
+    <string name="none_data">None</string>
 
     <!-- SettingsActivity/SettingsFitbitActivity labels -->
     <string name="settings_activity_title">Application settings</string>
@@ -134,6 +140,10 @@
     <string name="settings_notification_schedule_title">Notification schedule</string>
     <string name="settings_expert_system_title">Expert system settings</string>
     <string name="daily_question_notification_settings_title">Time of notification of daily question</string>
+    <string name="info_about_author_title">Info about author</string>
+    <string name="info_about_author_author">Author</string>
+    <string name="info_about_author_name">Przemyslaw Kondaszewski</string>
+    <string name="info_about_author_contact">Contact</string>
 
     <!-- SmsReportReceiversFragment/EmailReportReceiversFragment labels -->
     <string name="selected_sms_contacts_text_view">Selected contacts</string>
@@ -186,4 +196,13 @@
     <string name="expert_system_user_movement_description">The user\'s movement is analyzed using fuzzy logic techniques. Two processors have been created, where one analyzes the location given in the profile with the location most frequently recorded today, and the other analyzes the result of the location processor and the amount of smartphone movement activity recorded today during the day.</string>
     <string name="expert_system_user_feelings_description">The user\'s feelings is analyzed using fuzzy logic techniques. User feelings processor analyzes daily feelings selected mood and ailments with daily question user answer. Both values are from today.</string>
     <string name="expert_system_fitbit_description">Fitbit provides data about steps and spo2. This data is analyzed with simple, separate processors, which return value from the scale based on the data collected by fitbit.</string>
+
+    <!-- Sms/Email messages-->
+    <string name="sms_report_success">SMS report sent</string>
+    <string name="sms_no_permission_message">Application doesn\'t have permission to sending text messages. Please give permission in the app properties</string>
+    <string name="email_report_success">Email report sent</string>
+    <string name="email_report_failure">Email report has not been sent. Check your gmail address and password in the settings</string>
+    <string name="email_no_permission_message">Application doesn\'t have permission to using internet. Please give permission in the app properties</string>
+    <string name="no_email_and_sms_send">Can\'t send report. Check app permissions or internet connection</string>
+    <string name="wrong_email_configuration_message">There are wrong gmail configuration</string>
 </resources>

@@ -57,6 +57,9 @@ public class Converters {
 
     @TypeConverter
     public static HomeAddress stringToPostalAddress(String string) {
+        if (string == null) {
+            return null;
+        }
         List<String> list = List.of(string.split(";"));
         int size = list.size();
         switch (size) {
